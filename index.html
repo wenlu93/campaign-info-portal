@@ -11153,6 +11153,161 @@ body.no-read-unread #page-digest .dg-change{
 
 
 
+<style id="report-static-overview-final-fix-style">
+/* Final Report fix: keep Campaign Overview responsive and make demo counts/date static. */
+#page-digest .dg-overview-card .dg-overview-num-row{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:18px !important;
+  flex-wrap:wrap !important;
+  width:100% !important;
+}
+#page-digest .dg-overview-card .dg-overview-num{
+  flex:0 0 auto !important;
+  min-width:0 !important;
+  line-height:1 !important;
+}
+#page-digest .dg-overview-card .dg-delta{
+  flex:0 1 auto !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  width:auto !important;
+  text-align:left !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+  justify-content:center !important;
+  margin-left:0 !important;
+}
+@media (max-width:1180px){
+  #page-digest .dg-overview-card .dg-overview-num-row{
+    gap:12px !important;
+  }
+  #page-digest .dg-overview-card .dg-delta{
+    font-size:12px !important;
+    line-height:18px !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+  }
+}
+@media (max-width:760px){
+  #page-digest .dg-overview-card .dg-overview-num-row{
+    align-items:flex-start !important;
+    flex-direction:column !important;
+    gap:8px !important;
+  }
+}
+</style>
+
+<script id="report-static-overview-final-fix-script">
+(function(){
+  var REPORT_FIXED_TODAY = '2026-05-16';
+  var REPORT_FIXED_DATE_LABEL = 'Saturday, May 16, 2026';
+  function text(v){ return String(v == null ? '' : v); }
+  function e(v){
+    return text(v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function rawStatus(c){ return String((c && c.status) || '').toLowerCase(); }
+  function statusForReport(c){
+    var s = rawStatus(c);
+    if(s === 'live' || s === 'ongoing') return 'ongoing';
+    if(s === 'upcoming') return 'upcoming';
+    if(s === 'ended') return 'ended';
+    if(s === 'draft') return 'draft';
+    return 'upcoming';
+  }
+  function statusLabelForReport(c){
+    var s = statusForReport(c);
+    if(s === 'ongoing') return 'Ongoing';
+    if(s === 'upcoming') return 'Upcoming';
+    if(s === 'ended') return 'Ended';
+    if(s === 'draft') return 'Draft';
+    return '-';
+  }
+  function countsFromStaticData(){
+    var campaigns = (typeof CAMPAIGNS !== 'undefined' && Array.isArray(CAMPAIGNS)) ? CAMPAIGNS : [];
+    var counts = { total:campaigns.length, upcoming:0, ongoing:0, ended:0, draft:0 };
+    campaigns.forEach(function(c){
+      var s = statusForReport(c);
+      counts[s] = (counts[s] || 0) + 1;
+    });
+    return counts;
+  }
+  function deltaHtml(){ return '<span class="dg-delta flat">no changes vs yesterday</span>'; }
+  function staticOverviewHtml(){
+    var counts = countsFromStaticData();
+    var cards = [
+      { cls:'non-ended', label:'Total campaigns', value:counts.total },
+      { cls:'upcoming', label:'Upcoming campaigns', value:counts.upcoming },
+      { cls:'ongoing', label:'Ongoing campaigns', value:counts.ongoing }
+    ];
+    return '<div class="dg-overview-grid dg-overview-grid-v3">' + cards.map(function(card){
+      return '<div class="dg-overview-card '+e(card.cls)+'">'
+        + '<div class="dg-overview-label">'+e(card.label)+'</div>'
+        + '<div class="dg-overview-num-row"><div class="dg-overview-num">'+e(card.value)+'</div>'+deltaHtml()+'</div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+  function patchDigestDateFunctions(){
+    window.REPORT_FIXED_TODAY = REPORT_FIXED_TODAY;
+    window.digestDateStr = function(){ return REPORT_FIXED_TODAY; };
+    window.digestDateLabel = function(){ return REPORT_FIXED_DATE_LABEL; };
+    try { digestDateStr = window.digestDateStr; } catch(err) {}
+    try { digestDateLabel = window.digestDateLabel; } catch(err) {}
+  }
+  function patchComputedStatusFunctions(){
+    // Use the static demo Status field instead of the browser's current date.
+    // This keeps the report stable for demos run at any time.
+    window.getComputedCampaignStatus = function(c){ return statusForReport(c); };
+    window.getComputedCampaignStatusLabel = function(c){ return statusLabelForReport(c); };
+    try { getComputedCampaignStatus = window.getComputedCampaignStatus; } catch(err) {}
+    try { getComputedCampaignStatusLabel = window.getComputedCampaignStatusLabel; } catch(err) {}
+    if(typeof STATUS_LABEL !== 'undefined'){
+      STATUS_LABEL.ongoing = 'Ongoing';
+      STATUS_LABEL.live = 'Ongoing';
+      STATUS_LABEL.upcoming = 'Upcoming';
+      STATUS_LABEL.ended = 'Ended';
+      STATUS_LABEL.draft = 'Draft';
+    }
+  }
+  function patchReportDom(){
+    var digest = document.getElementById('page-digest');
+    if(!digest) return;
+    digest.querySelectorAll('.dg-date, .dg-date-right').forEach(function(el){ el.textContent = REPORT_FIXED_DATE_LABEL; });
+    var sectionTitles = Array.from(digest.querySelectorAll('.dg-section-title'));
+    var overviewTitle = sectionTitles.find(function(el){ return /Campaign Overview/i.test(el.textContent || ''); });
+    var grid = digest.querySelector('.dg-overview-grid.dg-overview-grid-v3') || digest.querySelector('.dg-overview-grid');
+    if(grid){
+      var holder = document.createElement('div');
+      holder.innerHTML = staticOverviewHtml();
+      grid.replaceWith(holder.firstElementChild);
+    } else if(overviewTitle){
+      overviewTitle.insertAdjacentHTML('afterend', staticOverviewHtml());
+    }
+  }
+  patchDigestDateFunctions();
+  patchComputedStatusFunctions();
+  var previousRenderDigest = (typeof renderDigest === 'function') ? renderDigest : null;
+  if(previousRenderDigest && !window.__reportStaticOverviewFinalWrapped){
+    window.__reportStaticOverviewFinalWrapped = true;
+    window.renderDigest = function(){
+      patchDigestDateFunctions();
+      patchComputedStatusFunctions();
+      var result = previousRenderDigest.apply(this, arguments);
+      patchReportDom();
+      return result;
+    };
+    try { renderDigest = window.renderDigest; } catch(err) {}
+  }
+  patchReportDom();
+  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[report static overview final fix] renderDigest', err); }
+})();
+</script>
+
+
+
 
 </body>
 </html>
