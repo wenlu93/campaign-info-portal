@@ -20,7 +20,7 @@
   .caret { display:inline-block; border:5px solid transparent; border-top-color:#fff; margin-left:2px; transform:translateY(2px); }
 
   /* ===== Layout ===== */
-  .layout { display: flex; height: calc(100vh - 56px); min-height:0; }
+  .layout { display: flex; height: 100vh; min-height:0; }
   .side { width: 60px; background: #fff; border-right:1px solid #e7ecf5; padding: 14px 0; flex-shrink: 0; display:flex; flex-direction:column; align-items:center; gap:6px; }
   .side a { display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:6px; color:#8893a8; cursor:pointer; position:relative; }
   .side a:hover { background:#eff5ff; color:#3573f5; }
@@ -2985,7 +2985,7 @@
   .toast{background:#27324a;border-radius:999px;padding:9px 20px;box-shadow:0 8px 24px rgba(20,40,80,.25);}
 
   /* ======================================================================
-     Daily Digest page (new)
+     Daily Report page (new)
      ====================================================================== */
   #page-digest{max-width:1320px;}
 
@@ -3099,6 +3099,34 @@
     .dg-change{grid-template-columns:10px auto minmax(0,1fr) auto 14px;}
     .dg-field{display:none;}
   }
+
+  .dg-ai-summary{
+    margin:0 0 14px;
+    background:linear-gradient(115deg,#ffffff 0%,#f7faff 100%);
+    border-color:#dfe8fb;
+  }
+  .dg-ai-summary .dg-card-head{margin-bottom:8px;}
+  .dg-ai-summary h3{display:flex;align-items:center;gap:7px;}
+  .dg-ai-summary h3::before{
+    content:"AI";
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:18px;
+    border-radius:999px;
+    background:#e9f1ff;
+    color:#3573f5;
+    font-size:10px;
+    font-weight:800;
+  }
+  .dg-ai-summary p{
+    margin:0;
+    color:#34415c;
+    font-size:13px;
+    line-height:1.75;
+  }
+
   @media (prefers-reduced-motion: reduce){
     .dg-kpi,.dg-change,.dg-go,.dg-kpi-go,.dg-sub-stat,.dg-region-row,.dg-more,.btn-primary,.filter-chip,.side a{transition:none;}
     .dg-kpi:hover,.btn-primary:hover{transform:none;}
@@ -3107,7 +3135,7 @@
 
 
 
-  /* v4: Daily Digest top summary layout cleanup */
+  /* v4: Daily Report top summary layout cleanup */
   #page-digest .dg-summary-row{
     display:grid;
     grid-template-columns:minmax(170px,1fr) minmax(170px,1fr) minmax(260px,.9fr);
@@ -3185,7 +3213,7 @@
   #page-digest .dg-sub-stat:hover,#page-digest .dg-sub-stat:focus-visible{border:none;background:transparent;}
   #page-digest .dg-sub-num{font-size:24px;line-height:1;}
 
-  /* v5: Daily Digest top stats alignment and simplified subscription summary */
+  /* v5: Daily Report top stats alignment and simplified subscription summary */
   #page-digest .dg-summary-row .dg-kpi{min-height:72px;}
   #page-digest .kpi-live,#page-digest .kpi-upcoming{min-height:72px;}
   #page-digest .dg-kpi-icon{flex:0 0 auto;}
@@ -3207,7 +3235,7 @@
   }
 
 
-  /* v7: Daily Digest responsive width fix - remove fixed page cap and prevent right-side blank area */
+  /* v7: Daily Report responsive width fix - remove fixed page cap and prevent right-side blank area */
   #page-digest{
     width:100% !important;
     max-width:none !important;
@@ -3266,60 +3294,69 @@
     #page-digest .dg-field{display:none;}
   }
 
+
+
+  /* vCampaignOnly: merge Campaign List and My Subscriptions into one expandable Campaign page. */
+  #page-list .tbl-wrap{padding-top:0;}
+  #page-list .campaign-parent-row.expanded td{background:#f4f8ff;}
+  #page-list .campaign-expand-btn{
+    width:28px;height:28px;border:0;background:transparent;border-radius:8px;cursor:pointer;
+    color:#46536c;font-size:20px;font-weight:800;line-height:1;display:inline-flex;align-items:center;justify-content:center;
+  }
+  #page-list .campaign-expand-btn:hover{background:#ecf3ff;color:#3573f5;}
+  #page-list .campaign-change-row > td{padding:0 !important;background:#fbfcff !important;border-bottom:1px solid #e7ecf5;}
+  #page-list .campaign-change-panel{padding:12px 16px 16px;position:sticky;left:0;width:calc(100vw - 116px);max-width:calc(100vw - 116px);box-sizing:border-box;background:#fbfcff;}
+  #page-list .campaign-change-title{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-weight:700;color:#27324a;font-size:13px;}
+  #page-list .campaign-change-count{font-weight:500;color:#97a1b4;font-size:12px;}
+  #page-list .campaign-changes-scroll{overflow:auto;border:1px solid #e0e7f2;border-radius:8px;background:#fff;max-height:360px;}
+  #page-list .campaign-changes-table{width:1050px;min-width:1050px;table-layout:fixed;border-collapse:separate;border-spacing:0;background:#fff;}
+  #page-list .campaign-changes-table th{position:sticky;top:0;z-index:2;background:#f3f6fb !important;color:#5f6c84;font-weight:600;font-size:11px;border-bottom:1px solid #e0e7f2;}
+  #page-list .campaign-changes-table th,
+  #page-list .campaign-changes-table td{height:40px;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid #f3f6fb;box-sizing:border-box;}
+  #page-list .campaign-changes-table tbody tr:last-child td{border-bottom:0;}
+  #page-list .campaign-changes-table th:nth-child(1),#page-list .campaign-changes-table td:nth-child(1){width:120px;}
+  #page-list .campaign-changes-table th:nth-child(2),#page-list .campaign-changes-table td:nth-child(2){width:180px;}
+  #page-list .campaign-changes-table th:nth-child(3),#page-list .campaign-changes-table td:nth-child(3){width:180px;}
+  #page-list .campaign-changes-table th:nth-child(4),#page-list .campaign-changes-table td:nth-child(4){width:360px;}
+  #page-list .campaign-changes-table th:nth-child(5),#page-list .campaign-changes-table td:nth-child(5){width:90px;}
+  #page-list .campaign-changes-table th:nth-child(6),#page-list .campaign-changes-table td:nth-child(6){width:120px;}
+  #page-list .campaign-no-change{padding:20px;text-align:center;color:#97a1b4;border:1px dashed #dfe6f3;border-radius:8px;background:#fff;}
+  #page-detail .actions{gap:8px;}
+
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="brand">
-    <span class="logo-mark" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h3l10 4V6L7 10H4a2 2 0 0 0 0 4Z"/><path d="M7 14l1 5h3l-2-5"/><path d="M20 9l2-1"/><path d="M20 15l2 1"/><path d="M20 12h2"/></svg>
-    </span>
-    <div class="title">Campaign Platform</div>
-  </div>
-  <div class="spacer"></div>
-  <div class="user">
-    <div class="avatar">DM</div>
-    <span>demo@usr.com<span class="caret"></span></span>
-  </div>
-</div>
-
 <div class="layout">
   <aside class="side">
-    <a class="active" data-page="digest" onclick="switchPage('digest')" title="Daily Digest">
+    <a class="active" data-page="digest" onclick="switchPage('digest')" title="Daily Report">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-      <span class="nav-label">Digest</span>
-      <span class="badge nav-badge-soft" id="digestBadge" style="display:none;" title="Unread updates today"></span>
+      <span class="nav-label">Report</span>
+      <span class="badge nav-badge-soft" id="digestBadge" style="display:none;" title="Today updates"></span>
     </a>
-    <a data-page="list" onclick="switchPage('list')" title="Campaign List">
+    <a data-page="list" onclick="switchPage('list')" title="Campaign">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-      <span class="nav-label">Campaigns</span>
-    </a>
-    <a data-page="sub" onclick="switchPage('sub')" title="My Subscriptions">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 17,14 19,21 12,17 5,21 7,14 2,9 9,9"/></svg>
-      <span class="badge" id="subBadge" style="display:none;"></span>
-      <span class="nav-label">My Subs</span>
+      <span class="nav-label">Campaign</span>
     </a>
   </aside>
 
   <main class="main">
-
-    <!-- ============ Daily Digest Page (new) ============ -->
+    <!-- ============ Daily Report Page ============ -->
     <section class="page active" id="page-digest">
       <div id="digestBody"></div>
     </section>
 
-    <!-- ============ List Page ============ -->
+<!-- ============ List Page ============ -->
     <section class="page" id="page-list">
       <div class="page-card">
-        <div class="page-head">
-          <h2>Campaign List</h2>
+        <div class="page-head page-head-stack">
+          <div class="page-title-stack">
+            <h2>Campaign</h2>
+            <p class="page-intro">Use this page to browse all campaigns, review each campaign’s change history, and open its latest full information. Click the <strong>expand icon</strong> to view all change records, or click the <strong>Campaign Name</strong> to open the latest campaign detail.</p>
+          </div>
         </div>
 
         <div class="filter">
-          <div class="field"><label>Collection ID:</label><input id="fCol" placeholder="" oninput="onListFilterInput()" onkeydown="onListFilterKey(event)" /></div>
-          <div class="field"><label>Collection Name:</label><input id="fColName" placeholder="" oninput="onListFilterInput()" onkeydown="onListFilterKey(event)" /></div>
-          <div class="field"><label>Campaign ID:</label><input id="fCmp" placeholder="" oninput="onListFilterInput()" onkeydown="onListFilterKey(event)" /></div>
           <div class="field"><label>Campaign Name:</label><input id="fName" placeholder="" oninput="onListFilterInput()" onkeydown="onListFilterKey(event)" /></div>
           <div class="field"><label>Theme:</label>
             <select id="fTheme" data-filter-searchable="true" onchange="onListFilterChange()">
@@ -3349,40 +3386,16 @@
               <option value="draft">Draft</option>
             </select>
           </div>
-          <div class="field"><label>Notification Status:</label>
-            <select id="fNoti" onchange="onListFilterChange()">
-              <option value="">All</option>
-              <option value="Not Submitted">Not Submitted</option>
-              <option value="Submitted">Submitted</option>
-            </select>
-          </div>
-          <div class="field"><label>Subscription Status:</label>
-            <select id="fSubStatus" onchange="onListFilterChange()">
-              <option value="">All</option>
-              <option value="subscribed">Subscribed</option>
-              <option value="unsubscribed">Unsubscribed</option>
-            </select>
-          </div>
           <div class="filter-actions">
             <button class="btn btn-primary" onclick="onListFilterChange()">Search</button>
             <button class="btn" onclick="resetFilter()">Reset</button>
           </div>
         </div>
-        <div style="padding: 12px 24px 14px; display:flex; align-items:center; gap:8px;">
-          <span class="muted" id="listSelHint" style="font-size:12px;"></span>
-          <span style="flex:1;"></span>
-          <button class="btn btn-batch" onclick="openBatchSubscribe()">Subscribe in batch</button>
-          <button class="btn btn-batch-danger" onclick="batchUnsubscribe()">Unsubscribe in batch</button>
-        </div>
-
-        <div class="tbl-wrap">
+<div class="tbl-wrap">
           <table>
             <thead>
               <tr>
-                <th class="sticky s-chk"><input type="checkbox" id="chkAll" aria-label="Select all campaigns on this page" onclick="toggleAll(this.checked)"></th>
-                <th class="sticky s-l1">Collection ID</th>
-                <th class="sticky s-l2">Campaign ID</th>
-                <th class="sticky s-l3">Collection Name</th>
+                <th class="sticky s-chk"></th>
                 <th class="sticky s-l4">Campaign Name</th>
                 <th>Theme</th>
                 <th>Grade</th>
@@ -3391,8 +3404,6 @@
                 <th>Create Time</th>
                 <th>Update Time</th>
                 <th>Creator</th>
-                <th>Notification Status</th>
-                <th class="sticky s-r1">Action</th>
               </tr>
             </thead>
             <tbody id="tbody"></tbody>
@@ -3402,26 +3413,13 @@
         <div class="pagination" id="pagination"></div>
       </div>
     </section>
-
-    <!-- ============ My Subscriptions Page ============ -->
-    <section class="page" id="page-sub">
-      <div class="page-card" style="margin-bottom:14px;">
-        <div class="page-head">
-          <h2>My Subscriptions</h2>
-          <div class="sub-stats" id="subStats"></div>
-        </div>
-      </div>
-      <div id="subListBox"></div>
-    </section>
-
-    <!-- ============ Campaign Detail Page ============ -->
+<!-- ============ Campaign Detail Page ============ -->
     <section class="page" id="page-detail">
       <div class="page-card">
         <div class="page-head">
           <a class="btn btn-link" onclick="switchPage(currentNonDetailPage)" style="padding:0 4px;">&larr; Back</a>
           <h2 id="dTitle" style="margin-left:6px;">Campaign Detail</h2>
           <div class="actions">
-            <button class="btn" id="dSubBtn" onclick="toggleSubFromDetail()">Subscribe</button>
             <button class="btn" onclick="downloadDetailExcel()" aria-label="Download as Excel">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><polyline points="6 11 12 17 18 11"/><path d="M4 21h16"/></svg>
               Download
@@ -3435,30 +3433,6 @@
     </section>
 
   </main>
-</div>
-
-<!-- Subscribe modal -->
-<div class="modal" id="subModal">
-  <div class="box">
-    <header>Subscribe to Campaign Changes</header>
-    <div class="body">
-      <div style="margin-bottom:8px;">Target: <b id="subTarget"></b></div>
-      <div style="color:#5f6c84;margin-bottom:6px;">Subscribe to changes of:</div>
-      <div class="check-row" id="subEvents">
-        <label><input type="checkbox" value="collection" checked> Collection Basic Info</label>
-        <label><input type="checkbox" value="campaign" checked> Campaign Basic Info</label>
-        <label><input type="checkbox" value="subsidy" checked> Subsidy Info</label>
-        <label><input type="checkbox" value="coupon" checked> Coupon Info</label>
-        <label><input type="checkbox" value="landing" checked> Landing Page Info</label>
-        <label><input type="checkbox" value="promotion" checked> Promotion Channels &amp; Assets</label>
-        <label><input type="checkbox" value="supplementary" checked> Supplementary Info</label>
-      </div>
-    </div>
-    <div class="footer">
-      <button class="btn" onclick="closeSubscribe()">Cancel</button>
-      <button class="btn btn-primary" onclick="confirmSubscribe()">Confirm</button>
-    </div>
-  </div>
 </div>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -3964,7 +3938,7 @@ const CHANGES = {
       op:'update', scope:'Landing Page Info', field:'Version',
       before:'Draft', after:'Live' },
     { type:'promotion',locale:'en-HK', time:'2026-05-09 09:00', isNew:false,
-      op:'update', scope:'Promotion / KV', field:'Asset of KV',
+      op:'update', scope:'Promotion / Flash Sale Products', field:'Asset of Flash Sale Products',
       before:'5 images', after:'7 images' },
     { type:'campaign', locale:'-',     time:'2026-05-08 11:30', isNew:false,
       op:'update', scope:'Campaign Basic Info', field:'Promoted Product Lines',
@@ -4937,7 +4911,7 @@ const TABS = [
   { key:'subsidy',      label:'Subsidy Info' },
   { key:'coupon',       label:'Coupon Info' },
   { key:'landing',      label:'Landing Page Info' },
-  { key:'promotion',    label:'Promotion Channels & Assets' },
+  { key:'promotion',    label:'Promotion Channel Info' },
   { key:'supplementary',label:'Supplementary Info' }
 ];
 const LOCALE_TABS = ['subsidy','coupon','landing','promotion','supplementary'];
@@ -4953,8 +4927,7 @@ function openDetail(id, opts){
   switchPage('detail');
   $('dTitle').innerHTML = `${escape(c.campaignName)}
     <span class="badge-stage ${c.status}" style="margin-left:8px;">${STATUS_LABEL[c.status]}</span>
-    <span class="badge-tier tier-${(c.grade||'').toLowerCase().replace(/\s+/g,'')}" style="margin-left:4px;">${escape(c.grade)}</span>
-    <span class="badge-noti ${c.notificationStatus==='Submitted'?'noti-submitted':'noti-not'}" style="margin-left:4px;">${c.notificationStatus}</span>`;
+    <span class="badge-tier tier-${(c.grade||'').toLowerCase().replace(/\s+/g,'')}" style="margin-left:4px;">${escape(c.grade)}</span>`;
   renderTabs(); renderTabBody(); refreshDetailSubBtn();
   if(opts && opts.tab){
     setTimeout(() => setMainTab(opts.tab), 0);
@@ -5238,19 +5211,9 @@ function renderSubsidy(s){
 function setSubsidyLine(k){ activeSubsidyLine = k; renderTabBody(); }
 
 function renderCoupon(c){
-  const playHtml = (c.playIds && c.playIds.length)
-    ? c.playIds.map(p=>`<span class="chip">${escape(p)}</span>`).join('')
-    : '-';
   return `<div class="panel coupon-panel">
     <div class="section-title">Coupon Info</div>
-    <div class="subsection-block">
-      <div class="subsection-title">Play ID</div>
-      <div style="padding:0 4px 6px;">${playHtml}</div>
-    </div>
-    <div class="subsection-block">
-      <div class="subsection-title">Coupon List</div>
-      ${renderMiniTable(c.cols, c.rows)}
-    </div>
+    ${renderMiniTable(c.cols, c.rows)}
   </div>`;
 }
 
@@ -5294,16 +5257,8 @@ function renderPromotion(p){
     ? `<div class="img-grid">${arr.map(u => `<a href="${u}" target="_blank" rel="noopener" class="img-cell real-link"><img src="${u}" alt="Promotion asset" loading="lazy" onerror="this.parentNode.innerHTML='<span class=&quot;img-fallback&quot;>Image unavailable</span>'"></a>`).join('')}</div>`
     : `<div class="empty-mini">No data</div>`;
   return `<div class="panel promotion-panel">
-    <div class="section-title">Promotion Channels & Assets</div>
-    <div class="subsection-block">
-      <div class="subsection-title">Promotion Channels</div>
-      ${renderMiniTable(['Channel','Copy Headline','Copy Content'], channelRows)}
-    </div>
-
-    <div class="subsection-block">
-      <div class="subsection-title">Asset of KV</div>
-      ${imgGrid(p.kvImages)}
-    </div>
+    <div class="section-title">Promotion Channel Info</div>
+    ${renderMiniTable(['Channel','Copy Headline','Copy Content'], channelRows)}
 
     <div class="subsection-block">
       <div class="subsection-title">Asset of Flash Sale Products</div>
@@ -5398,7 +5353,6 @@ function downloadDetailExcel(){
   locales.forEach(loc => {
     const cp = d.coupon[loc];
     couponRows.push([`Locale: ${loc}`]);
-    couponRows.push(['Play ID', (cp.playIds||[]).join(', ')]);
     couponRows.push(['#', ...cp.cols]);
     if(!cp.rows.length) couponRows.push(['No data']);
     else cp.rows.forEach((r,i) => couponRows.push([i+1, ...r]));
@@ -5421,9 +5375,6 @@ function downloadDetailExcel(){
     promoRows.push([`Locale: ${loc} | Channels`]);
     promoRows.push(['Channel','Copy Headline','Copy Content']);
     p.channels.forEach(ch => promoRows.push([ch.channel, ch.headline, ch.content]));
-    promoRows.push([]);
-    promoRows.push([`Locale: ${loc} | Asset of KV`]);
-    p.kvImages.forEach((u,i) => promoRows.push([`KV ${i+1}`, u]));
     promoRows.push([]);
     promoRows.push([`Locale: ${loc} | Asset of Flash Sale Products`]);
     p.flashImages.forEach((u,i) => promoRows.push([`Flash ${i+1}`, u]));
@@ -5459,7 +5410,7 @@ const EVENT_DEFS = [
   { key:'subsidy', label:'Subsidy Info', tab:'subsidy' },
   { key:'coupon', label:'Coupon Info', tab:'coupon' },
   { key:'landing', label:'Landing Page Info', tab:'landing' },
-  { key:'promotion', label:'Promotion Channels & Assets', tab:'promotion' },
+  { key:'promotion', label:'Promotion Channel Info', tab:'promotion' },
   { key:'supplementary', label:'Supplementary Info', tab:'supplementary' }
 ];
 const ALL_EVENTS = EVENT_DEFS.map(e => e.key);
@@ -5483,10 +5434,10 @@ function buildPrimaryDemoChanges(campaignId, region){
     demoChange('subsidy',loc,'2026-05-16 15:05','add','Subsidy Info / TNT','TNT row',null,`${region} attraction ticket · BOGO · ${currency}`,true),
     demoChange('subsidy',loc,'2026-05-16 14:18','add','Subsidy Info / Bundle','Bundle row',null,`${region} flight + hotel package · ONE_PRICE`,true),
     demoChange('coupon',loc,'2026-05-16 13:33','add','Coupon Info','Coupon row',null,`Gift ${campaignId}01 · Member exclusive coupon`,true),
-    demoChange('coupon',loc,'2026-05-16 12:26','update','Coupon Info','Play ID',`${campaignId}001`,`${campaignId}001, ${campaignId}002`,true),
+    demoChange('coupon',loc,'2026-05-16 12:26','update','Coupon Info','Coupon row',`Gift ${campaignId}001`,`Gift ${campaignId}001, Gift ${campaignId}002`,true),
     demoChange('landing',loc,'2026-05-16 11:12','update','Landing Page Info','Share Title','Mega Sale','Mega Sale · Limited Time Deals',true),
-    demoChange('promotion',loc,'2026-05-16 10:05','update','Promotion Channels & Assets','Asset of KV','5 images','8 images',true),
-    demoChange('promotion',loc,'2026-05-16 09:30','add','Promotion Channels & Assets','Asset of Flash Sale Products',null,'3 new flash sale product banners',false),
+    demoChange('promotion',loc,'2026-05-16 10:05','update','Promotion Channel Info','Asset of Flash Sale Products','5 images','8 images',true),
+    demoChange('promotion',loc,'2026-05-16 09:30','add','Promotion Channel Info','Asset of Flash Sale Products',null,'3 new flash sale product banners',false),
     demoChange('supplementary',loc,'2026-05-16 08:45','update','Supplementary Info','Remark','Pending BD review','Reviewed by campaign owner',false)
   ];
 }
@@ -5496,7 +5447,7 @@ function buildGenericDemoChanges(c, idx){
   return [
     demoChange('campaign','-',`2026-05-${day} 18:0${idx%10}`,'update','Campaign Basic Info','Campaign Status','Draft',STATUS_LABEL[c.status] || c.status,true),
     demoChange('coupon',loc,`2026-05-${day} 16:2${idx%10}`,'add','Coupon Info','Coupon row',null,`Gift ${c.campaignId}99 · ${c.campaignName} coupon`,idx % 2 === 0),
-    demoChange('promotion',loc,`2026-05-${day} 14:4${idx%10}`,'update','Promotion Channels & Assets','Headline','Old headline',`${c.campaignName} headline`,false)
+    demoChange('promotion',loc,`2026-05-${day} 14:4${idx%10}`,'update','Promotion Channel Info','Headline','Old headline',`${c.campaignName} headline`,false)
   ];
 }
 function seedDemoSubscriptions(){
@@ -6097,7 +6048,7 @@ function getSubscribedEventFromScope(scope){
   if(s.includes('Subsidy')) return 'Subsidy Info';
   if(s.includes('Coupon')) return 'Coupon Info';
   if(s.includes('Landing')) return 'Landing Page Info';
-  if(s.includes('Promotion')) return 'Promotion Channels & Assets';
+  if(s.includes('Promotion')) return 'Promotion Channel Info';
   if(s.includes('Supplementary')) return 'Supplementary Info';
   return s.split('/')[0].trim() || '-';
 }
@@ -6374,7 +6325,7 @@ document.addEventListener('click', (e) => {
   syncDropdownPointerShield();
 });
 
-/* ========================= Daily Digest (new first-level page, additive) ========================= */
+/* ========================= Daily Report (new first-level page, additive) ========================= */
 const DIGEST_GROUP_EXPANDED = new Set();
 const DIGEST_PREVIEW_COUNT = 3;
 const DIGEST_WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -6528,7 +6479,7 @@ function digestRenderGroup(g){
         <span class="link-name" role="button" tabindex="0" onclick="openDetail(${Number(g.id)})" onkeydown="if(event.key==='Enter'){openDetail(${Number(g.id)})}" title="Open campaign detail">${escape(g.c.campaignName)}</span>
         <span class="badge-stage ${g.c.status}">${STATUS_LABEL[g.c.status]}</span>
         <span class="chip mini">${escape(regions)}</span>
-        ${g.subscribed ? '' : '<span class="dg-not-sub" title="You are not subscribed to this campaign">not subscribed</span>'}
+        
       </div>
       <div class="dg-group-meta">
         <span class="dg-count">${g.list.length} update${g.list.length > 1 ? 's' : ''}</span>
@@ -6539,6 +6490,30 @@ function digestRenderGroup(g){
     ${more > 0 ? `<button class="dg-more" onclick="toggleDigestGroup('${g.id}')">${expanded ? 'Show less' : `Show all ${g.list.length} updates`}</button>` : ''}
   </article>`;
 }
+function mapTopText(map, limit){
+  const arr = Object.entries(map || {}).filter(([,v]) => v > 0).sort((a,b) => b[1] - a[1]);
+  if(!arr.length) return '暂无集中项';
+  return arr.slice(0, limit || 3).map(([k,v]) => `${k} ${v} 条`).join('、');
+}
+function buildDigestAISummary(groups, totalChanges, unreadToday){
+  if(!groups.length){
+    return '今天暂未发现新的活动变动信息，活动整体保持稳定。可以继续关注 Live 和 Upcoming 活动，确认后续是否有补贴、券、落地页或推广素材更新。';
+  }
+  const eventMap = {}, opMap = {}, regionMap = {}, statusMap = {};
+  groups.forEach(g => {
+    getCampaignRegions(g.c).forEach(r => { regionMap[r] = (regionMap[r] || 0) + g.list.length; });
+    statusMap[STATUS_LABEL[g.c.status] || g.c.status] = (statusMap[STATUS_LABEL[g.c.status] || g.c.status] || 0) + 1;
+    g.list.forEach(ch => {
+      const eventName = TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope);
+      eventMap[eventName] = (eventMap[eventName] || 0) + 1;
+      opMap[OP_LABEL[ch.op] || ch.op] = (opMap[OP_LABEL[ch.op] || ch.op] || 0) + 1;
+    });
+  });
+  const focusCampaigns = groups.slice(0, 3).map(g => `${g.c.campaignName}（${g.list.length} 条${g.unread ? `，${g.unread} 条未读` : ''}）`).join('、');
+  const unreadText = unreadToday ? `其中 ${unreadToday} 条仍未读，建议优先处理` : '当前没有未读变动，可作为当天变更回顾';
+  return `今天共有 ${totalChanges} 条活动变动，涉及 ${groups.length} 个活动。变动主要集中在 ${mapTopText(eventMap, 3)}，操作类型以 ${mapTopText(opMap, 3)} 为主；受影响市场包括 ${mapTopText(regionMap, 4)}，活动状态分布为 ${mapTopText(statusMap, 4)}。${unreadText}，重点关注 ${focusCampaigns}。`;
+}
+
 function renderDigest(){
   const box = $('digestBody'); if(!box) return;
   const { groups } = digestHighlights();
@@ -6553,7 +6528,7 @@ function renderDigest(){
   const hero = `<div class="page-card dg-hero">
     <div class="dg-hero-main">
       <div>
-        <h2>Daily Digest</h2>
+        <h2>Daily Report</h2>
         <div class="dg-date">${digestDateLabel()}</div>
       </div>
     </div>
@@ -6583,9 +6558,14 @@ function renderDigest(){
         <button class="btn btn-primary" onclick="digestOpenList({})">Open Campaign List</button>
       </div>`;
 
+  const aiSummary = `<div class="page-card dg-card dg-ai-summary">
+    <div class="dg-card-head"><h3>AI Summary</h3><span class="dg-card-sub">Generated from today’s changes</span></div>
+    <p>${escape(buildDigestAISummary(groups, totalChanges, unreadToday))}</p>
+  </div>`;
+
   const highlights = `<div class="page-card dg-card dg-highlights">
     <div class="dg-card-head">
-      <h3>Today's Highlights</h3>
+      <h3>Today's Change Record</h3>
       <span class="dg-card-sub">${groups.length ? 'Newest and unread first' : ''}</span>
     </div>
     ${highlightsBody}
@@ -6607,9 +6587,179 @@ function renderDigest(){
     </div>
   </div>`;
 
-  box.innerHTML = `${hero}<div class="dg-summary-row">${kpis}${rail}</div>${highlights}`;
+  box.innerHTML = `${hero}<div class="dg-summary-row">${kpis}${rail}</div>${aiSummary}${highlights}`;
   refreshDigestBadge();
 }
+
+
+
+/* ========================= Campaign-only merged page overrides =========================
+   The main Campaign page now owns the change-record expansion behavior. Subscription,
+   notification filters, read/unread and My Subscriptions actions are intentionally unused.
+===================================================================================== */
+currentNonDetailPage = 'digest';
+const CAMPAIGN_EXPANDED = new Set();
+function refreshSubBadge(){}
+function refreshDigestBadge(){}
+function applyAutoSubscribe(){}
+
+function campaignChangeList(id){
+  const key = String(id);
+  const c = getCampaignById(key);
+  let list = (CHANGES[key] || CHANGES[Number(key)] || []).slice();
+  if(!list.length && c && typeof buildGenericDemoChanges === 'function'){
+    const idx = CAMPAIGNS.findIndex(x => String(x.campaignId) === key);
+    list = buildGenericDemoChanges(c, idx < 0 ? 0 : idx);
+    CHANGES[key] = list;
+  }
+  return list.sort((a,b) => parseTime(b.time) - parseTime(a.time));
+}
+
+function campaignChangeEventName(ch){
+  return TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope) || ch.scope || '-';
+}
+
+function campaignChangeDiffHtml(ch){
+  if(ch.op === 'add') return `<span class="diff-add">+ ${escape(ch.after || '')}</span>`;
+  if(ch.op === 'remove') return `<span class="diff-remove">− ${escape(ch.before || '')}</span>`;
+  return `<span class="diff-old">${escape(ch.before || '')}</span> <span class="diff-arrow">→</span> <span class="diff-new">${escape(ch.after || '')}</span>`;
+}
+
+function renderCampaignChangePanel(id){
+  const list = campaignChangeList(id);
+  if(!list.length){
+    return `<div class="campaign-change-panel"><div class="campaign-no-change">No change records for this campaign.</div></div>`;
+  }
+  return `<div class="campaign-change-panel">
+    <div class="campaign-change-title">Change Records <span class="campaign-change-count">${list.length} update${list.length > 1 ? 's' : ''}</span></div>
+    <div class="campaign-changes-scroll">
+      <table class="campaign-changes-table">
+        <thead><tr>
+          <th>Operation</th>
+          <th>Change Section</th>
+          <th>Field</th>
+          <th>Change</th>
+          <th>Locale</th>
+          <th>Update Time</th>
+        </tr></thead>
+        <tbody>${list.map(ch => `<tr>
+          <td><span class="op-pill op-${ch.op}">${OP_LABEL[ch.op] || ch.op || '-'}</span></td>
+          <td title="${escape(campaignChangeEventName(ch))}">${escape(campaignChangeEventName(ch))}</td>
+          <td title="${escape(ch.field || '-')}">${escape(ch.field || '-')}</td>
+          <td>${campaignChangeDiffHtml(ch)}</td>
+          <td>${ch.locale && ch.locale !== '-' ? `<span class="chip mini">${escape(ch.locale)}</span>` : '<span class="muted">-</span>'}</td>
+          <td class="muted" title="${escape(ch.time || '-')}">${escape(ch.time || '-')}</td>
+        </tr>`).join('')}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function toggleCampaignExpand(id){
+  const key = String(id);
+  if(CAMPAIGN_EXPANDED.has(key)) CAMPAIGN_EXPANDED.delete(key);
+  else CAMPAIGN_EXPANDED.add(key);
+  renderTable();
+}
+
+function getFilteredCampaignRows(){
+  const fCol = $('fCol') ? $('fCol').value.trim().toLowerCase() : '';
+  const fColName = $('fColName') ? $('fColName').value.trim().toLowerCase() : '';
+  const fCmp = $('fCmp') ? $('fCmp').value.trim().toLowerCase() : '';
+  const fName = $('fName') ? $('fName').value.trim().toLowerCase() : '';
+  const fTheme = getSelectValues('fTheme');
+  const fGrade = getSelectValues('fGrade');
+  const fStatus = getSelectValues('fStatus');
+  return CAMPAIGNS.filter(r => {
+    if(fCol && !String(r.collectionId).toLowerCase().includes(fCol)) return false;
+    if(fColName && !String(r.collectionName || '').toLowerCase().includes(fColName)) return false;
+    if(fCmp && !String(r.campaignId).toLowerCase().includes(fCmp)) return false;
+    if(fName && !r.campaignName.toLowerCase().includes(fName)) return false;
+    if(fTheme.length && !fTheme.includes(r.theme)) return false;
+    if(fGrade.length && !fGrade.includes(r.grade)) return false;
+    if(!passListRegionFilter(r)) return false;
+    if(fStatus.length && !fStatus.includes(r.status)) return false;
+    return true;
+  });
+}
+
+function renderTable(){
+  renderListRegionFilter();
+  const all = getFilteredCampaignRows();
+  const total = all.length;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  if(pageNum > totalPages) pageNum = totalPages;
+  if(pageNum < 1) pageNum = 1;
+  const start = (pageNum - 1) * pageSize;
+  const rows = all.slice(start, start + pageSize);
+  const tbody = $('tbody');
+  if(!tbody) return;
+  tbody.innerHTML = rows.map(r => {
+    const expanded = CAMPAIGN_EXPANDED.has(String(r.campaignId));
+    const parent = `<tr class="campaign-parent-row ${expanded ? 'expanded' : ''}">
+      <td class="sticky s-chk"><button class="campaign-expand-btn" aria-label="${expanded ? 'Collapse' : 'Expand'} campaign ${r.campaignId}" onclick="toggleCampaignExpand(${r.campaignId})">${expanded ? '▾' : '▸'}</button></td>
+      <td class="id-cell sticky s-l1">${r.collectionId}</td>
+      <td class="id-cell sticky s-l2">${r.campaignId}</td>
+      <td class="sticky s-l3">${escape(r.collectionName)}</td>
+      <td class="link-name sticky s-l4" onclick="openDetail(${r.campaignId})">${escape(r.campaignName)}</td>
+      <td>${escape(r.theme)}</td>
+      <td class="grade">${r.grade}</td>
+      <td>${escape(getCampaignRegions(r).join(', '))}</td>
+      <td><span class="badge-stage ${r.status}">${STATUS_LABEL[r.status]}</span></td>
+      <td>${r.createTime}</td>
+      <td>${r.updateTime}</td>
+      <td>${r.creator}</td>
+    </tr>`;
+    return expanded ? parent + `<tr class="campaign-change-row"><td colspan="12">${renderCampaignChangePanel(r.campaignId)}</td></tr>` : parent;
+  }).join('');
+  const empty = $('emptyHint');
+  if(empty) empty.style.display = rows.length ? 'none' : 'block';
+  renderPagination(total, totalPages);
+  enhanceCustomSelects(document);
+  refreshTableOverflowTooltips($('page-list'));
+}
+
+function currentPageRows(){
+  const all = getFilteredCampaignRows();
+  const start = (pageNum - 1) * pageSize;
+  return all.slice(start, start + pageSize);
+}
+
+function resetFilter(){
+  ['fCol','fColName','fCmp','fName'].forEach(id => { if($(id)) $(id).value = ''; });
+  ['fTheme','fGrade','fStatus'].forEach(id => clearFilterSelect(id));
+  LIST_REGION_FILTER.clear();
+  listRegionDropdownOpen = false;
+  pageNum = 1;
+  renderTable();
+}
+
+function switchPage(name){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = $('page-' + name) || $('page-digest') || $('page-list');
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.side a[data-page]').forEach(a => a.classList.toggle('active', a.dataset.page === name));
+  if(name === 'digest' && typeof renderDigest === 'function') renderDigest();
+  if(name === 'list' && typeof renderTable === 'function') renderTable();
+  if(name === 'list' || name === 'digest') currentNonDetailPage = name;
+  enhanceCustomSelects(document);
+}
+
+function toggleSub(){}
+function toggleSubFromDetail(){}
+function openSubscribe(){}
+function openBatchSubscribe(){}
+function batchUnsubscribe(){}
+function confirmSubscribe(){}
+function closeSubscribe(){}
+function batchUnsubscribeFromSub(){}
+function unsubFromList(){}
+function markCampaignRead(){}
+function markCampaignUnread(){}
+function markAllRead(){}
+function markChangeRead(){}
+function markChangeUnread(){}
+function jumpToChange(id, type, locale, key){ openDetail(Number(id), { tab: TYPE_TO_TAB[type] || 'campaign', locale: locale || null }); }
 
 /* Keep the digest nav badge fresh after read/subscription changes elsewhere (additive wrappers, same pattern as v55 below) */
 const __renderSubPage_digestHook = renderSubPage;
@@ -6620,7 +6770,6 @@ renderTable = function(){ __renderTable_digestHook.apply(this, arguments); refre
 applyAutoSubscribe();
 seedDemoSubscriptions();
 renderTable();
-refreshSubBadge();
 renderDigest();
 
 /* v32: My Subscription child sticky header helper — scoped to #page-sub only */
@@ -7383,940 +7532,6 @@ updateSubParentStickyClone = function(row, top, left, width, scrollLeft){
 
 </script>
 
-<style id="askai-style">
-/* ===================== Ask AI Copilot (prototype) ===================== */
-#aiFab{position:fixed;right:26px;bottom:26px;z-index:140;display:flex;align-items:center;gap:8px;
-  padding:11px 18px 11px 14px;border:none;border-radius:999px;cursor:pointer;color:#fff;font-size:14px;font-weight:700;
-  background:linear-gradient(135deg,#3573f5 0%,#7a5cff 60%,#b44cff 100%);
-  box-shadow:0 8px 24px rgba(59,92,255,.35),0 2px 6px rgba(59,92,255,.25);transition:transform .15s, box-shadow .15s;}
-#aiFab:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(59,92,255,.42);}
-#aiFab .spark{width:18px;height:18px;}
-#aiFab::after{content:"";position:absolute;inset:-4px;border-radius:999px;border:2px solid rgba(122,92,255,.45);
-  animation:aiPulse 2.4s ease-out infinite;pointer-events:none;}
-@keyframes aiPulse{0%{opacity:.9;transform:scale(.92);}70%{opacity:0;transform:scale(1.18);}100%{opacity:0;}}
-body.askai-open #aiFab{display:none;}
 
-/* docked shift */
-.layout{transition:padding-right .32s ease;}
-@media (min-width:1100px){ body.askai-open .layout{padding-right:464px;} }
-
-#aiPanel{position:fixed;top:56px;right:0;width:464px;max-width:96vw;height:calc(100% - 56px);z-index:150;
-  background:#fbfcff;border-left:1px solid #e3e9f5;box-shadow:-12px 0 32px rgba(36,64,128,.10);
-  display:flex;flex-direction:column;transform:translateX(102%);transition:transform .32s ease;}
-body.askai-open #aiPanel{transform:translateX(0);}
-
-#aiPanel .ai-head{padding:12px 16px 10px;border-bottom:1px solid #e9eef8;background:#fff;}
-#aiPanel .ai-head .row1{display:flex;align-items:center;gap:8px;}
-#aiPanel .ai-title{font-size:15px;font-weight:800;color:#27324a;display:flex;align-items:center;gap:7px;}
-#aiPanel .ai-title .spark{width:17px;height:17px;color:#7a5cff;}
-#aiPanel .ai-head .sp{flex:1;}
-#aiPanel .ai-ic{width:28px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;color:#8893a8;
-  display:flex;align-items:center;justify-content:center;}
-#aiPanel .ai-ic:hover{background:#eff3fb;color:#3573f5;}
-#aiPanel .ai-ic svg{width:15px;height:15px;}
-
-#aiPersona{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
-#aiPersona .pp{padding:5px 11px;border-radius:999px;border:1px solid #dfe6f3;background:#fff;color:#5a6a87;
-  font-size:12px;cursor:pointer;line-height:1;transition:all .12s;user-select:none;}
-#aiPersona .pp:hover{border-color:#b9c9ec;color:#3573f5;}
-#aiPersona .pp.on{background:#3573f5;border-color:#3573f5;color:#fff;font-weight:700;box-shadow:0 2px 6px rgba(53,115,245,.3);}
-
-#aiMsgs{flex:1;overflow-y:auto;padding:16px 16px 8px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth;}
-.ai-msg{display:flex;flex-direction:column;max-width:100%;}
-.ai-msg.user{align-items:flex-end;}
-.ai-msg.user .bub{background:#3573f5;color:#fff;border-radius:12px 12px 3px 12px;padding:9px 13px;font-size:13px;
-  max-width:86%;line-height:1.55;box-shadow:0 2px 6px rgba(53,115,245,.22);white-space:pre-wrap;word-break:break-word;}
-.ai-msg.bot .bub{background:#fff;border:1px solid #e7ecf5;border-radius:3px 12px 12px 12px;padding:12px 14px;
-  font-size:13px;color:#2c3a55;line-height:1.62;box-shadow:0 1px 2px rgba(36,64,128,.04),0 5px 14px rgba(36,64,128,.05);
-  max-width:100%;overflow:hidden;}
-.ai-msg .who{font-size:10.5px;color:#9aa6bd;margin:0 2px 4px;display:flex;align-items:center;gap:5px;}
-.ai-msg.bot .who .spark{width:12px;height:12px;color:#7a5cff;}
-
-/* thinking steps */
-.ai-steps{display:flex;flex-direction:column;gap:5px;margin:2px 0 4px;}
-.ai-step{display:flex;align-items:center;gap:7px;font-size:12px;color:#6b7c9c;opacity:0;transform:translateY(3px);
-  animation:aiStepIn .25s ease forwards;}
-.ai-step .dot{width:5px;height:5px;border-radius:50%;background:#7a5cff;flex-shrink:0;}
-.ai-step.done{color:#16a266;}
-.ai-step.done .dot{background:#16a266;}
-@keyframes aiStepIn{to{opacity:1;transform:none;}}
-.ai-typing{display:inline-flex;gap:4px;align-items:center;padding:2px 0;}
-.ai-typing i{width:6px;height:6px;border-radius:50%;background:#aab8d6;animation:aiBlink 1.1s infinite;}
-.ai-typing i:nth-child(2){animation-delay:.18s;}.ai-typing i:nth-child(3){animation-delay:.36s;}
-@keyframes aiBlink{0%,80%,100%{opacity:.25;transform:scale(.85);}40%{opacity:1;transform:scale(1);}}
-
-/* answer blocks */
-.ai-blk{opacity:0;transform:translateY(4px);animation:aiBlkIn .3s ease forwards;}
-@keyframes aiBlkIn{to{opacity:1;transform:none;}}
-.ai-blk + .ai-blk{margin-top:9px;}
-.ai-blk h4{margin:0 0 5px;font-size:12.5px;color:#27324a;font-weight:800;display:flex;align-items:center;gap:6px;}
-.ai-blk p{margin:0 0 4px;}
-.ai-blk ul{margin:2px 0 4px;padding-left:18px;}
-.ai-blk li{margin:3px 0;}
-.ai-kpis{display:flex;gap:8px;flex-wrap:wrap;}
-.ai-kpi{flex:1;min-width:86px;background:#f5f8ff;border:1px solid #e3ebfb;border-radius:9px;padding:8px 10px;text-align:center;}
-.ai-kpi b{display:block;font-size:18px;color:#27324a;line-height:1.2;}
-.ai-kpi span{font-size:11px;color:#7587a8;}
-.ai-kpi.warn{background:#fff7ee;border-color:#ffe2c2;}
-.ai-kpi.warn b{color:#d46b08;}
-
-.ai-tbl{width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 2px;}
-.ai-tbl th{background:#f3f6fc;color:#5f6f8e;text-align:left;font-weight:700;padding:6px 8px;border:1px solid #e7ecf5;font-size:11.5px;}
-.ai-tbl td{padding:6px 8px;border:1px solid #edf1f8;vertical-align:top;color:#2c3a55;}
-.ai-tbl tr:nth-child(even) td{background:#fafcff;}
-
-.ai-lvl{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:800;line-height:1.5;}
-.ai-lvl.high{background:#fff1f0;color:#cf1322;border:1px solid #ffccc7;}
-.ai-lvl.med{background:#fff7e6;color:#d46b08;border:1px solid #ffe2b8;}
-.ai-lvl.low{background:#f0fbf4;color:#16a266;border:1px solid #c7eed8;}
-.ai-overall{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #e7ecf5;border-left:4px solid #cf1322;
-  border-radius:9px;padding:9px 12px;}
-.ai-overall.med{border-left-color:#d46b08;}
-.ai-overall.low{border-left-color:#16a266;}
-.ai-overall b{font-size:13px;}
-
-.ai-camp{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #e3e9f5;border-radius:9px;
-  padding:8px 11px;cursor:pointer;transition:all .12s;margin:5px 0;}
-.ai-camp:hover{border-color:#9db9f2;box-shadow:0 3px 10px rgba(53,115,245,.12);transform:translateY(-1px);}
-.ai-camp .nm{flex:1;min-width:0;}
-.ai-camp .nm b{display:block;font-size:12.5px;color:#27324a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.ai-camp .nm span{font-size:11px;color:#8595b3;}
-.ai-camp .go{color:#3573f5;font-size:11px;flex-shrink:0;}
-.ai-bdg{display:inline-block;padding:1px 8px;border-radius:999px;font-size:10.5px;font-weight:700;border:1px solid transparent;flex-shrink:0;}
-.ai-bdg.rg{background:#eef4ff;color:#3573f5;border-color:#d7e4fd;}
-.ai-bdg.st-live{background:#f0fbf4;color:#16a266;border-color:#c7eed8;}
-.ai-bdg.st-upcoming{background:#fff7e6;color:#d46b08;border-color:#ffe2b8;}
-.ai-bdg.st-ended{background:#f4f5f8;color:#8893a8;border-color:#e3e7ee;}
-.ai-bdg.st-draft{background:#f1edff;color:#7a5cff;border-color:#e0d6ff;}
-
-.ai-src{margin-top:10px;padding-top:8px;border-top:1px dashed #e6ebf5;display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
-.ai-src .lab{font-size:10.5px;color:#9aa6bd;}
-.ai-src .chip{font-size:11px;color:#3573f5;background:#f2f7ff;border:1px solid #d9e6fd;border-radius:999px;
-  padding:2px 9px;cursor:pointer;line-height:1.6;}
-.ai-src .chip:hover{background:#e4eeff;}
-.ai-note{margin-top:7px;font-size:10.5px;color:#a3aec4;}
-
-.ai-act{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:7px;padding:7px 13px;cursor:pointer;
-  font-size:12px;font-weight:700;background:#3573f5;color:#fff;margin:4px 8px 2px 0;box-shadow:0 2px 6px rgba(53,115,245,.25);}
-.ai-act:hover{background:#245fe0;}
-.ai-act.ghost{background:#fff;color:#3573f5;border:1px solid #bcd0f5;box-shadow:none;}
-.ai-act.ghost:hover{background:#f2f7ff;}
-.ai-act[disabled]{opacity:.55;cursor:default;}
-
-#aiChips{display:flex;gap:7px;overflow-x:auto;padding:9px 16px 4px;scrollbar-width:none;}
-#aiChips::-webkit-scrollbar{display:none;}
-#aiChips .qc{flex-shrink:0;font-size:12px;color:#46536c;background:#fff;border:1px solid #dfe6f3;border-radius:999px;
-  padding:6px 13px;cursor:pointer;transition:all .12s;line-height:1.4;}
-#aiChips .qc:hover{border-color:#3573f5;color:#3573f5;background:#f5f9ff;}
-
-#aiInputRow{display:flex;gap:8px;padding:8px 16px 10px;background:transparent;}
-#aiInput{flex:1;border:1px solid #d8e0ef;border-radius:10px;padding:10px 13px;font-size:13px;color:#27324a;outline:none;
-  background:#fff;transition:border-color .12s, box-shadow .12s;font-family:inherit;}
-#aiInput:focus{border-color:#3573f5;box-shadow:0 0 0 3px rgba(53,115,245,.12);}
-#aiSend{width:42px;border:none;border-radius:10px;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#3573f5,#7a5cff);box-shadow:0 2px 8px rgba(53,115,245,.3);}
-#aiSend:hover{filter:brightness(1.06);}
-#aiSend svg{width:16px;height:16px;}
-#aiFoot{display:none;}
-
-</style>
-<!-- ===================== Ask AI Copilot (prototype) ===================== -->
-<button id="aiFab" onclick="AskAI.open()" title="Ask AI">
-  <svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.4L19.5 9l-5.6 1.6L12 16l-1.9-5.4L4.5 9l5.6-1.6L12 2zm7 11l.95 2.7 2.8.8-2.8.8L19 20l-.95-2.7-2.8-.8 2.8-.8L19 13zM5 14l.8 2.2 2.3.7-2.3.7L5 19.8l-.8-2.2-2.3-.7 2.3-.7L5 14z"/></svg>
-  Ask AI
-</button>
-
-<section id="aiPanel" aria-label="Ask AI panel">
-  <div class="ai-head">
-    <div class="row1">
-      <div class="ai-title">
-        <svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.4L19.5 9l-5.6 1.6L12 16l-1.9-5.4L4.5 9l5.6-1.6L12 2zm7 11l.95 2.7 2.8.8-2.8.8L19 20l-.95-2.7-2.8-.8 2.8-.8L19 13zM5 14l.8 2.2 2.3.7-2.3.7L5 19.8l-.8-2.2-2.3-.7 2.3-.7L5 14z"/></svg>
-        Ask AI 活动助手
-      </div>
-      <div class="sp"></div>
-      <button class="ai-ic" onclick="AskAI.clear()" title="清空对话">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-      </button>
-      <button class="ai-ic" onclick="AskAI.close()" title="收起">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
-    </div>
-    <div id="aiPersona"></div>
-  </div>
-
-  <div id="aiMsgs"></div>
-  <div id="aiChips"></div>
-  <div id="aiInputRow">
-    <input id="aiInput" placeholder="用中文问我活动相关的问题…" autocomplete="off" />
-    <button id="aiSend" onclick="AskAI.send()" title="发送">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-  </div>
-</section>
-
-<script id="askai-script">
-/* =======================================================================
-   Ask AI Copilot — 前端原型（本地模拟引擎）
-   -----------------------------------------------------------------------
-   · 回答完全基于本页 mock 数据：CAMPAIGNS / DETAILS / CHANGES / SUBS
-   · 本文件分两层：
-       ① 数据访问层 + 工具层（TOOLS / executeTool）—— 与真实 LLM 共用
-       ② 本地规则引擎（route/composers）—— demo 演示用，可被真实模型替换
-   · 接入真实模型：实现 AskAI.callLLM(messages)，把 AskAI.TOOLS 注册为
-     function calling 工具，工具执行直接复用 AskAI.executeTool —— 引擎
-     其余部分（UI / 数据层 / 动作层）零改动。
-   ======================================================================= */
-(function () {
-  'use strict';
-  const Q = (id) => document.getElementById(id);
-  const esc = (s) => (typeof escape === 'function' ? escape(s) : String(s == null ? '' : s));
-  const PT = (s) => parseTime(s);
-  const DAY = 86400000;
-
-  /* ---------- 演示时间基准：与 Digest 口径一致（取变更流最新时间） ---------- */
-  const DEMO_NOW = (() => {
-    let m = 0;
-    Object.keys(CHANGES).forEach((id) => (CHANGES[id] || []).forEach((ch) => { const t = PT(ch.time); if (t > m) m = t; }));
-    return m || Date.now();
-  })();
-  const fmt = (t) => { const d = new Date(t), p = (n) => String(n).padStart(2, '0'); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; };
-  const DEMO_NOW_STR = fmt(DEMO_NOW);
-
-  /* =====================================================================
-     ① 数据访问层（真实模型与本地引擎共用）
-     ===================================================================== */
-  const campaignOf = (id) => CAMPAIGNS.find((c) => String(c.campaignId) === String(id)) || null;
-  /* DETAILS[id] 的真实结构是按 tab 分节、按 locale 嵌套的：
-     { collection, campaign:{nameEN,startEndDate,...},
-       subsidy:{ [locale]:{flight:{cols,rows},hotel,tnt,bundle} },
-       coupon:{ [locale]:{cols,rows} }, landing/promotion/supplementary:{ [locale]:{...} } }
-     这里拍平成引擎需要的视图（各 locale 内容一致，取首个 locale），并缓存。 */
-  const FLAT_CACHE = {};
-  function detailOf(id) {
-    const key = String(id);
-    if (FLAT_CACHE[key]) return FLAT_CACHE[key];
-    const det = DETAILS[id] || DETAILS[Number(id)];
-    if (!det) return null;
-    const loc0 = (o) => { const ks = Object.keys(o || {}); return ks.length ? o[ks[0]] : {}; };
-    const camp = det.campaign || {};
-    const sub = loc0(det.subsidy);
-    const cp = loc0(det.coupon);
-    const promo = loc0(det.promotion);
-    const flat = {
-      nameEN: camp.nameEN, nameLocal: camp.nameLocal, description: camp.description,
-      region: camp.region, timezone: camp.timezone, launchDate: camp.launchDate,
-      periodType: camp.periodType, startEndDate: camp.startEndDate, attachment: camp.attachment,
-      flight: (sub.flight && sub.flight.rows) || [],
-      hotel: (sub.hotel && sub.hotel.rows) || [],
-      tnt: (sub.tnt && sub.tnt.rows) || [],
-      bundle: (sub.bundle && sub.bundle.rows) || [],
-      coupons: cp.rows || [],
-      promoChannels: promo.channels || [],
-    };
-    FLAT_CACHE[key] = flat;
-    return flat;
-  }
-  const changesOf = (id) => (CHANGES[id] || CHANGES[Number(id)] || []).slice().sort((a, b) => PT(b.time) - PT(a.time));
-  const LINE_DEF = [['flight', '机票'], ['hotel', '酒店'], ['tnt', '门票玩乐'], ['bundle', '机+酒套餐']];
-  const MECHS = ['ONE_PRICE', 'BOGO', 'DISCOUNT'];
-  const shortPeriod = (d) => {
-    const s = (d && d.startEndDate) || ''; const [a, b] = s.split(' - ');
-    return a && b ? `${a.slice(5, 10)} ~ ${b.slice(5, 10)}` : '-';
-  };
-  const periodEnd = (d) => { const s = (d && d.startEndDate) || ''; const b = s.split(' - ')[1]; return b ? PT(b.trim()) : 0; };
-
-  /* 通用解析补贴/玩法行：兼容 REAL_DATA 与 makeDetail 两种列布局 */
-  function parseMechRows(d) {
-    const out = [];
-    LINE_DEF.forEach(([k, label]) => {
-      ((d && d[k]) || []).forEach((row) => {
-        if (!Array.isArray(row)) return;
-        const mi = row.findIndex((v) => MECHS.includes(v));
-        if (mi < 0) return;
-        const mech = row[mi];
-        const raw = row[mi + 1];
-        const val = parseFloat(raw);
-        const cur = row.slice(mi).find((v) => /^[A-Z]{3}$/.test(String(v)) && !MECHS.includes(v)) || '';
-        let win = null, hours = null;
-        if (typeof row[1] === 'string' && row[1].includes(' - ') && typeof row[2] === 'string' && row[2].includes(' - ')) {
-          win = row[2];
-          const [a, b] = win.split(' - '); const t1 = PT(a.trim()), t2 = PT(b.trim());
-          if (t1 && t2 && t2 > t1) hours = (t2 - t1) / 3600000;
-        }
-        let item = '';
-        if (k === 'flight') item = `${row[3]}→${row[4]}`;
-        else if (k === 'bundle') item = `${row[3]}→${row[4]} + ${row[7] || '酒店'}`;
-        else item = String(row[4] || row[3] || '');
-        out.push({ line: k, lineLabel: label, mech, raw, val: isNaN(val) ? null : val, cur, win, hours, item });
-      });
-    });
-    return out;
-  }
-
-  /* 风险信号计算（规则可解释，每条结论都给出"发现 + 建议"） */
-  function riskSignals(c) {
-    const d = detailOf(c.campaignId) || {};
-    const rows = parseMechRows(d);
-    const deep = rows.filter((r) => r.mech === 'ONE_PRICE' && r.val != null && r.val <= 10);
-    const bogo = rows.filter((r) => r.mech === 'BOGO');
-    const flash = rows.filter((r) => r.hours != null && r.hours <= 4);
-    const coupons = d.coupons || [];
-    const priv = coupons.filter((r) => String(r[2]).includes('PRIVATE')).length;
-    const half = coupons.filter((r) => /5折|半价|半價|50%\s*off/i.test(String(r[1])));
-    const chs = changesOf(c.campaignId);
-    const recent = chs.filter((ch) => DEMO_NOW - PT(ch.time) <= 3 * DAY);
-    const notif = c.notificationStatus !== 'Submitted';
-    const dims = [];
-    dims.push({
-      key: 'loss', name: '资损 / 超低价库存',
-      level: deep.length ? 'high' : (bogo.length >= 3 ? 'med' : 'low'),
-      found: deep.length
-        ? `${deep.length} 个 ≤10 ${deep[0].cur || ''} 的一口价：${deep.slice(0, 2).map((r) => `${r.item} ${r.raw} ${r.cur}`).join('、')}${deep.length > 2 ? ' 等' : ''}`
-        : (bogo.length ? `${bogo.length} 个 BOGO 买赠机制，未发现超低一口价` : '未发现超低价 / 买赠机制'),
-      tip: deep.length ? '建议配置限购 + 黑产名单 + 库存熔断，重点防黄牛囤抢' : (bogo.length >= 3 ? 'BOGO 数量较多，关注核销与库存联动' : '按常规库存预案监控即可'),
-    });
-    dims.push({
-      key: 'coupon', name: '优惠券滥用',
-      level: half.length && coupons.length >= 8 ? 'high' : (half.length || coupons.length >= 8 ? 'med' : 'low'),
-      found: `共 ${coupons.length} 张券（私有 ${priv} / 公开 ${coupons.length - priv}），其中 ${half.length} 张 5 折及以上力度${half.length ? `（如「${esc(String(half[0][1]).slice(0, 30))}…」）` : ''}`,
-      tip: half.length ? '高力度券建议校验领用频次、设备指纹与账号关联，防跨账号套利' : '券力度常规，按标准券风控策略执行',
-    });
-    dims.push({
-      key: 'flash', name: '瞬时流量',
-      level: flash.length >= 4 ? 'high' : (flash.length ? 'med' : 'low'),
-      found: flash.length ? `${flash.length} 个 ≤4 小时闪购窗口（如 ${flash[0].item}，${flash[0].win ? flash[0].win.split(' - ')[0].slice(5, 16) : ''} 开抢）` : '无短时闪购窗口',
-      tip: flash.length ? '开售瞬时并发集中，建议预热限流 / 排队策略，并备好售罄文案' : '无需特殊扩容',
-    });
-    dims.push({
-      key: 'process', name: '流程与对外口径',
-      level: notif ? 'med' : 'low',
-      found: notif ? `Notification 状态为「${esc(c.notificationStatus)}」，对外口径尚未冻结` : 'Notification 已提交，口径已冻结',
-      tip: notif ? '上线前务必完成通知提交，避免客服 / 渠道口径不一致' : '流程完整',
-    });
-    dims.push({
-      key: 'stable', name: '配置稳定性',
-      level: c.status === 'live' && recent.length ? 'med' : 'low',
-      found: chs.length ? `累计 ${chs.length} 条配置变更，近 3 天 ${recent.length} 条（最近一次 ${chs[0].time}）` : '暂无变更记录',
-      tip: c.status === 'live' && recent.length ? '活动进行中仍在改配置，建议订阅变更并复核已投放素材' : '配置已趋于稳定',
-    });
-    const score = dims.reduce((s, x) => s + (x.level === 'high' ? 2 : x.level === 'med' ? 1 : 0), 0);
-    const overall = score >= 4 ? 'high' : score >= 2 ? 'med' : 'low';
-    return { dims, overall, score, deep, bogo, flash, coupons, half, chs, rows };
-  }
-
-  /* =====================================================================
-     ② 工具层 —— 留给真实 LLM 做 function calling（与本地引擎同源）
-     ===================================================================== */
-  const TOOLS = [
-    { name: 'query_campaigns', description: '按地区/状态/关键词检索活动列表', input_schema: { type: 'object', properties: { region: { type: 'string', enum: ['HK', 'TW', 'SG', 'MY'] }, status: { type: 'string', enum: ['live', 'upcoming', 'ended', 'draft'] }, keyword: { type: 'string' } } } },
-    { name: 'get_campaign_detail', description: '读取活动配置的扁平化视图（基础信息 + 各产品线玩法行 + 券 + 渠道文案）', input_schema: { type: 'object', properties: { id: { type: 'integer' } }, required: ['id'] } },
-    { name: 'get_changes', description: '读取活动配置变更流', input_schema: { type: 'object', properties: { id: { type: 'integer' }, days: { type: 'integer' } } } },
-    { name: 'get_risk_signals', description: '计算活动风险信号（资损/券滥用/瞬时流量/流程/稳定性）', input_schema: { type: 'object', properties: { id: { type: 'integer' } }, required: ['id'] } },
-    { name: 'subscribe_campaign', description: '为当前用户订阅活动变更', input_schema: { type: 'object', properties: { id: { type: 'integer' }, events: { type: 'array', items: { type: 'string' } } }, required: ['id'] } },
-  ];
-  function executeTool(name, args) {
-    args = args || {};
-    if (name === 'query_campaigns') {
-      return CAMPAIGNS
-        .filter((c) => (!args.region || c.team === args.region) && (!args.status || c.status === args.status) && (!args.keyword || (c.campaignName + ' ' + c.theme).toLowerCase().includes(String(args.keyword).toLowerCase())))
-        .map((c) => ({ id: c.campaignId, name: c.campaignName, region: c.team, status: c.status, grade: c.grade, notification: c.notificationStatus, period: shortPeriod(detailOf(c.campaignId)) }));
-    }
-    if (name === 'get_campaign_detail') return detailOf(args.id);
-    if (name === 'get_changes') {
-      const since = args.days ? DEMO_NOW - args.days * DAY : 0;
-      const pick = (id) => changesOf(id).filter((ch) => PT(ch.time) >= since).map((ch) => Object.assign({ campaignId: Number(id) }, ch));
-      return args.id ? pick(args.id) : Object.keys(CHANGES).flatMap(pick);
-    }
-    if (name === 'get_risk_signals') { const c = campaignOf(args.id); return c ? riskSignals(c) : null; }
-    if (name === 'subscribe_campaign') return doSubscribe(args.id, args.events);
-    throw new Error('unknown tool: ' + name);
-  }
-  async function callLLM(/* messages */) {
-    /* 接入点：替换为公司 LLM 网关或 Anthropic Messages API，并携带 TOOLS。
-       示例（伪代码）：
-       const res = await fetch(GATEWAY_URL, { method:'POST', body: JSON.stringify({ model, messages, tools: AskAI.TOOLS }) });
-       循环处理 tool_use → AskAI.executeTool(name, input) → tool_result，直至产出最终文本。 */
-    throw new Error('原型为本地模拟模式，尚未接入真实模型（见 AskAI.callLLM 注释）。');
-  }
-
-  /* =====================================================================
-     实体抽取（中文/英文关键词 → 活动 / 地区 / 状态 / 产品线）
-     ===================================================================== */
-  const REGION_WORDS = { HK: /\bHK\b|香港/i, TW: /\bTW\b|台湾|台灣/i, SG: /\bSG\b|新加坡/i, MY: /\bMY\b|马来|馬來|大马/i };
-  const STATUS_WORDS = { live: /进行中|生效中|在线|\blive\b/i, upcoming: /即将|未开始|快.{0,2}开始|要开始|\bupcoming\b/i, ended: /已?结束|\bended\b/i, draft: /草稿|\bdraft\b/i };
-  const LINE_WORDS = { flight: /机票|航班|航线|flight/i, hotel: /酒店|hotel/i, tnt: /门票|玩乐|景点|体验|tnt/i, bundle: /套餐|机\+酒|bundle/i };
-  const STOP = new Set(['the', 'and', 'for', 'off', 'ask', 'has', 'have', 'what', 'when', 'hk', 'tw', 'sg', 'my', 'sale']);
-
-  function extractEntities(q) {
-    const ents = { ids: [], regions: [], statuses: [], lines: [], campaigns: [] };
-    (q.match(/\b3\d{4}\b/g) || []).forEach((id) => { if (campaignOf(id)) ents.ids.push(Number(id)); });
-    Object.entries(REGION_WORDS).forEach(([r, re]) => { if (re.test(q)) ents.regions.push(r); });
-    Object.entries(STATUS_WORDS).forEach(([s, re]) => { if (re.test(q)) ents.statuses.push(s); });
-    Object.entries(LINE_WORDS).forEach(([l, re]) => { if (re.test(q)) ents.lines.push(l); });
-    const tokens = (q.toLowerCase().match(/[a-z][a-z0-9.]{1,}|\d+\.\d+/g) || []).filter((t) => !STOP.has(t));
-    const cjkKeys = ['狂赏', '狂賞', '旅展', '春季', '闪购', '大促'];
-    const scored = [];
-    CAMPAIGNS.forEach((c) => {
-      const d = detailOf(c.campaignId) || {};
-      const hay = `${c.campaignName} ${c.theme} ${d.nameEN || ''} ${d.nameLocal || ''} ${d.theme || ''}`.toLowerCase();
-      let s = 0;
-      tokens.forEach((t) => { if (hay.includes(t)) s += t.length >= 3 ? 2 : 1; });
-      cjkKeys.forEach((t) => { if (q.includes(t) && `${c.campaignName}${d.nameLocal || ''}${d.nameEN || ''}`.includes(t)) s += 3; });
-      if (ents.ids.includes(c.campaignId)) s += 20;
-      if (s > 0) scored.push({ c, s });
-    });
-    scored.sort((a, b) => b.s - a.s);
-    if (scored.length) {
-      const top = scored[0].s;
-      ents.campaigns = scored.filter((x) => x.s >= Math.max(2, top * 0.6)).map((x) => x.c);
-    }
-    if (ents.regions.length && ents.campaigns.length > 1) {
-      const narrowed = ents.campaigns.filter((c) => ents.regions.includes(c.team));
-      if (narrowed.length) ents.campaigns = narrowed;
-    }
-    return ents;
-  }
-
-  /* =====================================================================
-     HTML 片段助手
-     ===================================================================== */
-  const blk = (inner, delay) => `<div class="ai-blk" style="animation-delay:${delay || 0}ms">${inner}</div>`;
-  const lvlChip = (l) => ({ high: '<span class="ai-lvl high">高</span>', med: '<span class="ai-lvl med">中</span>', low: '<span class="ai-lvl low">低</span>' }[l] || l);
-  const stBadge = (s) => `<span class="ai-bdg st-${s}">${STATUS_LABEL[s] || s}</span>`;
-  const rgBadge = (r) => `<span class="ai-bdg rg">${r}</span>`;
-  function campChip(c, sub) {
-    const d = detailOf(c.campaignId) || {};
-    return `<div class="ai-camp" data-open="${c.campaignId}">
-      ${rgBadge(c.team)}
-      <div class="nm"><b>${esc(c.campaignName)}</b><span>${c.campaignId} · ${esc(c.grade)} · ${shortPeriod(d)}${sub ? ' · ' + sub : ''}</span></div>
-      ${stBadge(c.status)}<span class="go">查看 →</span>
-    </div>`;
-  }
-  const srcDetail = (c, tab, lab) => ({ label: lab || `Detail · ${c.campaignId}`, open: c.campaignId, tab: tab || 'campaign' });
-  const srcList = { label: `Campaign List · ${CAMPAIGNS.length} 条`, goto: 'list' };
-  const srcDigest = { label: 'Daily Digest', goto: 'digest' };
-
-  /* =====================================================================
-     回答编排器（按角色场景）
-     ===================================================================== */
-  function clarifyAnswer(intentLabel, pool, askTpl) {
-    const list = pool.slice(0, 5).map((c) => `<div class="ai-camp" data-ask="${esc(askTpl.replace('{id}', c.campaignId))}">${rgBadge(c.team)}<div class="nm"><b>${esc(c.campaignName)}</b><span>${c.campaignId} · ${esc(c.grade)}</span></div>${stBadge(c.status)}<span class="go">选它 →</span></div>`).join('');
-    return {
-      steps: ['解析问题实体（未命中唯一活动）', `召回候选活动 ${pool.length} 个`],
-      html: blk(`<p>想${intentLabel}，但我没有定位到唯一的活动。你可以点选下面的候选，或直接说活动 ID / 名称：</p>`) + blk(list, 80),
-      sources: [srcList],
-    };
-  }
-
-  /* ---- 风控/通用：单活动玩法与券配置梳理（仅呈现配置事实，不下风险结论） ---- */
-  function configAnswer(ents) {
-    if (!ents.campaigns.length) {
-      const pool = CAMPAIGNS.filter((c) => c.status === 'live' || c.status === 'upcoming');
-      return clarifyAnswer('查看玩法与券配置', pool, '列出 {id} 的玩法与券配置');
-    }
-    const c = ents.campaigns[0];
-    const d = detailOf(c.campaignId) || {};
-    const r = riskSignals(c); // 复用其抽取出的事实（deep/half/flash），但不展示评级
-    const rows = r.rows;
-    const byLine = {};
-    rows.forEach((x) => { (byLine[x.line] = byLine[x.line] || []).push(x); });
-    const head = blk(`<h4>📋 玩法与券配置：${esc(c.campaignName)} <span style="font-weight:400;color:#8595b3">(${c.campaignId})</span></h4>
-      <p>${rgBadge(c.team)} ${stBadge(c.status)} <span class="ai-bdg rg">${esc(c.grade)}</span> <span style="color:#7587a8">周期 ${shortPeriod(d)}</span></p>`);
-    const lineTbl = blk(`<table class="ai-tbl"><tr><th style="width:78px">产品线</th><th>机制与力度</th></tr>${LINE_DEF.map(([k, label]) => {
-      const arr = byLine[k] || [];
-      if (!arr.length) return `<tr><td><b>${label}</b></td><td style="color:#9aa6bd">本期无供给</td></tr>`;
-      const mechCount = {};
-      arr.forEach((x) => { mechCount[x.mech] = (mechCount[x.mech] || 0) + 1; });
-      const mechTxt = Object.entries(mechCount).map(([m, n]) => `${m === 'ONE_PRICE' ? '一口价' : m === 'BOGO' ? '买赠' : '折扣'}×${n}`).join('、');
-      const samples = arr.slice(0, 2).map((x) => `${esc(x.item)}${x.val != null ? ` ${esc(String(x.raw))} ${esc(x.cur)}` : ''}`).join('；');
-      return `<tr><td><b>${label}</b></td><td>${arr.length} 个标的（${mechTxt}）<div style="color:#7587a8;margin-top:2px">如 ${samples}</div></td></tr>`;
-    }).join('')}</table>`, 120);
-    const coupons = d.coupons || [];
-    const priv = coupons.filter((x) => String(x[2]).includes('PRIVATE')).length;
-    const cpTbl = blk(`<h4>优惠券（${coupons.length} 张，私有 ${priv} / 公开 ${coupons.length - priv}）</h4>${coupons.length ? `<table class="ai-tbl"><tr><th>券名</th><th style="width:54px">类型</th><th style="width:86px">有效期至</th></tr>${coupons.slice(0, 6).map((x) => `<tr><td>${esc(String(x[1]))}</td><td>${String(x[2]).includes('PRIVATE') ? '私有' : '公开'}</td><td>${esc(String(x[5] || '').slice(0, 10))}</td></tr>`).join('')}</table>${coupons.length > 6 ? `<p style="color:#7587a8">其余 ${coupons.length - 6} 张见详情页 Coupon Info。</p>` : ''}` : '<p>本活动未配置优惠券。</p>'}`, 220);
-    // 配置事实速览（中性陈述，供风控判断；不输出"风险等级"）
-    const facts = [];
-    if (r.deep.length) facts.push(`存在 <b>${r.deep.length} 个 ≤10 ${r.deep[0].cur || ''} 一口价</b>（如 ${r.deep.slice(0, 2).map((x) => `${esc(x.item)} ${esc(String(x.raw))}`).join('、')}），属超低价库存`);
-    if (r.flash.length) facts.push(`含 <b>${r.flash.length} 个 ≤4 小时限时闪购</b>，开售瞬时并发集中`);
-    if (r.half.length) facts.push(`有 <b>${r.half.length} 张 5 折及以上力度券</b>`);
-    if (r.bogo.length >= 3) facts.push(`配置 <b>${r.bogo.length} 个买赠（BOGO）</b>机制`);
-    if (c.notificationStatus !== 'Submitted') facts.push(`Notification 状态为「${esc(c.notificationStatus)}」，对外口径尚未冻结`);
-    const factBlk = facts.length ? blk(`<h4>💡 配置要点速览</h4><ul>${facts.map((f) => `<li>${f}</li>`).join('')}</ul><p style="color:#9aa6bd;font-size:11px">以上为配置信息梳理，是否构成风险请结合业务规则判断。</p>`, 300) : '';
-    const act = blk(`<button class="ai-act ghost" data-open="${c.campaignId}" data-open-tab="subsidy">补贴配置</button><button class="ai-act ghost" data-open="${c.campaignId}" data-open-tab="coupon">券配置</button>${isSubscribed(c.campaignId) ? '' : `<button class="ai-act" data-dosub="${c.campaignId}">订阅该活动变更</button>`}`, 360);
-    return {
-      steps: [`定位活动 ${c.campaignId} · ${c.campaignName}`, `读取 Detail（玩法 ${rows.length} 行 / 券 ${coupons.length} 张）`, '汇总各产品线机制与券配置'],
-      html: head + lineTbl + cpTbl + factBlk + act,
-      sources: [srcDetail(c, 'subsidy', `Detail · ${c.campaignId} / Subsidy`), srcDetail(c, 'coupon', `Detail · ${c.campaignId} / Coupon`)],
-    };
-  }
-
-  /* ---- 风控/通用：跨活动超低价一口价清单 ---- */
-  function lowPriceScanAnswer() {
-    const hits = [];
-    CAMPAIGNS.forEach((c) => {
-      parseMechRows(detailOf(c.campaignId) || {}).forEach((x) => { if (x.mech === 'ONE_PRICE' && x.val != null && x.val <= 50) hits.push({ c, x }); });
-    });
-    hits.sort((a, b) => a.x.val - b.x.val);
-    const html = hits.length
-      ? blk(`<h4>🔎 超低价一口价配置清单（≤50，命中 ${hits.length} 项）</h4><table class="ai-tbl"><tr><th>标的</th><th style="width:74px">一口价</th><th style="width:64px">活动</th></tr>${hits.slice(0, 10).map((h) => `<tr><td>${esc(h.x.item)}（${h.x.lineLabel}）</td><td><b>${esc(String(h.x.raw))} ${esc(h.x.cur)}</b></td><td><a style="color:#3573f5;cursor:pointer" data-open="${h.c.campaignId}" data-open-tab="subsidy">${h.c.campaignId}</a></td></tr>`).join('')}</table>`)
-        + blk('<p style="color:#7587a8">超低价库存通常是黄牛与黑产重点目标，建议确认限购、实名与库存熔断配置。以上为配置信息梳理。</p>', 160)
-      : blk('<p>当前活动中没有 ≤50 的超低价一口价配置。</p>');
-    return { steps: [`扫描 ${CAMPAIGNS.length} 个活动的补贴配置`, `筛出 ≤50 的一口价 ${hits.length} 项`, '按价格升序排列'], html, sources: hits.slice(0, 3).map((h) => srcDetail(h.c, 'subsidy', `Detail · ${h.c.campaignId} / Subsidy`)).concat([srcList]) };
-  }
-
-  /* =====================================================================
-     自然语言监控规则（产出 → 行动 / Agent）
-     ===================================================================== */
-  function impactOf(c, ch) {
-    const after = String((ch && ch.after) || '');
-    const field = String((ch && ch.field) || '');
-    const op = (ch && ch.op) === 'add' ? '新增' : '调整';
-    const mech = (after.match(/ONE_PRICE|BOGO|DISCOUNT/) || [])[0];
-    const mechCN = mech === 'ONE_PRICE' ? '一口价' : mech === 'BOGO' ? '买赠(BOGO)' : mech === 'DISCOUNT' ? '折扣' : '';
-    const pm = after.match(/([\d.]+)\s*([A-Z]{3})\b/);
-    const price = pm ? parseFloat(pm[1]) : null;
-    const prod = /flight|机票|航班/i.test(after + field) ? '机票' : /hotel|酒店/i.test(after + field) ? '酒店' : /attraction|ticket|门票|玩乐/i.test(after + field) ? '门票玩乐' : /bundle|package|套餐/i.test(after + field) ? '机+酒套餐' : '';
-    const flash = /flash|闪购|秒杀|flash deal/i.test(after);
-    // 纯状态翻转（如 Active）单独表述
-    if (!mech && /^(Active|Inactive|Enabled|Disabled)$/i.test(after.trim())) {
-      return `${prod || '某'}补贴标的状态变更为 <b>${esc(after.trim())}</b>。该标的可售状态改变会影响实际可购库存。<br/><span style="color:#7587a8">建议：确认是否为预期操作，并同步前端展示与客服口径。</span>`;
-    }
-    const head = `${op}${prod}${mechCN ? mechCN : '补贴'}${price != null ? ` <b>${pm[1]} ${pm[2]}</b>` : ''}${flash ? '（限时闪购）' : ''}。`;
-    const reasons = [];
-    if (price != null && price <= 50) reasons.push('属超低价库存，易引发黄牛囤抢');
-    if (flash) reasons.push('开售瞬时并发集中');
-    if (mech === 'BOGO') reasons.push('买赠涉及赠品核销与库存联动');
-    if (!reasons.length) reasons.push('影响实际成交价与库存消耗节奏');
-    const sugg = [];
-    if (price != null && price <= 50) sugg.push('开启限购 / 实名校验');
-    if (flash) sugg.push('开售前排队 / 限流');
-    if (mech === 'BOGO') sugg.push('核对赠品库存与核销规则');
-    sugg.push('核对库存上限'); sugg.push('同步客服与渠道口径');
-    return `${head}${reasons.join('；')}。<br/><span style="color:#7587a8">建议：${[...new Set(sugg)].join(' · ')}。</span>`;
-  }
-  function parseRule(q) {
-    const tier = /tier\s*1|一级|t1|顶级|s\s*级/i.test(q) ? 'Tier 1' : /tier\s*2|二级|t2/i.test(q) ? 'Tier 2' : /tier\s*3|三级|t3/i.test(q) ? 'Tier 3' : '全部档位';
-    let hours = 48;
-    const mh = q.match(/(\d+)\s*(小时|h|hours?)/i); const md = q.match(/(\d+)\s*(天|日|days?)/i);
-    if (mh) hours = parseInt(mh[1], 10); else if (md) hours = parseInt(md[1], 10) * 24;
-    const beforeLaunch = /上线前|开始前|开售前|launch|发布前/i.test(q);
-    const line = /补贴|价格|一口价|subsidy|price/i.test(q) ? 'subsidy' : /券|coupon/i.test(q) ? 'coupon' : /落地页|landing/i.test(q) ? 'landing' : 'any';
-    const lineLabel = { subsidy: '补贴 / 价格', coupon: '优惠券', landing: '落地页', any: '任意配置' }[line];
-    const mention = /@\s*我|艾特|提醒我|通知我|notify|alert/i.test(q);
-    const impact = /影响分析|impact|评估/i.test(q);
-    return { tier, hours, beforeLaunch, line, lineLabel, mention, impact };
-  }
-  function monitorAnswer(q) {
-    const r = parseRule(q);
-    const actTxt = [r.mention ? '@我' : '站内通知', r.impact ? '附影响分析' : null].filter(Boolean).join(' + ');
-    const ruleCard = blk(`<h4>🤖 监控规则解析</h4>
-      <table class="ai-tbl">
-        <tr><th style="width:84px">监控范围</th><td>${esc(r.tier)} 活动</td></tr>
-        <tr><th>触发条件</th><td>${esc(r.lineLabel)}发生变更</td></tr>
-        <tr><th>时间窗口</th><td>${r.beforeLaunch ? `活动上线前 <b>${r.hours}</b> 小时内` : `任意时间（未限定窗口）`}</td></tr>
-        <tr><th>执行动作</th><td>${esc(actTxt)}</td></tr>
-      </table>
-      <button class="ai-act" data-rule="on">启用监控规则</button><span style="font-size:11px;color:#7587a8">启用后将持续监听变更流，命中即触发</span>`);
-    // 试运行：在当前变更流里找匹配项
-    const inTier = (c) => r.tier === '全部档位' || c.grade === r.tier;
-    const typeMatch = (ch) => r.line === 'any' || ch.type === r.line || (r.line === 'subsidy' && ch.type === 'subsidy');
-    const hits = [];
-    Object.keys(CHANGES).forEach((id) => {
-      const c = campaignOf(id); if (!c || !inTier(c)) return;
-      changesOf(id).forEach((ch) => {
-        if (!typeMatch(ch)) return;
-        const d = detailOf(id); const launch = d && d.launchDate ? PT(d.launchDate) : 0;
-        const inWindow = r.beforeLaunch && launch ? (PT(ch.time) <= launch && launch - PT(ch.time) <= r.hours * 3600000) : true;
-        hits.push({ c, ch, launch, inWindow });
-      });
-    });
-    const winHits = hits.filter((h) => h.inWindow);
-    // 信息量优先：有机制/价格的排前，纯状态翻转排后
-    const informative = (h) => /ONE_PRICE|BOGO|DISCOUNT/.test(String(h.ch.after || '')) ? 0 : 1;
-    hits.sort((a, b) => (a.inWindow === b.inWindow ? 0 : a.inWindow ? -1 : 1) || informative(a) - informative(b) || PT(b.ch.time) - PT(a.ch.time));
-    const preview = blk(`<h4>▶️ 试运行 · 命中预览</h4>
-      <p style="color:#5a6a87">在当前变更流中，<b>${r.tier}</b> 活动的「${esc(r.lineLabel)}」类改动共 <b>${hits.length}</b> 条${r.beforeLaunch ? `，其中落在上线前 ${r.hours}h 窗口内 <b>${winHits.length}</b> 条` : ''}：</p>
-      ${hits.slice(0, 4).map((h) => `<div style="background:#fff;border:1px solid #e7ecf5;border-left:3px solid ${h.inWindow ? '#16a266' : '#cbd5e8'};border-radius:9px;padding:9px 11px;margin:6px 0">
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">${rgBadge(h.c.team)}<b style="font-size:12.5px">${esc(h.c.campaignName)}</b><span class="ai-bdg rg">${esc(h.c.grade)}</span>${h.inWindow ? '<span class="ai-bdg st-live">✓ 命中窗口</span>' : '<span class="ai-bdg st-ended">窗口外</span>'}<a style="margin-left:auto;color:#3573f5;cursor:pointer;font-size:11px" data-open="${h.c.campaignId}" data-open-tab="subsidy">查看 →</a></div>
-        <div style="font-size:12px;color:#7587a8;margin-bottom:5px">${esc(h.ch.time)} · ${esc(h.ch.scope)} / ${esc(h.ch.field)}</div>
-        ${r.impact ? `<div style="font-size:12px;color:#2c3a55;background:#f7f9fd;border-radius:7px;padding:7px 9px">📊 <b>影响分析：</b>${impactOf(h.c, h.ch)}</div>` : ''}
-      </div>`).join('')}
-      ${hits.length === 0 ? '<p style="color:#9aa6bd">当前无匹配改动。</p>' : ''}`, 140);
-    const note = blk(`<p style="color:#9aa6bd;font-size:11px">注：本页为 mock 变更流，改动时点多在活动进行中，故"上线前 ${r.hours}h"窗口命中较少；规则上线后会对真实变更流实时判定并推送。</p>`, 320);
-    return { steps: ['解析自然语言监控规则', `按「${r.tier} + ${r.lineLabel}变更${r.beforeLaunch ? ' + 上线前' + r.hours + 'h' : ''}」匹配`, `扫描变更流，命中 ${hits.length} 条并生成影响分析`], html: ruleCard + preview + note, sources: [srcDigest, srcList] };
-  }
-
-  /* ---- 风控/通用：高力度券扫描 ---- */
-  function couponScanAnswer() {
-    const hits = [];
-    CAMPAIGNS.forEach((c) => {
-      const d = detailOf(c.campaignId) || {};
-      (d.coupons || []).forEach((row) => { if (/5折|半价|半價|50%\s*off/i.test(String(row[1]))) hits.push({ c, row }); });
-    });
-    const html = hits.length
-      ? blk(`<h4>🎟️ 5 折及以上力度的券（${hits.length} 张）</h4><table class="ai-tbl"><tr><th>券名</th><th style="width:64px">类型</th><th style="width:80px">所属活动</th></tr>${hits.slice(0, 8).map((h) => `<tr><td>${esc(String(h.row[1]))}</td><td>${String(h.row[2]).includes('PRIVATE') ? '私有' : '公开'}</td><td><a style="color:#3573f5;cursor:pointer" data-open="${h.c.campaignId}" data-open-tab="coupon">${h.c.campaignId}</a></td></tr>`).join('')}</table>`)
-        + blk('<p style="color:#7587a8">私有券需领取后使用，建议核查领用频控与账号关联策略。</p>', 160)
-      : blk('<p>当前所有活动均未配置 5 折及以上力度的券。</p>');
-    return { steps: [`扫描 ${CAMPAIGNS.length} 个活动的 Coupon 配置`, `命中高力度券 ${hits.length} 张`], html, sources: hits.slice(0, 3).map((h) => srcDetail(h.c, 'coupon', `Detail · ${h.c.campaignId} / Coupon`)).concat([srcList]) };
-  }
-
-  /* ---- 客服：单活动应答要点 ---- */
-  function csAnswer(ents) {
-    if (!ents.campaigns.length) {
-      const pool = CAMPAIGNS.filter((c) => c.status === 'live' || c.status === 'upcoming');
-      return clarifyAnswer('生成客服应答要点', pool, '给我一份 {id} 的客服应答要点');
-    }
-    const c = ents.campaigns[0];
-    const d = detailOf(c.campaignId) || {};
-    const rows = parseMechRows(d);
-    const byLine = {};
-    rows.forEach((r) => { (byLine[r.line] = byLine[r.line] || []).push(r); });
-    const flash = rows.filter((r) => r.hours != null && r.hours <= 4);
-    const coupons = d.coupons || [];
-    const priv = coupons.filter((r) => String(r[2]).includes('PRIVATE')).length;
-    const head = blk(`<h4>🎧 客服速查卡：${esc(c.campaignName)}${d.nameLocal && d.nameLocal !== c.campaignName ? `（${esc(d.nameLocal)}）` : ''}</h4>
-      <p>${rgBadge(c.team)} ${stBadge(c.status)} <span class="ai-bdg rg">${esc(c.grade)}</span></p>
-      <table class="ai-tbl"><tr><th style="width:88px">活动周期</th><td>${esc(d.startEndDate || '-')}（${esc(d.timezone || 'Local time')} · ${esc(TEAM_TZ[c.team] || '')}）</td></tr>
-      <tr><th>所属集合</th><td>${esc(c.collectionName)}（${esc(c.collectionId)}）</td></tr>
-      <tr><th>活动说明</th><td>${esc((d.description || '-').slice(0, 90))}</td></tr></table>`);
-    const lineTxt = LINE_DEF.map(([k, label]) => {
-      const arr = byLine[k] || [];
-      if (!arr.length) return `<li>${label}：本期无供给</li>`;
-      const s = arr[0];
-      const sample = `${esc(s.item)}${s.val != null ? ` ${esc(String(s.raw))} ${esc(s.cur)}` : ''}（${s.mech === 'ONE_PRICE' ? '一口价' : s.mech === 'BOGO' ? '买赠' : '折扣'}）`;
-      return `<li><b>${label}</b>：${arr.length} 个标的，如 ${sample}</li>`;
-    }).join('');
-    const play = blk(`<h4>玩法速览</h4><ul>${lineTxt}</ul>${flash.length ? `<p>⏱️ 含 <b>${flash.length} 个限时闪购</b>（多为 21:00 开抢、约 2.5 小时窗口，售罄即止）。</p>` : ''}`, 130);
-    const cp = blk(`<h4>优惠券（${coupons.length} 张，私有 ${priv}）</h4>${coupons.length ? `<table class="ai-tbl"><tr><th>券名</th><th style="width:58px">类型</th><th style="width:96px">有效期至</th></tr>${coupons.slice(0, 5).map((r) => `<tr><td>${esc(String(r[1]))}</td><td>${String(r[2]).includes('PRIVATE') ? '私有' : '公开'}</td><td>${esc(String(r[5] || '').slice(0, 10))}</td></tr>`).join('')}</table>${coupons.length > 5 ? `<p style="color:#7587a8">其余 ${coupons.length - 5} 张见详情页 Coupon Info。</p>` : ''}` : '<p>本活动未配置优惠券。</p>'}`, 230);
-    const tips = [];
-    if (priv) tips.push('私有券需用户在活动落地页<b>先领取</b>后下单使用，不可直接补发');
-    if (flash.length) tips.push('闪购标的<b>数量有限、售罄即止</b>，未抢到不属于系统故障');
-    if (rows.some((r) => r.mech === 'BOGO')) tips.push('买赠（BOGO）具体规则以下单页展示为准，赠品不可折现');
-    if (c.notificationStatus !== 'Submitted') tips.push(`⚠️ 该活动 Notification 为「${esc(c.notificationStatus)}」，对外口径未冻结，<b>暂以页面信息为准、避免主动外宣</b>`);
-    tips.push('用户咨询退改：按对应产品线常规退改政策处理，活动优惠部分按券/补贴回收规则执行');
-    const faq = blk(`<h4>应答要点 & 常见问题</h4><ul>${tips.map((t) => `<li>${t}</li>`).join('')}</ul>
-      <p><b>Q：活动什么时候结束？</b><br/>A：${esc((d.startEndDate || '').split(' - ')[1] || '-')}（${esc(c.team)} 当地时间），以页面倒计时为准。</p>
-      ${coupons.length ? '<p><b>Q：优惠券在哪里领？</b><br/>A：进入活动落地页领券区领取，领取后在下单页自动展示可用券。</p>' : ''}
-      ${flash.length ? '<p><b>Q：一口价没抢到怎么办？</b><br/>A：每日闪购时段限量发售，可关注后续场次或其他在售优惠。</p>' : ''}`, 330);
-    const act = blk(`<button class="ai-act ghost" data-open="${c.campaignId}">打开活动详情</button><button class="ai-act ghost" data-open="${c.campaignId}" data-open-tab="coupon">券配置</button>`, 420);
-    return {
-      steps: [`定位活动 ${c.campaignId} · ${c.campaignName}`, `读取 Detail（玩法 ${rows.length} 行 / 券 ${coupons.length} 张 / 多语言 ${(TEAM_LOCALES[c.team] || []).length} 个）`, '生成客服应答要点'],
-      html: head + play + cp + faq + act,
-      sources: [srcDetail(c, 'campaign'), srcDetail(c, 'coupon', `Detail · ${c.campaignId} / Coupon`), srcDetail(c, 'subsidy', `Detail · ${c.campaignId} / Subsidy`)],
-    };
-  }
-
-  /* ---- BD：可参与机会 ---- */
-  function bdAnswer(ents) {
-    let pool = CAMPAIGNS.filter((c) => c.status === 'upcoming' || c.status === 'live');
-    if (ents.regions.length) pool = pool.filter((c) => ents.regions.includes(c.team));
-    if (ents.statuses.length) pool = pool.filter((c) => ents.statuses.includes(c.status));
-    const lineFilter = ents.lines[0] || null;
-    const items = pool.map((c) => {
-      const d = detailOf(c.campaignId) || {};
-      const slots = LINE_DEF.map(([k, label]) => ({ k, label, n: (d[k] || []).length }));
-      const gaps = slots.filter((s) => s.n === 0);
-      return { c, d, slots, gaps };
-    });
-    let list = items;
-    if (lineFilter) list = items.filter((x) => x.slots.find((s) => s.k === lineFilter && s.n === 0));
-    list.sort((a, b) => (a.c.status === b.c.status ? 0 : a.c.status === 'upcoming' ? -1 : 1));
-    const lineLabel = lineFilter ? (LINE_DEF.find(([k]) => k === lineFilter) || [])[1] : null;
-    const head = blk(`<h4>🤝 ${ents.regions.length ? ents.regions.join('/') + ' ' : ''}可参与的活动机会${lineLabel ? `（${lineLabel}线有空位）` : ''}</h4>
-      <div class="ai-kpis"><div class="ai-kpi"><b>${pool.filter((c) => c.status === 'upcoming').length}</b><span>即将开始</span></div>
-      <div class="ai-kpi"><b>${pool.filter((c) => c.status === 'live').length}</b><span>进行中</span></div>
-      <div class="ai-kpi warn"><b>${items.filter((x) => x.gaps.length).length}</b><span>有供给空位</span></div></div>`);
-    const cards = blk(list.length ? list.slice(0, 6).map((x) => {
-      const slotTxt = x.slots.map((s) => `${s.label.slice(0, 2)} ${s.n}`).join(' · ');
-      const gapTxt = x.gaps.length ? `<span style="color:#d46b08">空位：${x.gaps.map((g) => g.label).join('、')} → 可争取排期</span>` : '供给已满，可关注下期';
-      return `<div class="ai-camp" data-open="${x.c.campaignId}">${rgBadge(x.c.team)}<div class="nm"><b>${esc(x.c.campaignName)}</b><span>${esc(x.c.grade)} · ${shortPeriod(x.d)} · ${slotTxt}<br/>${gapTxt} · 对接人 ${esc(x.c.creator)}</span></div>${stBadge(x.c.status)}<span class="go">详情 →</span></div>`;
-    }).join('') : `<p>当前筛选条件下暂无${lineLabel ? `「${lineLabel}」有空位的` : '可参与'}活动，可放宽地区或关注 Draft 储备。</p>`, 150);
-    const tip = blk(`<p style="color:#7587a8">提报建议：Tier 1 活动资源位竞争激烈，建议<b>上线前 ≥7 天</b>完成供给提报与素材提交；空位线（玩法行数为 0）通过率更高。</p>`, 260);
-    return {
-      steps: [`检索 Campaign List（Upcoming + Live，命中 ${pool.length} 个）`, '统计各活动 机票/酒店/门票/套餐 供给行数', lineFilter ? `按「${lineLabel}空位」过滤` : '识别供给空位机会'],
-      html: head + cards + tip,
-      sources: [srcList].concat(list.slice(0, 2).map((x) => srcDetail(x.c, 'subsidy', `Detail · ${x.c.campaignId} / Subsidy`))),
-    };
-  }
-
-  /* ---- 运营：进度看板 ---- */
-  function opsAnswer() {
-    const cnt = (s) => CAMPAIGNS.filter((c) => c.status === s).length;
-    const regions = ['HK', 'TW', 'SG', 'MY'];
-    const matrix = regions.map((r) => `<tr><td><b>${r}</b></td>${['live', 'upcoming', 'ended', 'draft'].map((s) => `<td style="text-align:center">${CAMPAIGNS.filter((c) => c.team === r && c.status === s).length || '·'}</td>`).join('')}</tr>`).join('');
-    const pending = CAMPAIGNS.filter((c) => (c.status === 'upcoming' || c.status === 'live') && c.notificationStatus !== 'Submitted');
-    const anomalies = CAMPAIGNS.filter((c) => c.status === 'upcoming').map((c) => ({ c, d: detailOf(c.campaignId) })).filter((x) => x.d && periodEnd(x.d) && periodEnd(x.d) < DEMO_NOW);
-    const recent = Object.keys(CHANGES).map((id) => ({ id: Number(id), n: changesOf(id).filter((ch) => DEMO_NOW - PT(ch.time) <= 7 * DAY).length })).filter((x) => x.n > 0).sort((a, b) => b.n - a.n);
-    const upcoming = CAMPAIGNS.filter((c) => c.status === 'upcoming').map((c) => ({ c, d: detailOf(c.campaignId) }));
-    const kpi = blk(`<h4>📊 活动整体进度看板 <span style="font-weight:400;color:#8595b3">基准 ${DEMO_NOW_STR}</span></h4>
-      <div class="ai-kpis"><div class="ai-kpi"><b>${cnt('live')}</b><span>进行中</span></div><div class="ai-kpi"><b>${cnt('upcoming')}</b><span>即将开始</span></div>
-      <div class="ai-kpi"><b>${cnt('draft')}</b><span>草稿</span></div><div class="ai-kpi"><b>${cnt('ended')}</b><span>已结束</span></div></div>
-      <table class="ai-tbl" style="margin-top:8px"><tr><th style="width:54px">地区</th><th>Live</th><th>Upcoming</th><th>Ended</th><th>Draft</th></tr>${matrix}</table>`);
-    const todo = blk(`<h4>⚠️ 关键节点待办（${pending.length + anomalies.length} 项）</h4>
-      ${pending.length ? `<p><b>Notification 未提交</b>（上线前必须完成）：</p>${pending.map((c) => `<div class="ai-camp" data-open="${c.campaignId}">${rgBadge(c.team)}<div class="nm"><b>${esc(c.campaignName)}</b><span>${stCN(c.status)} · 负责人 ${esc(c.creator)} · 当前「${esc(c.notificationStatus)}」</span></div>${stBadge(c.status)}<span class="go">去处理 →</span></div>`).join('')}` : '<p>✅ 所有在线/待上线活动均已提交 Notification。</p>'}
-      ${anomalies.length ? `<p style="margin-top:6px"><b>排期疑似异常</b>（状态为 Upcoming 但配置周期早于当前基准，建议核对）：</p><ul>${anomalies.map((x) => `<li><a style="color:#3573f5;cursor:pointer" data-open="${x.c.campaignId}">${esc(x.c.campaignName)}</a> — 周期 ${shortPeriod(x.d)}</li>`).join('')}</ul>` : ''}`, 150);
-    const up = blk(`<h4>📅 即将开始（${upcoming.length} 个）</h4>${upcoming.slice(0, 4).map((x) => campChip(x.c)).join('')}`, 270);
-    const chg = blk(`<h4>近 7 天配置变更最活跃</h4>${recent.length ? `<ul>${recent.slice(0, 3).map((x) => { const c = campaignOf(x.id); return `<li><a style="color:#3573f5;cursor:pointer" data-open="${x.id}">${esc(c ? c.campaignName : x.id)}</a> — ${x.n} 条变更</li>`; }).join('')}</ul><p style="color:#7587a8">建议在 Digest 中跟进未读变更。</p>` : '<p>近 7 天无配置变更。</p>'}`, 360);
-    const act = blk('<button class="ai-act ghost" data-goto="list">打开活动列表</button><button class="ai-act ghost" data-goto="digest">查看今日 Digest</button>', 430);
-    return {
-      steps: [`聚合 ${CAMPAIGNS.length} 个活动的状态 × 地区分布`, `核对 Notification 提交情况（${pending.length} 个未提交）`, `扫描近 7 天变更流 + 排期一致性`],
-      html: kpi + todo + up + chg + act,
-      sources: [srcList, srcDigest],
-    };
-  }
-  const stCN = (s) => ({ live: '进行中', upcoming: '即将开始', ended: '已结束', draft: '草稿' }[s] || s);
-
-  /* ---- 变更查询 ---- */
-  function changesAnswer(ents) {
-    const typeTab = { collection: 'collection', campaign: 'campaign', subsidy: 'subsidy', coupon: 'coupon', landing: 'landing', promotion: 'promotion', supplementary: 'supplementary' };
-    const row = (id, ch) => `<tr><td style="white-space:nowrap">${esc(ch.time.slice(5, 16))}</td><td>${esc(ch.scope)} / ${esc(ch.field)}<br/><span style="color:#7587a8">${ch.before ? esc(String(ch.before).slice(0, 38)) + ' → ' : (ch.op === 'add' ? '新增：' : '')}${esc(String(ch.after == null ? '' : ch.after).slice(0, 46))}</span></td><td><a style="color:#3573f5;cursor:pointer;white-space:nowrap" data-open="${id}" data-open-tab="${typeTab[ch.type] || 'campaign'}">查看 →</a></td></tr>`;
-    if (ents.campaigns.length) {
-      const c = ents.campaigns[0];
-      const chs = changesOf(c.campaignId);
-      return {
-        steps: [`定位活动 ${c.campaignId}`, `读取 Changes（${chs.length} 条，按时间倒序）`],
-        html: blk(`<h4>🔔 ${esc(c.campaignName)} 的配置变更（${chs.length} 条）</h4>${chs.length ? `<table class="ai-tbl"><tr><th style="width:84px">时间</th><th>变更内容</th><th style="width:56px"></th></tr>${chs.slice(0, 6).map((ch) => row(c.campaignId, ch)).join('')}</table>` : '<p>暂无变更记录。</p>'}`)
-          + (isSubscribed(c.campaignId) ? '' : blk(`<button class="ai-act" data-dosub="${c.campaignId}">订阅该活动变更</button><span style="font-size:11px;color:#7587a8">订阅后新变更会进入「My Subs」与每日 Digest</span>`, 160)),
-        sources: [{ label: `Changes · ${c.campaignId}`, open: c.campaignId }, srcDigest],
-      };
-    }
-    const all = Object.keys(CHANGES).flatMap((id) => changesOf(id).map((ch) => ({ id: Number(id), ch }))).sort((a, b) => PT(b.ch.time) - PT(a.ch.time));
-    return {
-      steps: [`扫描全量变更流（${all.length} 条）`, '按时间倒序取最近 8 条'],
-      html: blk(`<h4>🔔 全部活动最近变更</h4><table class="ai-tbl"><tr><th style="width:84px">时间</th><th>变更内容</th><th style="width:56px"></th></tr>${all.slice(0, 8).map((x) => { const c = campaignOf(x.id); return `<tr><td style="white-space:nowrap">${esc(x.ch.time.slice(5, 16))}</td><td><b>${esc(c ? c.campaignName : x.id)}</b><br/><span style="color:#7587a8">${esc(x.ch.scope)} / ${esc(x.ch.field)}</span></td><td><a style="color:#3573f5;cursor:pointer" data-open="${x.id}" data-open-tab="${typeTab[x.ch.type] || 'campaign'}">查看 →</a></td></tr>`; }).join('')}</table>`),
-      sources: [srcDigest, srcList],
-    };
-  }
-
-  /* ---- 列表查询 ---- */
-  function lookupAnswer(ents) {
-    let pool = CAMPAIGNS.slice();
-    if (ents.campaigns.length) pool = ents.campaigns;
-    if (ents.regions.length) pool = pool.filter((c) => ents.regions.includes(c.team));
-    if (ents.statuses.length) pool = pool.filter((c) => ents.statuses.includes(c.status));
-    const title = [ents.regions.join('/'), ents.statuses.map(stCN).join('/')].filter(Boolean).join(' · ');
-    return {
-      steps: [`检索 Campaign List（条件：${title || '关键词匹配'}）`, `命中 ${pool.length} 个活动`],
-      html: blk(`<h4>📋 ${title ? title + ' 的活动' : '匹配到的活动'}（${pool.length} 个）</h4>${pool.length ? pool.slice(0, 6).map((c) => campChip(c)).join('') + (pool.length > 6 ? `<p style="color:#7587a8">其余 ${pool.length - 6} 个请到列表页查看。</p>` : '') : '<p>没有匹配的活动，试试换个说法或到列表页筛选。</p>'}`)
-        + blk('<button class="ai-act ghost" data-goto="list">打开活动列表</button>', 160),
-      sources: [srcList],
-    };
-  }
-
-  /* ---- 对比 ---- */
-  function compareAnswer(ents) {
-    const [a, b] = ents.campaigns;
-    const ra = riskSignals(a), rb = riskSignals(b);
-    const da = detailOf(a.campaignId) || {}, db = detailOf(b.campaignId) || {};
-    const cell = (c, d, r) => [esc(c.team), stCN(c.status), esc(c.grade), shortPeriod(d), `${r.rows.length} 行`, `${r.coupons.length} 张（5折+ ${r.half.length}）`, lvlChip(r.overall)];
-    const rowsA = cell(a, da, ra), rowsB = cell(b, db, rb);
-    const names = ['地区', '状态', '档位', '周期', '玩法供给', '优惠券', '风险评级'];
-    return {
-      steps: [`读取 ${a.campaignId} 与 ${b.campaignId} 的 Detail`, '对齐 7 个对比维度 + 风险评级'],
-      html: blk(`<h4>⚖️ 活动对比</h4><table class="ai-tbl"><tr><th style="width:74px"></th><th>${esc(a.campaignName)}</th><th>${esc(b.campaignName)}</th></tr>${names.map((n, i) => `<tr><td><b>${n}</b></td><td>${rowsA[i]}</td><td>${rowsB[i]}</td></tr>`).join('')}</table>`)
-        + blk(`<button class="ai-act ghost" data-open="${a.campaignId}">看 ${a.campaignId}</button><button class="ai-act ghost" data-open="${b.campaignId}">看 ${b.campaignId}</button>`, 180),
-      sources: [srcDetail(a), srcDetail(b)],
-    };
-  }
-
-  /* ---- 订阅（Agent 动作，需用户确认） ---- */
-  const ALL_EV = (typeof ALL_EVENTS !== 'undefined' && Array.isArray(ALL_EVENTS)) ? ALL_EVENTS : ['collection', 'campaign', 'subsidy', 'coupon', 'landing', 'promotion', 'supplementary'];
-  function doSubscribe(id, events) {
-    const done = subscribeCampaignIds([Number(id)], events && events.length ? events : ALL_EV);
-    if (typeof syncSubscriptionViews === 'function') syncSubscriptionViews();
-    if (typeof refreshSubBadge === 'function') refreshSubBadge();
-    if (typeof refreshDigestBadge === 'function') refreshDigestBadge();
-    return { subscribed: done, events: events && events.length ? events : ALL_EV };
-  }
-  function subscribeAnswer(ents) {
-    const targets = ents.campaigns.slice(0, 3);
-    return {
-      steps: [`识别订阅意图，命中 ${targets.length} 个活动`, '生成待确认动作（不会自动执行）'],
-      html: blk(`<h4>🔔 订阅确认</h4><p>将为以下活动订阅<b>全部事件类型</b>的配置变更（订阅后进入「My Subs」与每日 Digest）：</p>${targets.map((c) => campChip(c)).join('')}`)
-        + blk(targets.map((c) => isSubscribed(c.campaignId) ? `<button class="ai-act ghost" disabled>已订阅 ${c.campaignId}</button>` : `<button class="ai-act" data-dosub="${c.campaignId}">确认订阅 ${c.campaignId}</button>`).join('') + '<span style="font-size:11px;color:#7587a8">动作需你确认后才会执行</span>', 160),
-      sources: [{ label: 'My Subscriptions', goto: 'sub' }],
-    };
-  }
-
-  /* ---- 帮助 / 兜底 ---- */
-  function helpAnswer(persona) {
-    const p = PERSONAS.find((x) => x.key === persona) || PERSONAS[0];
-    return {
-      steps: ['未命中明确意图，返回能力说明'],
-      html: blk(`<p>我可以基于本页数据帮你做这些事：</p><ul>
-        <li><b>查活动</b>：「TW 即将开始的活动有哪些」「31571 是什么活动」</li>
-        <li><b>看变更</b>：「最近有什么配置变更」「3.3 Mega 改了什么」</li>
-        <li><b>玩法/券配置</b>：「列出 HK 3.3 Mega 的玩法与券配置」「哪些活动有超低价一口价」</li>
-        <li><b>客服应答</b>：「给我一份 31571 的客服应答要点」</li>
-        <li><b>BD 机会</b>：「哪些活动酒店线还有空位」</li>
-        <li><b>运营盘点</b>：「活动整体进度看板」「哪些还没提交通知」</li>
-        <li><b>设监控</b>：「任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析」</li>
-        <li><b>动作</b>：「帮我订阅 31571」（需确认后执行）</li></ul>
-        <p style="color:#7587a8">当前角色：<b>${p.label}</b>，下方快捷问题已按角色定制。</p>`),
-      sources: [srcList],
-    };
-  }
-
-  /* =====================================================================
-     意图路由（本地引擎；接入真实模型后由 LLM + TOOLS 替代）
-     ===================================================================== */
-  function route(q, persona) {
-    const ents = extractEntities(q);
-    const has = (re) => re.test(q);
-    // 监控规则（Agent）——需在"变更"类意图之前判定
-    if (has(/(监控|盯防|预警|告警)|(设|建|加|配).{0,4}规则|(任何|所有|凡是|只要|一旦).{0,30}(改动|变更|变动|修改|调整)|上线前.{0,8}\d+\s*(小时|h|天|日)|@\s*我/i)) return monitorAnswer(q);
-    if (has(/订阅|帮我关注|subscribe/i) && ents.campaigns.length) return subscribeAnswer(ents);
-    // 超低价 / 一口价清单
-    if (has(/超低价|超低|一口价|低价库存|深折/i) && !ents.ids.length) return lowPriceScanAnswer();
-    // 高力度券扫描
-    if (has(/5\s*折|半价|半價|50%|高力度/) && has(/券|coupon/i) && !ents.ids.length) return couponScanAnswer();
-    if (has(/对比|比较|\bvs\b/i) && ents.campaigns.length >= 2) return compareAnswer(ents);
-    if (has(/客服|话术|应答|應答|用户(问|進線|进线)|怎么回答|FAQ|速查/i)) return csAnswer(ents);
-    if (has(/参加|参与|报名|招商|供给|空位|可上|合作机会|\bBD\b/i)) return bdAnswer(ents);
-    if (has(/看板|进度|盘点|节点|提交.{0,6}(通知|notification)|notification|统计|多少.{0,4}活动|整体|overview/i)) return opsAnswer();
-    if (has(/变更|改了|改动|更新了|动了|change/i)) return changesAnswer(ents);
-    // 玩法/券配置梳理（替代原"风险评估"，仅呈现配置事实）
-    if (ents.campaigns.length === 1 && has(/配置|玩法|机制|力度|补贴|券|coupon|有什么券/i)) return configAnswer(ents);
-    if (ents.campaigns.length === 1 && has(/优惠|折扣|什么时候|何时|时间|开始|结束|安排|介绍/)) return csAnswer(ents);
-    if (ents.campaigns.length || ents.regions.length || ents.statuses.length) {
-      if (ents.campaigns.length === 1 && persona === 'risk') return configAnswer(ents);
-      if (ents.campaigns.length === 1 && persona === 'cs') return csAnswer(ents);
-      if (persona === 'bd' && !ents.campaigns.length) return bdAnswer(ents);
-      return lookupAnswer(ents);
-    }
-    if (persona === 'ops') return opsAnswer();
-    if (persona === 'bd') return bdAnswer(ents);
-    return helpAnswer(persona);
-  }
-
-  /* =====================================================================
-     UI 层
-     ===================================================================== */
-  const PERSONAS = [
-    { key: 'g', label: '通用', chips: ['现在有哪些进行中的活动？', '最近有什么配置变更？', '任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析', '帮我订阅 31571'] },
-    { key: 'risk', label: '风控', chips: ['列出 HK 3.3 Mega 的玩法与券配置', '哪些活动配了超低价一口价？', '有哪些 5 折以上的高力度券？', '任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析'] },
-    { key: 'cs', label: '客服', chips: ['给我一份 HK 3.3 Mega 的客服应答要点', '31571 什么时候开始和结束？', '用户问一口价没抢到怎么回答？'] },
-    { key: 'bd', label: 'BD', chips: ['最近有什么活动可以参加？', '哪些活动酒店线还有空位？', 'TW 即将开始的活动有哪些？'] },
-    { key: 'ops', label: '运营', chips: ['活动整体进度看板', '哪些活动还没提交 Notification？', '近 7 天哪些活动变更最频繁？', '任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析'] },
-  ];
-  let persona = 'g';
-  let busy = false;
-
-  function renderPersona() {
-    Q('aiPersona').innerHTML = PERSONAS.map((p) => `<span class="pp ${p.key === persona ? 'on' : ''}" data-persona="${p.key}">${p.label}</span>`).join('');
-  }
-  function renderChips() {
-    const p = PERSONAS.find((x) => x.key === persona);
-    Q('aiChips').innerHTML = p.chips.map((c) => `<span class="qc" data-ask="${esc(c)}">${esc(c)}</span>`).join('');
-  }
-  const SPARK = '<svg class="spark" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.9 5.4L19.5 9l-5.6 1.6L12 16l-1.9-5.4L4.5 9l5.6-1.6L12 2z"/></svg>';
-  function addUser(text) {
-    const el = document.createElement('div');
-    el.className = 'ai-msg user';
-    el.innerHTML = `<div class="who">你</div><div class="bub">${esc(text)}</div>`;
-    Q('aiMsgs').appendChild(el); scrollBottom();
-  }
-  function addBotShell() {
-    const el = document.createElement('div');
-    el.className = 'ai-msg bot';
-    el.innerHTML = `<div class="who">${SPARK} Ask AI</div><div class="bub"><div class="ai-steps"></div><div class="ai-body"><span class="ai-typing"><i></i><i></i><i></i></span></div></div>`;
-    Q('aiMsgs').appendChild(el); scrollBottom();
-    return el;
-  }
-  function scrollBottom() { const m = Q('aiMsgs'); m.scrollTop = m.scrollHeight; }
-  const sleep = (ms) => new Promise((r) => setTimeout(r, AskAI._instant ? 0 : ms));
-
-  async function ask(text) {
-    if (busy || !text || !text.trim()) return;
-    busy = true;
-    text = text.trim();
-    addUser(text);
-    const shell = addBotShell();
-    const stepsBox = shell.querySelector('.ai-steps');
-    const body = shell.querySelector('.ai-body');
-    let ans;
-    try { ans = route(text, persona); }
-    catch (e) { ans = { steps: [], html: blk(`<p>抱歉，处理这个问题时出错了（${esc(e.message)}）。换个问法试试？</p>`), sources: [] }; }
-    await sleep(260);
-    for (const s of ans.steps || []) {
-      const li = document.createElement('div');
-      li.className = 'ai-step';
-      li.innerHTML = `<span class="dot"></span>${esc(s)}`;
-      stepsBox.appendChild(li); scrollBottom();
-      await sleep(330);
-      li.classList.add('done');
-    }
-    await sleep(180);
-    const srcHtml = (ans.sources && ans.sources.length)
-      ? `<div class="ai-src"><span class="lab">📎 依据</span>${ans.sources.map((s) => `<span class="chip" ${s.open ? `data-open="${s.open}" data-open-tab="${s.tab || 'campaign'}"` : ''} ${s.goto ? `data-goto="${s.goto}"` : ''}>${esc(s.label)}</span>`).join('')}</div>` : '';
-    body.innerHTML = ans.html + srcHtml + '<div class="ai-note">AI 生成 · 基于本页 mock 数据，重要决策请复核来源</div>';
-    scrollBottom();
-    setTimeout(scrollBottom, 350);
-    busy = false;
-  }
-
-  function welcome() {
-    const el = document.createElement('div');
-    el.className = 'ai-msg bot';
-    el.innerHTML = `<div class="who">${SPARK} Ask AI</div><div class="bub">${blk('<p>你好，我是<b>活动信息助手</b>。我能直接读取本页的活动列表、详情配置和变更流——帮你查信息、梳理玩法与券配置、生成客服应答要点、盘点运营进度，也能按你的自然语言设定监控规则。</p><p style="color:#7587a8">左上可切换<b>角色场景</b>，下方有按角色定制的快捷问题。</p>')}
-      <div style="margin-top:10px;padding:9px 11px;background:#f7f4ff;border:1px dashed #d9ccff;border-radius:9px">
-        <div style="font-size:11.5px;color:#7a5cff;font-weight:700;margin-bottom:5px">💡 试试用自然语言设监控</div>
-        <span class="qc" data-ask="任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析" style="display:inline-block;background:#fff;border:1px solid #e0d6ff;color:#6b4ed8;border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;line-height:1.5">任何 Tier 1 活动上线前 48 小时内的补贴改动，@我并附影响分析</span>
-      </div></div>`;
-    Q('aiMsgs').appendChild(el);
-  }
-
-  /* 事件代理：答案中的跳转 / 追问 / 订阅动作 / 启用监控 */
-  function onPanelClick(e) {
-    const t = e.target.closest('[data-persona],[data-ask],[data-open],[data-goto],[data-dosub],[data-rule]');
-    if (!t) return;
-    if (t.dataset.persona) { persona = t.dataset.persona; renderPersona(); renderChips(); Q('aiInput').placeholder = `以「${(PERSONAS.find((p) => p.key === persona) || {}).label}」视角问我…`; return; }
-    if (t.dataset.ask) { ask(t.dataset.ask); return; }
-    if (t.dataset.rule) {
-      t.outerHTML = '<button class="ai-act ghost" disabled>✅ 监控规则已启用</button>';
-      showToast('Monitoring rule enabled');
-      return;
-    }
-    if (t.dataset.dosub) {
-      const id = Number(t.dataset.dosub);
-      const r = doSubscribe(id);
-      t.outerHTML = `<button class="ai-act ghost" disabled>✅ 已订阅 ${id}</button>`;
-      showToast(`Subscribed ${id} (${r.events.length} event types)`);
-      return;
-    }
-    if (t.dataset.open) { openDetail(Number(t.dataset.open), { tab: t.dataset.openTab || 'campaign' }); return; }
-    if (t.dataset.goto) { switchPage(t.dataset.goto); return; }
-  }
-
-  function open() { document.body.classList.add('askai-open'); setTimeout(() => { window.dispatchEvent(new Event('resize')); Q('aiInput').focus(); }, 340); }
-  function close() { document.body.classList.remove('askai-open'); setTimeout(() => window.dispatchEvent(new Event('resize')), 340); }
-  function clear() { Q('aiMsgs').innerHTML = ''; welcome(); }
-
-  function init() {
-    renderPersona(); renderChips(); welcome();
-    Q('aiPanel').addEventListener('click', onPanelClick);
-    Q('aiInput').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.isComposing) { const v = Q('aiInput').value; Q('aiInput').value = ''; ask(v); }
-    });
-    // 默认展开，常显于右侧
-    document.body.classList.add('askai-open');
-    setTimeout(() => window.dispatchEvent(new Event('resize')), 360);
-  }
-
-  window.AskAI = {
-    open, close, clear,
-    send() { const v = Q('aiInput').value; Q('aiInput').value = ''; ask(v); },
-    ask, setPersona(k) { persona = k; renderPersona(); renderChips(); },
-    /* 供测试/真实模型复用 */
-    answerFor: (q, p) => route(q, p || persona),
-    TOOLS, executeTool, callLLM,
-    _instant: false,
-  };
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
-})();
-
-</script>
 </body>
 </html>
