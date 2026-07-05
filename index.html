@@ -7532,6 +7532,1780 @@ updateSubParentStickyClone = function(row, top, left, width, scrollLeft){
 
 </script>
 
+<style id="remove-read-unread-style">
+/* Remove read / unread presentation and interactions */
+body.no-read-unread #digestBadge,
+body.no-read-unread .dg-unread-inline,
+body.no-read-unread #page-sub .sub-mark-all-read-btn,
+body.no-read-unread #page-sub .mark-read-btn,
+body.no-read-unread #page-sub .mark-unread-btn,
+body.no-read-unread #page-sub .ir-dot,
+body.no-read-unread .dg-dot{display:none !important;}
+body.no-read-unread .dg-group.has-unread{border-left:1px solid #e7ecf5 !important;padding-left:14px !important;background:#fff !important;}
+body.no-read-unread .dg-change.is-unread .dg-field{font-weight:400 !important;}
+body.no-read-unread .dg-change{grid-template-columns:auto minmax(96px,150px) minmax(0,1fr) auto 14px !important;}
+@media (max-width:900px){body.no-read-unread .dg-change{grid-template-columns:auto minmax(0,1fr) auto 14px !important;}body.no-read-unread .dg-field{display:none !important;}}
+body.no-read-unread #page-sub .sub-table{width:1398px !important;min-width:1398px !important;}
+body.no-read-unread #page-sub .sub-table th.action-col,
+body.no-read-unread #page-sub .sub-table td.ov-actions,
+body.no-read-unread #page-sub .sub-parent-row-sticky-clone tr.ov-head > td.ov-actions{
+  width:240px !important;min-width:240px !important;max-width:240px !important;right:0 !important;text-align:left !important;overflow:hidden !important;
+}
+body.no-read-unread #page-sub .sub-table thead th:nth-child(10).action-col,
+body.no-read-unread #page-sub .sub-table tr.ov-head > td:nth-child(10).ov-actions{right:0 !important;width:240px !important;min-width:240px !important;max-width:240px !important;padding-left:10px !important;padding-right:12px !important;text-align:left !important;}
+body.no-read-unread #page-sub .ov-actions-inner{justify-content:flex-start !important;gap:0 !important;overflow:hidden !important;}
+body.no-read-unread #page-sub .ov-actions-inner .unsub{color:#ff4d4f !important;display:inline-flex !important;}
+body.no-read-unread #page-sub .changes-v39-table{width:1350px !important;min-width:1350px !important;}
+body.no-read-unread #page-sub .changes-v39-table th,
+body.no-read-unread #page-sub .changes-v39-table td{box-sizing:border-box !important;}
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(1),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(1),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table th:nth-child(1){
+  position:sticky !important;left:0 !important;z-index:260 !important;width:150px !important;min-width:150px !important;max-width:150px !important;background:#fff !important;text-align:left !important;overflow:hidden !important;
+}
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(1),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(1){z-index:560 !important;background:#f3f6fb !important;top:0 !important;}
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(2),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(2),
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(3),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(3),
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(4),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(4),
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(5),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(5),
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(6),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(6){position:relative !important;left:auto !important;right:auto !important;z-index:1 !important;background-clip:padding-box !important;}
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(2),
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(3),
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(4),
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(5),
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(6),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(2),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(3),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(4),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(5),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(6){position:sticky !important;top:0 !important;z-index:420 !important;background:#f3f6fb !important;}
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(7),
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(7),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table th:nth-child(7){
+  position:sticky !important;right:0 !important;z-index:270 !important;width:210px !important;min-width:210px !important;max-width:210px !important;background:#fff !important;text-align:left !important;overflow:hidden !important;
+}
+body.no-read-unread #page-sub .changes-v39-table thead th:nth-child(7),
+body.no-read-unread #page-sub .sub-child-head-sticky-clone .changes-v39-table thead th:nth-child(7){z-index:570 !important;background:#f3f6fb !important;top:0 !important;}
+body.no-read-unread #page-sub .changes-v39-table tbody td:nth-child(7){padding:0 !important;}
+body.no-read-unread #page-sub .changes-v39-table tbody td:nth-child(7) .ch-actions{height:40px !important;width:100% !important;display:flex !important;align-items:center !important;justify-content:flex-start !important;padding-left:10px !important;background:inherit !important;}
+body.no-read-unread #page-sub .changes-v39-table tr.ch-unread td{background:#fff !important;}
+body.no-read-unread #page-sub .changes-v39-table tbody tr td{background:#fff !important;}
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(1)::after,
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(1)::after,
+body.no-read-unread #page-sub .changes-v39-table th:nth-child(7)::before,
+body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content:none !important;display:none !important;}
+</style>
+
+<script id="remove-read-unread-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function safe(fn){ try { return fn(); } catch(e) { console.warn('[remove read/unread]', e); } }
+  document.body.classList.add('no-read-unread');
+
+  if (typeof SUB_FILTER !== 'undefined') SUB_FILTER.unreadOnly = false;
+  if (typeof isUnread === 'function') isUnread = function(){ return false; };
+  if (typeof markChangeUnread === 'function') markChangeUnread = function(){};
+  if (typeof markChangeRead === 'function') markChangeRead = function(){};
+  if (typeof markCampaignUnread === 'function') markCampaignUnread = function(){};
+  if (typeof markCampaignRead === 'function') markCampaignRead = function(){};
+  if (typeof markAllRead === 'function') markAllRead = function(){};
+  if (typeof refreshDigestBadge === 'function') refreshDigestBadge = function(){ const b = byId('digestBadge'); if(b){ b.style.display = 'none'; b.textContent = ''; b.removeAttribute('title'); } };
+  if (typeof digestTodayUnread === 'function') digestTodayUnread = function(){ return 0; };
+  if (typeof digestUnreadTotal === 'function') digestUnreadTotal = function(){ return 0; };
+  if (typeof jumpToChange === 'function') jumpToChange = function(id, type, locale){ const tab = TYPE_TO_TAB[type] || 'campaign'; openDetail(Number(id), { tab, locale: locale || null }); };
+  if (typeof digestJump === 'function') digestJump = function(id, type, locale, key){ jumpToChange(id, type, locale, key); };
+
+  if (typeof digestHighlights === 'function') digestHighlights = function(){
+    const day = digestDateStr();
+    const groups = [];
+    Object.keys(CHANGES).forEach(id => {
+      const c = getCampaignById(id); if(!c) return;
+      const list = (CHANGES[id] || [])
+        .filter(ch => String(ch.time).slice(0, 10) === day)
+        .sort((a, b) => parseTime(b.time) - parseTime(a.time));
+      if(!list.length) return;
+      groups.push({ id:String(id), c, list, subscribed: !!SUBS[id], latest:parseTime(list[0].time) });
+    });
+    const statusPriority = { live:0, upcoming:1, draft:2, ended:3 };
+    groups.sort((a, b) => ((statusPriority[a.c.status] ?? 9) - (statusPriority[b.c.status] ?? 9)) || (b.latest - a.latest));
+    return { day, groups };
+  };
+
+  if (typeof digestRenderChange === 'function') digestRenderChange = function(id, ch){
+    let diff;
+    if(ch.op === 'add') diff = `<span class="diff-add">+ ${escape(ch.after)}</span>`;
+    else if(ch.op === 'remove') diff = `<span class="diff-remove">− ${escape(ch.before)}</span>`;
+    else diff = `<span class="diff-old">${escape(ch.before)}</span> <span class="diff-arrow">→</span> <span class="diff-new">${escape(ch.after)}</span>`;
+    const t = String(ch.time).slice(11, 16);
+    const evt = TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope);
+    return `<div class="dg-change" role="button" tabindex="0"
+        onclick="digestJump('${id}','${ch.type}','${ch.locale || ''}','')"
+        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();digestJump('${id}','${ch.type}','${ch.locale || ''}','')}"
+        title="Open ${escape(evt)} in campaign detail">
+      <span class="op-pill op-${ch.op}">${OP_LABEL[ch.op]}</span>
+      <span class="dg-field" title="${escape(ch.scope)} · ${escape(ch.field)}">${escape(ch.field)}</span>
+      <span class="dg-diff">${diff}</span>
+      <span class="dg-time">${t}</span>
+      <span class="dg-go" aria-hidden="true">→</span>
+    </div>`;
+  };
+
+  if (typeof digestRenderGroup === 'function') digestRenderGroup = function(g){
+    const expanded = DIGEST_GROUP_EXPANDED.has(g.id);
+    const shown = expanded ? g.list : g.list.slice(0, DIGEST_PREVIEW_COUNT);
+    const more = g.list.length - DIGEST_PREVIEW_COUNT;
+    const regions = getCampaignRegions(g.c).join(', ');
+    return `<article class="dg-group">
+      <header class="dg-group-head">
+        <div class="dg-group-title">
+          <span class="link-name" role="button" tabindex="0" onclick="openDetail(${Number(g.id)})" onkeydown="if(event.key==='Enter'){openDetail(${Number(g.id)})}" title="Open campaign detail">${escape(g.c.campaignName)}</span>
+          <span class="badge-stage ${g.c.status}">${STATUS_LABEL[g.c.status]}</span>
+          <span class="chip mini">${escape(regions)}</span>
+          
+        </div>
+        <div class="dg-group-meta"><span class="dg-count">${g.list.length} update${g.list.length > 1 ? 's' : ''}</span></div>
+      </header>
+      <div class="dg-changes">${shown.map(ch => digestRenderChange(g.id, ch)).join('')}</div>
+      ${more > 0 ? `<button class="dg-more" onclick="toggleDigestGroup('${g.id}')">${expanded ? 'Show less' : `Show all ${g.list.length} updates`}</button>` : ''}
+    </article>`;
+  };
+
+  if (typeof buildDigestAISummary === 'function') buildDigestAISummary = function(groups, totalChanges){
+    if(!groups.length){
+      return '今天暂未发现新的活动变动信息，活动整体保持稳定。可以继续关注 Live 和 Upcoming 活动，确认后续是否有补贴、券、落地页或推广素材更新。';
+    }
+    const eventMap = {}, opMap = {}, regionMap = {}, statusMap = {};
+    groups.forEach(g => {
+      getCampaignRegions(g.c).forEach(r => { regionMap[r] = (regionMap[r] || 0) + g.list.length; });
+      statusMap[STATUS_LABEL[g.c.status] || g.c.status] = (statusMap[STATUS_LABEL[g.c.status] || g.c.status] || 0) + 1;
+      g.list.forEach(ch => {
+        const eventName = TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope);
+        eventMap[eventName] = (eventMap[eventName] || 0) + 1;
+        opMap[OP_LABEL[ch.op] || ch.op] = (opMap[OP_LABEL[ch.op] || ch.op] || 0) + 1;
+      });
+    });
+    const focusCampaigns = groups.slice(0, 3).map(g => `${g.c.campaignName}（${g.list.length} 条）`).join('、');
+    return `今天共有 ${totalChanges} 条活动变动，涉及 ${groups.length} 个活动。变动主要集中在 ${mapTopText(eventMap, 3)}，操作类型以 ${mapTopText(opMap, 3)} 为主；受影响市场包括 ${mapTopText(regionMap, 4)}，活动状态分布为 ${mapTopText(statusMap, 4)}。建议重点关注 ${focusCampaigns}。`;
+  };
+
+  if (typeof renderDigest === 'function') renderDigest = function(){
+    const box = byId('digestBody'); if(!box) return;
+    const { groups } = digestHighlights();
+    const totalChanges = groups.reduce((s, g) => s + g.list.length, 0);
+    const counts = digestStatusCounts();
+    const regionCounts = digestRegionCounts();
+    const regionMax = Math.max(1, ...Object.values(regionCounts));
+    const hero = `<div class="page-card dg-hero">
+      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
+      <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> campaign${groups.length === 1 ? '' : 's'} today</div>
+    </div>`;
+    const kpis = `<div class="dg-kpis">${DIGEST_STATUS_CARDS.map(card => {
+      const n = counts[card.key] || 0;
+      const arg = card.key ? `{status:'${card.key}', toast:'Campaign list filtered: ${card.label}'}` : `{toast:'Showing all campaigns'}`;
+      return `<button class="dg-kpi kpi-${card.cls}" onclick="digestOpenList(${arg})" title="Open the campaign list${card.key ? ` filtered to ${card.label}` : ''}">
+        <span class="dg-kpi-icon" aria-hidden="true">${card.icon}</span><span class="dg-kpi-num">${n}</span><span class="dg-kpi-label">${card.label}</span><span class="dg-kpi-go">View in list →</span>
+      </button>`;
+    }).join('')}</div>`;
+    const highlightsBody = groups.length ? groups.map(g => digestRenderGroup(g)).join('') : `<div class="dg-empty"><div class="dg-empty-art" aria-hidden="true">✓</div><div class="dg-empty-title">No updates today</div><div class="dg-empty-text">All campaigns are steady. Browse the full list to explore details.</div><button class="btn btn-primary" onclick="digestOpenList({})">Open Campaign List</button></div>`;
+    const aiSummary = `<div class="page-card dg-card dg-ai-summary"><div class="dg-card-head"><h3>AI Summary</h3><span class="dg-card-sub">Generated from today’s changes</span></div><p>${escape(buildDigestAISummary(groups, totalChanges))}</p></div>`;
+    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Today's Change Record</h3><span class="dg-card-sub">Newest updates first</span></div>${highlightsBody}</div>`;
+    const regionRows = LIST_REGION_OPTIONS.map(r => {
+      const n = regionCounts[r] || 0;
+      return `<button class="dg-region-row" onclick="digestOpenList({region:'${r}', toast:'Campaign list filtered: ${r}'})" title="Open the campaign list filtered to ${r}"><span class="dg-region-name">${r}</span><span class="dg-region-bar"><span class="dg-region-fill" style="width:${Math.round(n / regionMax * 100)}%;"></span></span><span class="dg-region-num">${n}</span></button>`;
+    }).join('');
+    const rail = `<div class="dg-rail dg-rail-top"><div class="page-card dg-card dg-region-summary"><div class="dg-card-head"><h3>By Region</h3><span class="dg-card-sub">Campaigns</span></div><div class="dg-region-list">${regionRows}</div></div></div>`;
+    box.innerHTML = `${hero}<div class="dg-summary-row">${kpis}${rail}</div>${aiSummary}${highlights}`;
+    refreshDigestBadge();
+  };
+
+  if (typeof renderOverviewRow === 'function') renderOverviewRow = function(r){
+    const expanded = EXPANDED.has(r.id);
+    const checked = SUB_SELECTED.has(r.id);
+    const sub = SUBS[r.id];
+    const tierCls = (r.c.grade||'').toLowerCase().replace(/\s+/g,'');
+    const head = `<tr class="ov-head ${expanded?'expanded':''}">
+      <td><input type="checkbox" aria-label="Select campaign ${r.id}" ${checked?'checked':''} onclick="event.stopPropagation();" onchange="toggleSubSelect('${r.id}', this.checked)" /></td>
+      <td><span class="ov-caret" role="button" tabindex="0" aria-label="${expanded?'Collapse':'Expand'}" onclick="toggleExpand('${r.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleExpand('${r.id}')}">${expanded?'▾':'▸'}</span></td>
+      <td>${r.id}</td>
+      <td><span class="link-name" onclick="openDetail(${r.id})">${escape(r.c.campaignName)}</span></td>
+      <td>${escape(r.c.theme||'-')}</td>
+      <td>${r.c.grade ? `<span class="badge-tier tier-${tierCls}">${r.c.grade}</span>` : '<span class="muted">-</span>'}</td>
+      <td>${r.c.team}</td>
+      <td><span class="badge-stage ${r.c.status}">${STATUS_LABEL[r.c.status]}</span></td>
+      <td class="muted" style="font-size:12px;">${sub.subscribedAt||'-'}</td>
+      <td class="ov-actions"><div class="ov-actions-inner"><button class="btn btn-link btn-sm unsub" onclick="unsubFromList('${r.id}')">Unsubscribe</button></div></td>
+    </tr>`;
+    if(!expanded) return head;
+    const changesBody = r.list.length ? renderChangesSplitGrid(r.id, r.list) : `<div class="empty-mini">No changes in the selected time range.</div>`;
+    return head + `<tr class="ov-expand"><td class="ov-expand-cell" colspan="10"><div class="ov-expand-inner">${changesBody}</div></td></tr>`;
+  };
+
+  if (typeof renderChangesSplitGrid === 'function') renderChangesSplitGrid = function(id, list){
+    const rows = list.map(ch => renderChangeV39Row(id, ch)).join('');
+    return `<div class="changes-v39-grid" role="region" aria-label="Change records for campaign ${id}">
+      <div class="changes-v39-scroll" onscroll="syncChangeV39Scroll(this)">
+        <table class="changes-v39-table">
+          <colgroup><col style="width:150px;"><col style="width:150px;"><col style="width:200px;"><col style="width:400px;"><col style="width:90px;"><col style="width:150px;"><col style="width:210px;"></colgroup>
+          <thead><tr><th>Operation</th><th>Subscribed Event</th><th>Field</th><th>Change</th><th>Locale</th><th>Update Time</th><th>Action</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  };
+
+  if (typeof renderChangeV39Row === 'function') renderChangeV39Row = function(id, ch){
+    let changeCell = '';
+    if(ch.op === 'add') changeCell = `<span class="diff-add">+ ${escape(ch.after)}</span>`;
+    else if(ch.op === 'remove') changeCell = `<span class="diff-remove">− ${escape(ch.before)}</span>`;
+    else changeCell = `<span class="diff-old">${escape(ch.before)}</span> <span class="diff-arrow">→</span> <span class="diff-new">${escape(ch.after)}</span>`;
+    const localeChip = ch.locale && ch.locale !== '-' ? `<span class="chip mini">${ch.locale}</span>` : '<span class="muted">-</span>';
+    return `<tr>
+      <td><span class="op-pill op-${ch.op}">${OP_LABEL[ch.op]}</span></td>
+      <td title="${escape(TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope))}">${escape(TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope))}</td>
+      <td title="${escape(ch.field)}">${escape(ch.field)}</td>
+      <td>${changeCell}</td>
+      <td>${localeChip}</td>
+      <td class="muted" style="font-size:12px;" title="${escape(ch.time)}">${ch.time}</td>
+      <td><div class="ch-actions"><button class="btn btn-link btn-sm" onclick="jumpToChange('${id}','${ch.type}','${ch.locale||''}','')">View Detail</button></div></td>
+    </tr>`;
+  };
+
+  if (typeof getSubParentColgroupHtml === 'function') getSubParentColgroupHtml = function(){
+    return `<colgroup><col style="width:44px;"><col style="width:44px;"><col style="width:90px;"><col style="width:360px;"><col style="width:160px;"><col style="width:80px;"><col style="width:120px;"><col style="width:120px;"><col style="width:140px;"><col style="width:240px;"></colgroup>`;
+  };
+
+  function cleanReadUnreadDOM(){
+    safe(() => { const b = byId('digestBadge'); if(b){ b.style.display='none'; b.textContent=''; b.removeAttribute('title'); } });
+    document.querySelectorAll('#page-sub .sub-since-row .ff-toggle').forEach(el => { if(/Unread\s*only/i.test(el.textContent || '')) el.remove(); });
+    document.querySelectorAll('#page-sub .sub-mark-all-read-btn, #page-sub .mark-read-btn, #page-sub .mark-unread-btn').forEach(el => el.remove());
+    document.querySelectorAll('#page-sub .sub-table colgroup').forEach(cg => { const cols = cg.querySelectorAll('col'); if(cols.length === 11) cols[9].remove(); });
+    document.querySelectorAll('#page-sub .sub-table thead tr').forEach(tr => {
+      Array.from(tr.children).forEach(th => { if(/^\s*Unread\s*$/i.test(th.textContent || '')) th.remove(); });
+    });
+    document.querySelectorAll('#page-sub .ov-expand-cell').forEach(td => td.setAttribute('colspan', '10'));
+    document.querySelectorAll('#page-sub .sub-table').forEach(tbl => { tbl.style.width='1398px'; tbl.style.minWidth='1398px'; });
+    document.querySelectorAll('#page-sub .changes-v39-table').forEach(tbl => { tbl.style.width='1350px'; tbl.style.minWidth='1350px'; });
+    refreshDigestBadge();
+  }
+
+  if (typeof renderSubPage === 'function') {
+    const originalRenderSubPageNoRead = renderSubPage;
+    renderSubPage = function(){ if (typeof SUB_FILTER !== 'undefined') SUB_FILTER.unreadOnly = false; originalRenderSubPageNoRead.apply(this, arguments); cleanReadUnreadDOM(); };
+  }
+  if (typeof updateSubParentStickyClone === 'function') {
+    const originalUpdateParentCloneNoRead = updateSubParentStickyClone;
+    updateSubParentStickyClone = function(row, top, left, width, scrollLeft){
+      originalUpdateParentCloneNoRead.apply(this, arguments);
+      const page = byId('page-sub');
+      const clone = page && page.querySelector('.sub-parent-row-sticky-clone');
+      const cloneTable = clone && clone.querySelector('.sub-table');
+      if(cloneTable){ cloneTable.style.width='1398px'; cloneTable.style.minWidth='1398px'; }
+      cleanReadUnreadDOM();
+    };
+  }
+  if (typeof updateSubChildHeadStickyClone === 'function') {
+    const originalUpdateChildCloneNoRead = updateSubChildHeadStickyClone;
+    updateSubChildHeadStickyClone = function(grid, top, left, width){
+      originalUpdateChildCloneNoRead.apply(this, arguments);
+      const cloneTable = document.querySelector('#page-sub .sub-child-head-sticky-clone .changes-v39-table');
+      if(cloneTable){ cloneTable.style.width='1350px'; cloneTable.style.minWidth='1350px'; }
+    };
+  }
+
+  safe(() => { renderDigest(); });
+  safe(() => { if(byId('page-sub') && byId('page-sub').classList.contains('active')) renderSubPage(); });
+  safe(() => { cleanReadUnreadDOM(); });
+})();
+</script>
+
+
+
+<style id="digest-mechanism-style">
+/* Digest mechanism classification: changed campaigns with/without Campaign Mechanism */
+.dg-mechanism-summary{margin-bottom:14px;}
+.dg-mech-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.dg-mech-card{border:1px solid #e7ecf5;border-radius:14px;background:#fff;padding:14px 16px;box-shadow:0 1px 2px rgba(36,64,128,.04);min-width:0;}
+.dg-mech-card.with{background:linear-gradient(135deg,#f5f9ff 0%,#fff 72%);border-color:#d9e6fd;}
+.dg-mech-card.without{background:linear-gradient(135deg,#fbfcff 0%,#fff 72%);border-color:#e7ecf5;}
+.dg-mech-card-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#27324a;line-height:1.35;margin-bottom:8px;}
+.dg-mech-dot{width:8px;height:8px;border-radius:50%;background:#3573f5;flex:0 0 auto;}
+.dg-mech-card.without .dg-mech-dot{background:#97a1b4;}
+.dg-mech-num{font-size:26px;font-weight:800;line-height:1;color:#27324a;font-variant-numeric:tabular-nums;}
+.dg-mech-sub{margin-top:5px;font-size:12px;color:#5f6c84;line-height:1.45;}
+.dg-mech-chip{display:inline-flex;align-items:center;max-width:260px;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;}
+.dg-mech-chip.with{background:#eef4ff;color:#3573f5;border:1px solid #d9e6fd;}
+.dg-mech-chip.without{background:#f4f5f8;color:#6b7280;border:1px solid #e5e7eb;}
+.dg-mech-section{margin-top:12px;}
+.dg-mech-section:first-child{margin-top:0;}
+.dg-mech-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:2px 0 10px;padding:8px 10px;border-radius:10px;background:#f6f8fb;color:#27324a;font-size:13px;font-weight:800;}
+.dg-mech-section-title .count{font-size:12px;font-weight:500;color:#5f6c84;white-space:nowrap;}
+@media (max-width:760px){.dg-mech-stats{grid-template-columns:1fr;}.dg-mech-section-title{align-items:flex-start;flex-direction:column;}.dg-mech-section-title .count{white-space:normal;}}
+</style>
+
+<script id="digest-mechanism-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(s){ return (typeof escape === 'function') ? escape(s == null ? '' : s) : String(s == null ? '' : s); }
+  function getDetail(id){ return (typeof DETAILS !== 'undefined') ? (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)] || null) : null; }
+  function mechanismValuesForCampaign(id){
+    const detail = getDetail(id);
+    const raw = detail && detail.campaign ? detail.campaign.mechanism : null;
+    if(Array.isArray(raw)) return raw.map(v => String(v == null ? '' : v).trim()).filter(Boolean);
+    if(typeof raw === 'string') return raw.split(/[,;|/、，]+/).map(v => v.trim()).filter(Boolean);
+    return [];
+  }
+  function mechanismMetaForCampaign(id){
+    const values = mechanismValuesForCampaign(id);
+    return {
+      hasMechanism: values.length > 0,
+      values,
+      label: values.length > 0 ? 'Campaign with mechanism' : 'Campaign without mechanism',
+      title: values.length > 0 ? values.join(', ') : 'Campaign Mechanism is empty'
+    };
+  }
+  window.campaignMechanismValuesForDigest = mechanismValuesForCampaign;
+
+  function mechanismStats(groups){
+    const stats = { withCampaigns:0, withoutCampaigns:0, withUpdates:0, withoutUpdates:0 };
+    (groups || []).forEach(g => {
+      const meta = g.hasOwnProperty('hasMechanism') ? g : mechanismMetaForCampaign(g.id || (g.c && g.c.campaignId));
+      const has = meta.hasMechanism === true;
+      const updates = (g.list || []).length;
+      if(has){ stats.withCampaigns += 1; stats.withUpdates += updates; }
+      else { stats.withoutCampaigns += 1; stats.withoutUpdates += updates; }
+    });
+    return stats;
+  }
+
+  digestHighlights = function(){
+    const day = digestDateStr();
+    const groups = [];
+    Object.keys(CHANGES || {}).forEach(id => {
+      const c = getCampaignById(id); if(!c) return;
+      const list = (CHANGES[id] || CHANGES[Number(id)] || [])
+        .filter(ch => String(ch.time).slice(0, 10) === day)
+        .sort((a, b) => parseTime(b.time) - parseTime(a.time));
+      if(!list.length) return;
+      const meta = mechanismMetaForCampaign(id);
+      groups.push({ id:String(id), c, list, latest:parseTime(list[0].time), hasMechanism:meta.hasMechanism, mechanismValues:meta.values, mechanismLabel:meta.label, mechanismTitle:meta.title });
+    });
+    const statusPriority = { live:0, upcoming:1, draft:2, ended:3 };
+    groups.sort((a, b) => {
+      if(a.hasMechanism !== b.hasMechanism) return a.hasMechanism ? -1 : 1;
+      return ((statusPriority[a.c.status] ?? 9) - (statusPriority[b.c.status] ?? 9)) || (b.latest - a.latest);
+    });
+    return { day, groups };
+  };
+
+  digestRenderGroup = function(g){
+    const meta = mechanismMetaForCampaign(g.id);
+    g.hasMechanism = meta.hasMechanism;
+    g.mechanismValues = meta.values;
+    const expanded = DIGEST_GROUP_EXPANDED.has(g.id);
+    const shown = expanded ? g.list : g.list.slice(0, DIGEST_PREVIEW_COUNT);
+    const more = g.list.length - DIGEST_PREVIEW_COUNT;
+    const regions = getCampaignRegions(g.c).join(', ');
+    const chipCls = meta.hasMechanism ? 'with' : 'without';
+    return `<article class="dg-group ${meta.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism'}">
+      <header class="dg-group-head">
+        <div class="dg-group-title">
+          <span class="link-name" role="button" tabindex="0" onclick="openDetail(${Number(g.id)})" onkeydown="if(event.key==='Enter'){openDetail(${Number(g.id)})}" title="Open campaign detail">${e(g.c.campaignName)}</span>
+          <span class="badge-stage ${g.c.status}">${STATUS_LABEL[g.c.status]}</span>
+          <span class="chip mini">${e(regions)}</span>
+          <span class="dg-mech-chip ${chipCls}" title="${e(meta.title)}">${meta.label}</span>
+        </div>
+        <div class="dg-group-meta"><span class="dg-count">${g.list.length} update${g.list.length > 1 ? 's' : ''}</span></div>
+      </header>
+      <div class="dg-changes">${shown.map(ch => digestRenderChange(g.id, ch)).join('')}</div>
+      ${more > 0 ? `<button class="dg-more" onclick="toggleDigestGroup('${g.id}')">${expanded ? 'Show less' : `Show all ${g.list.length} updates`}</button>` : ''}
+    </article>`;
+  };
+
+  function renderMechanismSummary(groups){
+    const s = mechanismStats(groups);
+    return `<div class="page-card dg-card dg-mechanism-summary">
+      <div class="dg-card-head"><h3>Changed Campaigns by Mechanism</h3><span class="dg-card-sub">Based on Campaign Mechanism</span></div>
+      <div class="dg-mech-stats">
+        <div class="dg-mech-card with">
+          <div class="dg-mech-card-title"><span class="dg-mech-dot"></span>Campaign with mechanism</div>
+          <div class="dg-mech-num">${s.withCampaigns}</div>
+          <div class="dg-mech-sub">${s.withUpdates} update${s.withUpdates === 1 ? '' : 's'} today · shown first in Today's Change Record</div>
+        </div>
+        <div class="dg-mech-card without">
+          <div class="dg-mech-card-title"><span class="dg-mech-dot"></span>Campaign without mechanism</div>
+          <div class="dg-mech-num">${s.withoutCampaigns}</div>
+          <div class="dg-mech-sub">${s.withoutUpdates} update${s.withoutUpdates === 1 ? '' : 's'} today · Campaign Mechanism is empty</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function renderGroupedHighlights(groups){
+    if(!groups.length){
+      return `<div class="dg-empty"><div class="dg-empty-art" aria-hidden="true">✓</div><div class="dg-empty-title">No updates today</div><div class="dg-empty-text">All campaigns are steady. Browse the full list to explore details.</div><button class="btn btn-primary" onclick="digestOpenList({})">Open Campaign List</button></div>`;
+    }
+    const withGroups = groups.filter(g => g.hasMechanism);
+    const withoutGroups = groups.filter(g => !g.hasMechanism);
+    const section = (label, arr, note) => arr.length ? `<div class="dg-mech-section"><div class="dg-mech-section-title"><span>${label}</span><span class="count">${arr.length} campaign${arr.length > 1 ? 's' : ''} · ${arr.reduce((s,g)=>s+(g.list||[]).length,0)} update${arr.reduce((s,g)=>s+(g.list||[]).length,0) === 1 ? '' : 's'}${note ? ' · ' + note : ''}</span></div>${arr.map(g => digestRenderGroup(g)).join('')}</div>` : '';
+    return section('Campaign with mechanism', withGroups, 'priority') + section('Campaign without mechanism', withoutGroups, 'Campaign Mechanism is empty');
+  }
+
+  buildDigestAISummary = function(groups, totalChanges){
+    if(!groups.length){
+      return '今天暂未发现新的活动变动信息，活动整体保持稳定。可以继续关注 Live 和 Upcoming 活动，确认后续是否有补贴、券、落地页或推广素材更新。';
+    }
+    const eventMap = {}, opMap = {}, regionMap = {}, statusMap = {};
+    groups.forEach(g => {
+      getCampaignRegions(g.c).forEach(r => { regionMap[r] = (regionMap[r] || 0) + g.list.length; });
+      statusMap[STATUS_LABEL[g.c.status] || g.c.status] = (statusMap[STATUS_LABEL[g.c.status] || g.c.status] || 0) + 1;
+      g.list.forEach(ch => {
+        const eventName = TYPE_LABEL[ch.type] || getSubscribedEventFromScope(ch.scope);
+        eventMap[eventName] = (eventMap[eventName] || 0) + 1;
+        opMap[OP_LABEL[ch.op] || ch.op] = (opMap[OP_LABEL[ch.op] || ch.op] || 0) + 1;
+      });
+    });
+    const s = mechanismStats(groups);
+    const focusCampaigns = groups.filter(g => g.hasMechanism).slice(0, 3).map(g => `${g.c.campaignName}（${g.list.length} 条）`).join('、') || groups.slice(0, 3).map(g => `${g.c.campaignName}（${g.list.length} 条）`).join('、');
+    return `今天共有 ${totalChanges} 条活动变动，涉及 ${groups.length} 个活动；其中 ${s.withCampaigns} 个活动属于 Campaign with mechanism，${s.withoutCampaigns} 个活动属于 Campaign without mechanism。Report 已优先展示有玩法/机制活动的变更。变动主要集中在 ${mapTopText(eventMap, 3)}，操作类型以 ${mapTopText(opMap, 3)} 为主；受影响市场包括 ${mapTopText(regionMap, 4)}，活动状态分布为 ${mapTopText(statusMap, 4)}。建议重点关注 ${focusCampaigns}。`;
+  };
+
+  renderDigest = function(){
+    const box = byId('digestBody'); if(!box) return;
+    const { groups } = digestHighlights();
+    const totalChanges = groups.reduce((s, g) => s + g.list.length, 0);
+    const counts = digestStatusCounts();
+    const regionCounts = digestRegionCounts();
+    const regionMax = Math.max(1, ...Object.values(regionCounts));
+    const hero = `<div class="page-card dg-hero">
+      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
+      <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> changed campaign${groups.length === 1 ? '' : 's'} today</div>
+    </div>`;
+    const kpis = `<div class="dg-kpis">${DIGEST_STATUS_CARDS.map(card => {
+      const n = counts[card.key] || 0;
+      const arg = card.key ? `{status:'${card.key}', toast:'Campaign list filtered: ${card.label}'}` : `{toast:'Showing all campaigns'}`;
+      return `<button class="dg-kpi kpi-${card.cls}" onclick="digestOpenList(${arg})" title="Open the campaign list${card.key ? ` filtered to ${card.label}` : ''}"><span class="dg-kpi-icon" aria-hidden="true">${card.icon}</span><span class="dg-kpi-num">${n}</span><span class="dg-kpi-label">${card.label}</span><span class="dg-kpi-go">View in list →</span></button>`;
+    }).join('')}</div>`;
+    const aiSummary = `<div class="page-card dg-card dg-ai-summary"><div class="dg-card-head"><h3>AI Summary</h3><span class="dg-card-sub">Generated from today’s changes</span></div><p>${e(buildDigestAISummary(groups, totalChanges))}</p></div>`;
+    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Today's Change Record</h3></div>${renderGroupedHighlights(groups)}</div>`;
+    const regionRows = LIST_REGION_OPTIONS.map(r => {
+      const n = regionCounts[r] || 0;
+      return `<button class="dg-region-row" onclick="digestOpenList({region:'${r}', toast:'Campaign list filtered: ${r}'})" title="Open the campaign list filtered to ${r}"><span class="dg-region-name">${r}</span><span class="dg-region-bar"><span class="dg-region-fill" style="width:${Math.round(n / regionMax * 100)}%;"></span></span><span class="dg-region-num">${n}</span></button>`;
+    }).join('');
+    const rail = `<div class="dg-rail dg-rail-top"><div class="page-card dg-card dg-region-summary"><div class="dg-card-head"><h3>By Region</h3><span class="dg-card-sub">Campaigns</span></div><div class="dg-region-list">${regionRows}</div></div></div>`;
+    box.innerHTML = `${hero}<div class="dg-summary-row">${kpis}${rail}</div>${renderMechanismSummary(groups)}${aiSummary}${highlights}`;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  };
+
+  try { renderDigest(); } catch(err) { console.warn('[digest mechanism patch]', err); }
+})();
+</script>
+
+
+
+<style id="campaign-slim-patch-style">
+/* Slim Campaign page: remove Collection ID / Campaign ID / Collection Name columns and keep Campaign Name sticky. */
+#page-list .filter .field:has(#fCol),
+#page-list .filter .field:has(#fColName),
+#page-list .filter .field:has(#fCmp){display:none !important;}
+#page-list .tbl-wrap table th.s-l1,
+#page-list .tbl-wrap table td.s-l1,
+#page-list .tbl-wrap table th.s-l2,
+#page-list .tbl-wrap table td.s-l2,
+#page-list .tbl-wrap table th.s-l3,
+#page-list .tbl-wrap table td.s-l3{display:none !important;}
+#page-list .tbl-wrap table th.s-chk,
+#page-list .tbl-wrap table td.s-chk{left:0 !important;width:44px !important;min-width:44px !important;max-width:44px !important;padding-left:8px !important;padding-right:8px !important;text-align:center !important;}
+#page-list .tbl-wrap table th.s-l4,
+#page-list .tbl-wrap table td.s-l4{left:44px !important;width:260px !important;min-width:260px !important;max-width:260px !important;box-shadow:1px 0 0 #eef2f8 !important;}
+#page-list .campaign-change-panel{width:calc(100vw - 116px);max-width:calc(100vw - 116px);}
+</style>
+
+<script id="campaign-slim-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function safeEscape(v){ return (typeof escape === 'function') ? escape(v == null ? '' : v) : String(v == null ? '' : v); }
+  function listDetailTabs(){
+    return (typeof TABS !== 'undefined' ? TABS : []).filter(t => t.key !== 'collection');
+  }
+  function normalizeActiveDetailTab(){
+    const tabs = listDetailTabs();
+    if(!tabs.some(t => t.key === activeMainTab)) activeMainTab = 'campaign';
+  }
+
+  // Detail: hide Collection Basic Info tab / section.
+  renderTabs = function(){
+    normalizeActiveDetailTab();
+    const tabs = listDetailTabs();
+    const el = byId('mainTabs');
+    if(!el) return;
+    el.innerHTML = tabs.map(t => `<div class="tab ${activeMainTab===t.key?'active':''}" role="button" tabindex="0" onclick="setMainTab('${t.key}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setMainTab('${t.key}')}" data-key="${t.key}" title="Jump to ${t.label}">${t.label}</div>`).join('');
+    if(typeof syncDetailStickyOffsets === 'function') syncDetailStickyOffsets();
+  };
+
+  bindScrollSpy = function(){
+    if(typeof detailScrollSpyHost !== 'undefined' && detailScrollSpyHost && typeof detailScrollSpyHandler !== 'undefined' && detailScrollSpyHandler){
+      detailScrollSpyHost.removeEventListener('scroll', detailScrollSpyHandler);
+    }
+    const host = getDetailScrollHost();
+    const tabs = listDetailTabs();
+    const handler = () => {
+      if(typeof syncDetailStickyOffsets === 'function') syncDetailStickyOffsets();
+      let cur = 'campaign';
+      const hostTop = getHostTop(host);
+      for(const t of tabs){
+        const el = document.getElementById('sec-' + t.key);
+        if(!el) continue;
+        const offset = getDetailAnchorOffset(t.key) + 4;
+        if(el.getBoundingClientRect().top - hostTop - offset <= 0) cur = t.key;
+      }
+      if(cur !== activeMainTab){
+        activeMainTab = cur;
+        document.querySelectorAll('#mainTabs .tab').forEach(el => el.classList.toggle('active', el.dataset.key === cur));
+        if(typeof updateLocaleBar === 'function') updateLocaleBar(cur);
+      }
+    };
+    detailScrollSpyHost = host;
+    detailScrollSpyHandler = handler;
+    host.addEventListener('scroll', handler, { passive: true });
+    requestAnimationFrame(handler);
+  };
+
+  renderTabBody = function(){
+    if(!currentDetail) return;
+    normalizeActiveDetailTab();
+    const d = DETAILS[currentDetail.campaignId];
+    const sec = (key, inner) => `<section id="sec-${key}" class="detail-section">${inner}</section>`;
+    const html = [
+      sec('campaign',      renderCampaign(d.campaign)),
+      renderLocaleSelector(),
+      sec('subsidy',       renderSubsidy(d.subsidy[activeLocale])),
+      sec('coupon',        renderCoupon(d.coupon[activeLocale])),
+      sec('landing',       renderLanding(d.landing[activeLocale])),
+      sec('promotion',     renderPromotion(d.promotion[activeLocale])),
+      sec('supplementary', renderSupplementary(d.supplementary[activeLocale]))
+    ].join('');
+    const body = byId('dBody');
+    if(body) body.innerHTML = html;
+    if(typeof syncDetailStickyOffsets === 'function') syncDetailStickyOffsets();
+    if(typeof updateLocaleBar === 'function') updateLocaleBar(activeMainTab);
+    bindScrollSpy();
+    if(typeof refreshTableOverflowTooltips === 'function') refreshTableOverflowTooltips(body || document);
+  };
+
+  // Detail: remove Asset of Flash Sale Products block; keep Promotion Channel Info table only.
+  renderPromotion = function(p){
+    const channelRows = (p.channels || []).map(ch => [ch.channel, ch.headline, ch.content]);
+    return `<div class="panel promotion-panel">
+      <div class="section-title">Promotion Channel Info</div>
+      ${renderMiniTable(['Channel','Copy Headline','Copy Content'], channelRows)}
+    </div>`;
+  };
+
+  // Campaign list: no Collection ID / Campaign ID / Collection Name filters.
+  getFilteredCampaignRows = function(){
+    const fName = byId('fName') ? byId('fName').value.trim().toLowerCase() : '';
+    const fTheme = getSelectValues('fTheme');
+    const fGrade = getSelectValues('fGrade');
+    const fStatus = getSelectValues('fStatus');
+    return CAMPAIGNS.filter(r => {
+      if(fName && !r.campaignName.toLowerCase().includes(fName)) return false;
+      if(fTheme.length && !fTheme.includes(r.theme)) return false;
+      if(fGrade.length && !fGrade.includes(r.grade)) return false;
+      if(!passListRegionFilter(r)) return false;
+      if(fStatus.length && !fStatus.includes(r.status)) return false;
+      return true;
+    });
+  };
+
+  renderTable = function(){
+    if(typeof renderListRegionFilter === 'function') renderListRegionFilter();
+    const all = getFilteredCampaignRows();
+    const total = all.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    if(pageNum > totalPages) pageNum = totalPages;
+    if(pageNum < 1) pageNum = 1;
+    const start = (pageNum - 1) * pageSize;
+    const rows = all.slice(start, start + pageSize);
+    const tbody = byId('tbody');
+    if(!tbody) return;
+    tbody.innerHTML = rows.map(r => {
+      const expanded = CAMPAIGN_EXPANDED.has(String(r.campaignId));
+      const parent = `<tr class="campaign-parent-row ${expanded ? 'expanded' : ''}">
+        <td class="sticky s-chk"><button class="campaign-expand-btn" aria-label="${expanded ? 'Collapse' : 'Expand'} campaign ${r.campaignId}" onclick="toggleCampaignExpand(${r.campaignId})">${expanded ? '▾' : '▸'}</button></td>
+        <td class="link-name sticky s-l4" onclick="openDetail(${r.campaignId})">${safeEscape(r.campaignName)}</td>
+        <td>${safeEscape(r.theme)}</td>
+        <td class="grade">${safeEscape(r.grade)}</td>
+        <td>${safeEscape(getCampaignRegions(r).join(', '))}</td>
+        <td><span class="badge-stage ${r.status}">${STATUS_LABEL[r.status]}</span></td>
+        <td>${safeEscape(r.createTime)}</td>
+        <td>${safeEscape(r.updateTime)}</td>
+        <td>${safeEscape(r.creator)}</td>
+      </tr>`;
+      return expanded ? parent + `<tr class="campaign-change-row"><td colspan="9">${renderCampaignChangePanel(r.campaignId)}</td></tr>` : parent;
+    }).join('');
+    const empty = byId('emptyHint');
+    if(empty) empty.style.display = rows.length ? 'none' : 'block';
+    renderPagination(total, totalPages);
+    if(typeof enhanceCustomSelects === 'function') enhanceCustomSelects(document);
+    if(typeof refreshTableOverflowTooltips === 'function') refreshTableOverflowTooltips(byId('page-list'));
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  };
+
+  currentPageRows = function(){
+    const all = getFilteredCampaignRows();
+    const start = (pageNum - 1) * pageSize;
+    return all.slice(start, start + pageSize);
+  };
+
+  resetFilter = function(){
+    ['fName'].forEach(id => { if(byId(id)) byId(id).value = ''; });
+    ['fTheme','fGrade','fStatus'].forEach(id => clearFilterSelect(id));
+    LIST_REGION_FILTER.clear();
+    listRegionDropdownOpen = false;
+    pageNum = 1;
+    renderTable();
+  };
+
+  digestOpenList = function(opts){
+    opts = opts || {};
+    const nameInput = byId('fName');
+    if(nameInput) nameInput.value = '';
+    ['fTheme','fGrade','fStatus'].forEach(id => digestSetFilterSelect(id, ''));
+    LIST_REGION_FILTER.clear();
+    listRegionDropdownOpen = false;
+    if(opts.status) digestSetFilterSelect('fStatus', opts.status);
+    if(opts.region) LIST_REGION_FILTER.add(opts.region);
+    pageNum = 1;
+    renderTable();
+    switchPage('list');
+    const main = document.querySelector('.main'); if(main) main.scrollTop = 0;
+    if(opts.toast) showToast(opts.toast);
+  };
+
+  // Clicking a removed Collection change falls back to Campaign Basic Info.
+  jumpToChange = function(id, type, locale, key){
+    const tab = type === 'collection' ? 'campaign' : (TYPE_TO_TAB[type] || 'campaign');
+    openDetail(Number(id), { tab, locale: locale || null });
+  };
+
+  // Patch static table header if the page was loaded before the override runs.
+  const theadRow = document.querySelector('#page-list table thead tr');
+  if(theadRow){
+    theadRow.innerHTML = `<th class="sticky s-chk"></th>
+      <th class="sticky s-l4">Campaign Name</th>
+      <th>Theme</th>
+      <th>Grade</th>
+      <th>Campaign Region</th>
+      <th>Campaign Status</th>
+      <th>Create Time</th>
+      <th>Update Time</th>
+      <th>Creator</th>`;
+  }
+  ['fCol','fColName','fCmp'].forEach(id => {
+    const el = byId(id);
+    const field = el && el.closest('.field');
+    if(field) field.remove();
+  });
+
+  try { renderTable(); } catch(err) { console.warn('[campaign slim patch] renderTable', err); }
+  try { if(byId('page-detail') && byId('page-detail').classList.contains('active')) { renderTabs(); renderTabBody(); } } catch(err) {}
+})();
+</script>
+
+
+
+<script id="campaign-slim-change-filter-script">
+(function(){
+  function removedSectionChange(ch){
+    const scope = String((ch && ch.scope) || '');
+    const field = String((ch && ch.field) || '');
+    return ch && (ch.type === 'collection' || /Collection Basic Info/i.test(scope) || /Asset of Flash Sale Products/i.test(scope) || /Asset of Flash Sale Products/i.test(field));
+  }
+  function visibleChangesForCampaign(id){
+    const raw = (typeof changesOf === 'function') ? changesOf(id) : ((CHANGES[id] || CHANGES[Number(id)] || []).slice().sort((a,b)=>parseTime(b.time)-parseTime(a.time)));
+    return raw.filter(ch => !removedSectionChange(ch));
+  }
+  function mechanismMeta(id){
+    const values = (window.campaignMechanismValuesForDigest ? window.campaignMechanismValuesForDigest(id) : []);
+    return { hasMechanism: values.length > 0, values, label: values.length > 0 ? 'Campaign with mechanism' : 'Campaign without mechanism', title: values.length > 0 ? values.join(', ') : 'Campaign Mechanism is empty' };
+  }
+  digestHighlights = function(){
+    const day = digestDateStr();
+    const groups = [];
+    Object.keys(CHANGES || {}).forEach(id => {
+      const c = getCampaignById(id); if(!c) return;
+      const list = visibleChangesForCampaign(id)
+        .filter(ch => String(ch.time).slice(0, 10) === day)
+        .sort((a, b) => parseTime(b.time) - parseTime(a.time));
+      if(!list.length) return;
+      const meta = mechanismMeta(id);
+      groups.push({ id:String(id), c, list, latest:parseTime(list[0].time), hasMechanism:meta.hasMechanism, mechanismValues:meta.values, mechanismLabel:meta.label, mechanismTitle:meta.title });
+    });
+    const statusPriority = { live:0, upcoming:1, draft:2, ended:3 };
+    groups.sort((a, b) => {
+      if(a.hasMechanism !== b.hasMechanism) return a.hasMechanism ? -1 : 1;
+      return ((statusPriority[a.c.status] ?? 9) - (statusPriority[b.c.status] ?? 9)) || (b.latest - a.latest);
+    });
+    return { day, groups };
+  };
+  renderCampaignChangePanel = function(id){
+    const list = visibleChangesForCampaign(id);
+    if(!list.length){
+      return `<div class="campaign-change-panel"><div class="campaign-no-change">No change records for this campaign.</div></div>`;
+    }
+    return `<div class="campaign-change-panel">
+      <div class="campaign-change-title">Change Records <span class="campaign-change-count">${list.length} update${list.length > 1 ? 's' : ''}</span></div>
+      <div class="campaign-changes-scroll">
+        <table class="campaign-changes-table">
+          <thead><tr>
+            <th>Operation</th>
+            <th>Change Section</th>
+            <th>Field</th>
+            <th>Change</th>
+            <th>Locale</th>
+            <th>Update Time</th>
+          </tr></thead>
+          <tbody>${list.map(ch => `<tr>
+            <td><span class="op-pill op-${ch.op}">${OP_LABEL[ch.op] || ch.op || '-'}</span></td>
+            <td title="${escape(campaignChangeEventName(ch))}">${escape(campaignChangeEventName(ch))}</td>
+            <td title="${escape(ch.field || '-')}">${escape(ch.field || '-')}</td>
+            <td>${campaignChangeDiffHtml(ch)}</td>
+            <td>${ch.locale && ch.locale !== '-' ? `<span class="chip mini">${escape(ch.locale)}</span>` : '<span class="muted">-</span>'}</td>
+            <td class="muted" title="${escape(ch.time || '-')}">${escape(ch.time || '-')}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>
+    </div>`;
+  };
+  try { renderDigest(); renderTable(); } catch(err) { console.warn('[campaign slim change filter]', err); }
+})();
+</script>
+
+
+
+<style id="change-records-responsive-patch">
+/* Change Records responsive layout: fill the expanded area and give the Change column more room. */
+#page-list .campaign-change-panel{
+  width:calc(100vw - 116px) !important;
+  max-width:calc(100vw - 116px) !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+}
+#page-list .campaign-changes-scroll{
+  width:100% !important;
+  max-width:100% !important;
+  overflow:auto !important;
+}
+#page-list .campaign-changes-table{
+  width:100% !important;
+  min-width:100% !important;
+  max-width:100% !important;
+  table-layout:fixed !important;
+}
+#page-list .campaign-changes-table col:nth-child(1){width:96px !important;}
+#page-list .campaign-changes-table col:nth-child(2){width:15% !important;}
+#page-list .campaign-changes-table col:nth-child(3){width:14% !important;}
+#page-list .campaign-changes-table col:nth-child(4){width:46% !important;}
+#page-list .campaign-changes-table col:nth-child(5){width:82px !important;}
+#page-list .campaign-changes-table col:nth-child(6){width:150px !important;}
+#page-list .campaign-changes-table th:nth-child(1),
+#page-list .campaign-changes-table td:nth-child(1){width:96px !important;}
+#page-list .campaign-changes-table th:nth-child(2),
+#page-list .campaign-changes-table td:nth-child(2){width:15% !important;}
+#page-list .campaign-changes-table th:nth-child(3),
+#page-list .campaign-changes-table td:nth-child(3){width:14% !important;}
+#page-list .campaign-changes-table th:nth-child(4),
+#page-list .campaign-changes-table td:nth-child(4){width:46% !important;}
+#page-list .campaign-changes-table th:nth-child(5),
+#page-list .campaign-changes-table td:nth-child(5){width:82px !important;}
+#page-list .campaign-changes-table th:nth-child(6),
+#page-list .campaign-changes-table td:nth-child(6){width:150px !important;}
+#page-list .campaign-changes-table td:nth-child(4){
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+  line-height:1.45 !important;
+  padding-top:9px !important;
+  padding-bottom:9px !important;
+}
+#page-list .campaign-changes-table td:nth-child(4) .diff-old,
+#page-list .campaign-changes-table td:nth-child(4) .diff-new,
+#page-list .campaign-changes-table td:nth-child(4) .diff-add,
+#page-list .campaign-changes-table td:nth-child(4) .diff-remove{
+  white-space:normal !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+}
+#page-list .campaign-changes-table tbody tr{
+  height:auto !important;
+  min-height:40px !important;
+}
+#page-list .campaign-changes-table tbody td{
+  height:auto !important;
+  vertical-align:middle !important;
+}
+@media (max-width: 900px){
+  #page-list .campaign-change-panel{width:calc(100vw - 92px) !important;max-width:calc(100vw - 92px) !important;}
+  #page-list .campaign-changes-table{min-width:760px !important;max-width:none !important;}
+  #page-list .campaign-changes-table col:nth-child(4),
+  #page-list .campaign-changes-table th:nth-child(4),
+  #page-list .campaign-changes-table td:nth-child(4){width:320px !important;}
+}
+</style>
+<script id="change-records-responsive-patch-script">
+(function(){
+  function injectChangeRecordsColgroup(html){
+    if(typeof html !== 'string' || html.indexOf('campaign-changes-table') < 0) return html;
+    if(html.indexOf('campaign-changes-responsive-colgroup') >= 0) return html;
+    return html.replace(
+      '<table class="campaign-changes-table">',
+      '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+    );
+  }
+  if(typeof renderCampaignChangePanel === 'function'){
+    const previousRenderCampaignChangePanel = renderCampaignChangePanel;
+    renderCampaignChangePanel = function(id){
+      return injectChangeRecordsColgroup(previousRenderCampaignChangePanel.apply(this, arguments));
+    };
+  }
+  try{
+    if(typeof renderTable === 'function') renderTable();
+  }catch(err){
+    console.warn('[change records responsive patch]', err);
+  }
+})();
+</script>
+
+
+<style id="digest-overview-status-patch-style">
+/* Digest vNext: remove AI Summary from rendering, add Overview section, and calculate status from campaign dates. */
+#page-digest .dg-section-title{
+  margin:18px 0 10px;
+  font-size:16px;
+  line-height:22px;
+  font-weight:800;
+  color:#27324a;
+  letter-spacing:.1px;
+}
+#page-digest .dg-overview-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:14px;
+}
+#page-digest .dg-overview-card{
+  min-width:0;
+  background:#fff;
+  border:1px solid #e7ecf5;
+  border-radius:14px;
+  padding:14px 16px;
+  box-shadow:0 1px 2px rgba(36,64,128,.04),0 6px 18px rgba(36,64,128,.04);
+}
+#page-digest .dg-overview-card.feature{
+  grid-column:span 1;
+  background:linear-gradient(180deg,#fff 0%,#fbfdff 100%);
+}
+#page-digest .dg-overview-card .dg-overview-label{
+  color:#5f6c84;
+  font-size:12px;
+  line-height:18px;
+  font-weight:700;
+}
+#page-digest .dg-overview-card .dg-overview-num{
+  margin-top:6px;
+  font-size:30px;
+  line-height:34px;
+  font-weight:800;
+  color:#27324a;
+  font-variant-numeric:tabular-nums;
+}
+#page-digest .dg-overview-card.ongoing .dg-overview-num{color:#16a266;}
+#page-digest .dg-overview-card.upcoming .dg-overview-num{color:#d46b08;}
+#page-digest .dg-overview-card.with-mechanism .dg-overview-num{color:#3573f5;}
+#page-digest .dg-overview-card.without-mechanism .dg-overview-num{color:#8893a8;}
+#page-digest .dg-overview-sub{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px dashed #e7ecf5;
+  color:#5f6c84;
+  font-size:12px;
+  line-height:18px;
+}
+#page-digest .dg-overview-sub b{color:#27324a;font-weight:800;}
+#page-digest .dg-overview-note{
+  margin-top:6px;
+  color:#97a1b4;
+  font-size:11px;
+  line-height:16px;
+}
+#page-digest .dg-highlights{margin-top:0;}
+#page-digest .dg-highlights .dg-card-head{margin-bottom:12px;}
+#page-digest .dg-highlights .dg-card-head h3{display:none;}
+#page-digest .dg-ai-summary{display:none !important;}
+.badge-stage.ongoing{background:#e2f7ec;color:#16a266;}
+.badge-stage.ongoing::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block;margin-right:6px;vertical-align:1px;}
+@media (max-width:1180px){#page-digest .dg-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width:760px){#page-digest .dg-overview-grid{grid-template-columns:1fr;}}
+</style>
+
+<script id="digest-overview-status-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(v){ return (typeof escape === 'function') ? escape(v == null ? '' : v) : String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]; }); }
+  function pTime(s){ return (typeof parseTime === 'function') ? parseTime(s) : Date.parse(String(s || '').replace(' ', 'T')) || 0; }
+  function parseDateLike(value){
+    if(!value) return 0;
+    let s = String(value).trim();
+    if(!s || s === '/' || s.toLowerCase() === 'null') return 0;
+    // Strip display timezone suffix such as "Asia/Hong_Kong"; campaign period dates are local market time in this demo.
+    s = s.replace(/\s+Asia\/[A-Za-z_]+\s*$/,'');
+    const m = s.match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}(?::\d{2})?))?/);
+    if(m){
+      const dt = m[1] + 'T' + (m[2] || '00:00:00');
+      const t = Date.parse(dt);
+      return isNaN(t) ? 0 : t;
+    }
+    const t = Date.parse(s.replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function getRawDetail(c){
+    const id = c && c.campaignId;
+    return (typeof DETAILS !== 'undefined' && (DETAILS[id] || DETAILS[Number(id)])) || null;
+  }
+  function getCampaignTiming(c){
+    const d = getRawDetail(c);
+    const campaign = d && d.campaign ? d.campaign : {};
+    const launch = parseDateLike(campaign.launchDate || c.launchDate || c.createTime);
+    const period = campaign.startEndDate || c.startEndDate || '';
+    let end = 0;
+    if(period && String(period).includes(' - ')){
+      const parts = String(period).split(' - ');
+      end = parseDateLike(parts[parts.length - 1]);
+    }
+    return { launch, end };
+  }
+  window.getComputedCampaignStatus = function(c){
+    const now = Date.now();
+    const t = getCampaignTiming(c);
+    if(t.launch && now < t.launch) return 'upcoming';
+    if(t.end && now > t.end) return 'ended';
+    if(t.launch || t.end) return 'ongoing';
+    // Fallback for incomplete data.
+    if(c && c.status === 'ended') return 'ended';
+    if(c && (c.status === 'live' || c.status === 'ongoing')) return 'ongoing';
+    return 'upcoming';
+  };
+  window.getComputedCampaignStatusLabel = function(c){
+    const st = getComputedCampaignStatus(c);
+    return st === 'ongoing' ? 'Ongoing' : st === 'upcoming' ? 'Upcoming' : 'Ended';
+  };
+  if(typeof STATUS_LABEL !== 'undefined'){
+    STATUS_LABEL.ongoing = 'Ongoing';
+    STATUS_LABEL.upcoming = 'Upcoming';
+    STATUS_LABEL.ended = 'Ended';
+  }
+  function mechanismValues(c){
+    if(window.campaignMechanismValuesForDigest) return window.campaignMechanismValuesForDigest(c.campaignId || c);
+    const d = getRawDetail(c) || {};
+    const mech = d.campaign && d.campaign.mechanism;
+    const arr = Array.isArray(mech) ? mech : String(mech || '').split(/[,;|]/);
+    return arr.map(v => String(v || '').trim()).filter(v => v && v !== '/' && v.toLowerCase() !== 'null' && v.toLowerCase() !== 'none');
+  }
+  function campaignHasMechanism(c){ return mechanismValues(c).length > 0; }
+  function removedSectionChange(ch){
+    const scope = String((ch && ch.scope) || '');
+    const field = String((ch && ch.field) || '');
+    return ch && (ch.type === 'collection' || /Collection Basic Info/i.test(scope) || /Asset of Flash Sale Products/i.test(scope) || /Asset of Flash Sale Products/i.test(field));
+  }
+  function visibleChanges(id){
+    const raw = (typeof CHANGES !== 'undefined' && (CHANGES[id] || CHANGES[Number(id)] || [])) || [];
+    return raw.slice().filter(ch => !removedSectionChange(ch)).sort((a,b) => pTime(b.time) - pTime(a.time));
+  }
+  function digestDay(){
+    let max = 0;
+    Object.keys(CHANGES || {}).forEach(id => visibleChanges(id).forEach(ch => { const t = pTime(ch.time); if(t > max) max = t; }));
+    if(max){
+      const d = new Date(max), pad = n => String(n).padStart(2,'0');
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    }
+    return (typeof digestDateStr === 'function') ? digestDateStr() : '';
+  }
+  digestHighlights = function(){
+    const day = digestDay();
+    const groups = [];
+    Object.keys(CHANGES || {}).forEach(id => {
+      const c = (typeof getCampaignById === 'function') ? getCampaignById(id) : (CAMPAIGNS || []).find(x => String(x.campaignId) === String(id));
+      if(!c) return;
+      const list = visibleChanges(id).filter(ch => String(ch.time).slice(0,10) === day).sort((a,b) => pTime(b.time) - pTime(a.time));
+      if(!list.length) return;
+      const hasMech = campaignHasMechanism(c);
+      groups.push({ id:String(id), c, list, latest:pTime(list[0].time), hasMechanism:hasMech, mechanismValues:mechanismValues(c), computedStatus:getComputedCampaignStatus(c) });
+    });
+    const statusPriority = { ongoing:0, upcoming:1, ended:2 };
+    groups.sort((a,b) => {
+      if(a.hasMechanism !== b.hasMechanism) return a.hasMechanism ? -1 : 1;
+      return ((statusPriority[a.computedStatus] ?? 9) - (statusPriority[b.computedStatus] ?? 9)) || (b.latest - a.latest);
+    });
+    return { day, groups };
+  };
+  digestStatusCounts = function(){
+    const counts = { total:0, nonEnded:0, upcoming:0, ongoing:0, ended:0 };
+    (CAMPAIGNS || []).forEach(c => {
+      const st = getComputedCampaignStatus(c);
+      counts.total++;
+      counts[st] = (counts[st] || 0) + 1;
+      if(st !== 'ended') counts.nonEnded++;
+    });
+    counts[''] = counts.total;
+    return counts;
+  };
+  function mechanismOverviewStats(groups){
+    const stats = { withTotal:0, withoutTotal:0, withChangedCampaigns:0, withoutChangedCampaigns:0, withChangeRecords:0, withoutChangeRecords:0 };
+    (CAMPAIGNS || []).forEach(c => { if(campaignHasMechanism(c)) stats.withTotal++; else stats.withoutTotal++; });
+    groups.forEach(g => {
+      if(g.hasMechanism){ stats.withChangedCampaigns++; stats.withChangeRecords += (g.list || []).length; }
+      else { stats.withoutChangedCampaigns++; stats.withoutChangeRecords += (g.list || []).length; }
+    });
+    return stats;
+  }
+  function renderOverview(groups){
+    const status = digestStatusCounts();
+    const mech = mechanismOverviewStats(groups);
+    return `<div class="dg-overview-grid">
+      <div class="dg-overview-card non-ended">
+        <div class="dg-overview-label">Current non-ended campaigns</div>
+        <div class="dg-overview-num">${status.nonEnded}</div>
+      </div>
+      <div class="dg-overview-card upcoming">
+        <div class="dg-overview-label">Upcoming campaigns</div>
+        <div class="dg-overview-num">${status.upcoming || 0}</div>
+      </div>
+      <div class="dg-overview-card ongoing">
+        <div class="dg-overview-label">Ongoing campaigns</div>
+        <div class="dg-overview-num">${status.ongoing || 0}</div>
+      </div>
+      <div class="dg-overview-card feature with-mechanism">
+        <div class="dg-overview-label">Campaign with mechanism</div>
+        <div class="dg-overview-num">${mech.withTotal}</div>
+        <div class="dg-overview-sub"><b>${mech.withChangedCampaigns}</b> changed campaign${mech.withChangedCampaigns === 1 ? '' : 's'} · <b>${mech.withChangeRecords}</b> change record${mech.withChangeRecords === 1 ? '' : 's'}</div>
+      </div>
+      <div class="dg-overview-card feature without-mechanism">
+        <div class="dg-overview-label">Campaign without mechanism</div>
+        <div class="dg-overview-num">${mech.withoutTotal}</div>
+        <div class="dg-overview-sub"><b>${mech.withoutChangedCampaigns}</b> changed campaign${mech.withoutChangedCampaigns === 1 ? '' : 's'} · <b>${mech.withoutChangeRecords}</b> change record${mech.withoutChangeRecords === 1 ? '' : 's'}</div>
+      </div>
+    </div>`;
+  }
+  function renderDigestGroupV2(g){
+    const expanded = DIGEST_GROUP_EXPANDED.has(g.id);
+    const shown = expanded ? g.list : g.list.slice(0, DIGEST_PREVIEW_COUNT);
+    const more = g.list.length - DIGEST_PREVIEW_COUNT;
+    const regions = (typeof getCampaignRegions === 'function') ? getCampaignRegions(g.c).join(', ') : '';
+    const chipCls = g.hasMechanism ? 'with' : 'without';
+    const mechTitle = g.hasMechanism ? (g.mechanismValues || []).join(', ') : 'Campaign Mechanism is empty';
+    const status = g.computedStatus || getComputedCampaignStatus(g.c);
+    const statusLabel = getComputedCampaignStatusLabel(g.c);
+    return `<article class="dg-group ${g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism'}">
+      <header class="dg-group-head">
+        <div class="dg-group-title">
+          <span class="link-name" role="button" tabindex="0" onclick="openDetail(${Number(g.id)})" onkeydown="if(event.key==='Enter'){openDetail(${Number(g.id)})}" title="Open campaign detail">${e(g.c.campaignName)}</span>
+          <span class="badge-stage ${status}">${statusLabel}</span>
+          <span class="chip mini">${e(regions)}</span>
+          <span class="dg-mech-chip ${chipCls}" title="${e(mechTitle)}">${g.hasMechanism ? 'Campaign with mechanism' : 'Campaign without mechanism'}</span>
+        </div>
+        <div class="dg-group-meta"><span class="dg-count">${g.list.length} update${g.list.length > 1 ? 's' : ''}</span></div>
+      </header>
+      <div class="dg-changes">${shown.map(ch => digestRenderChange(g.id, ch)).join('')}</div>
+      ${more > 0 ? `<button class="dg-more" onclick="toggleDigestGroup('${g.id}')">${expanded ? 'Show less' : `Show all ${g.list.length} updates`}</button>` : ''}
+    </article>`;
+  }
+  function renderGroupedHighlightsV2(groups){
+    const withGroups = (groups || []).filter(g => g.hasMechanism);
+    const withoutGroups = (groups || []).filter(g => !g.hasMechanism);
+    const section = (label, arr) => {
+      const updateCount = arr.reduce((sum, g) => sum + ((g.list || []).length), 0);
+      const body = arr.length
+        ? arr.map(g => renderDigestGroupV2(g)).join('')
+        : `<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>`;
+      return `<div class="dg-mech-section"><div class="dg-mech-section-title"><span>${label}</span><span class="count">${arr.length} campaign${arr.length === 1 ? '' : 's'} · ${updateCount} update${updateCount === 1 ? '' : 's'}</span></div>${body}</div>`;
+    };
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  function renderDigestV2(){
+    const box = byId('digestBody'); if(!box) return;
+    const result = digestHighlights();
+    const groups = result.groups || [];
+    const totalChanges = groups.reduce((s,g) => s + (g.list || []).length, 0);
+    const hero = `<div class="page-card dg-hero">
+      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${typeof digestDateLabel === 'function' ? digestDateLabel() : ''}</div></div></div>
+      <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> changed campaign${groups.length === 1 ? '' : 's'} today</div>
+    </div>`;
+    const highlightsBody = renderGroupedHighlightsV2(groups);
+    const highlights = `<div class="page-card dg-card dg-highlights">${highlightsBody}</div>`;
+    box.innerHTML = `${hero}<div class="dg-section-title">Overview</div>${renderOverview(groups)}<div class="dg-section-title">Today's Change Record</div>${highlights}`;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  }
+  renderDigest = renderDigestV2;
+
+  // Keep Campaign page status filter/display aligned with the same date-based status logic.
+  function patchStatusFilter(){
+    const sel = byId('fStatus');
+    if(!sel) return;
+    const selected = (typeof getSelectValues === 'function') ? getSelectValues(sel) : [];
+    sel.innerHTML = '<option value="">All</option><option value="upcoming">Upcoming</option><option value="ongoing">Ongoing</option><option value="ended">Ended</option>';
+    Array.from(sel.options).forEach(o => { o.selected = selected.includes(o.value) || (!selected.length && o.value === ''); });
+    if(typeof refreshCustomSelect === 'function' && sel._customSelect) refreshCustomSelect(sel);
+  }
+  patchStatusFilter();
+  if(typeof getFilteredCampaignRows === 'function'){
+    const oldPassListRegionFilter = (typeof passListRegionFilter === 'function') ? passListRegionFilter : function(){ return true; };
+    getFilteredCampaignRows = function(){
+      const fName = byId('fName') ? byId('fName').value.trim().toLowerCase() : '';
+      const fTheme = (typeof getSelectValues === 'function') ? getSelectValues('fTheme') : [];
+      const fGrade = (typeof getSelectValues === 'function') ? getSelectValues('fGrade') : [];
+      const fStatus = (typeof getSelectValues === 'function') ? getSelectValues('fStatus') : [];
+      return (CAMPAIGNS || []).filter(r => {
+        if(fName && !String(r.campaignName || '').toLowerCase().includes(fName)) return false;
+        if(fTheme.length && !fTheme.includes(r.theme)) return false;
+        if(fGrade.length && !fGrade.includes(r.grade)) return false;
+        if(!oldPassListRegionFilter(r)) return false;
+        if(fStatus.length && !fStatus.includes(getComputedCampaignStatus(r))) return false;
+        return true;
+      });
+    };
+  }
+  if(typeof renderTable === 'function'){
+    const previousRenderTable = renderTable;
+    renderTable = function(){
+      previousRenderTable.apply(this, arguments);
+      patchStatusFilter();
+      const rows = document.querySelectorAll('#page-list .campaign-parent-row');
+      rows.forEach(row => {
+        const nameEl = row.querySelector('td.s-l4');
+        if(!nameEl) return;
+        const name = nameEl.textContent.trim();
+        const c = (CAMPAIGNS || []).find(x => String(x.campaignName || '').trim() === name);
+        if(!c) return;
+        const statusCell = row.querySelector('td:nth-child(6)');
+        if(!statusCell) return;
+        const st = getComputedCampaignStatus(c);
+        statusCell.innerHTML = `<span class="badge-stage ${st}">${getComputedCampaignStatusLabel(c)}</span>`;
+      });
+    };
+  }
+  try{ if(typeof renderDigest === 'function') renderDigest(); }catch(err){ console.warn('[digest overview status patch] renderDigest', err); }
+  try{ if(typeof renderTable === 'function') renderTable(); }catch(err){ console.warn('[digest overview status patch] renderTable', err); }
+})();
+</script>
+
+
+
+<style id="digest-overview-change-counts-patch-style">
+/* Digest v3: Campaign Overview cards and Today's Change Record summary. */
+#page-digest .dg-overview-grid.dg-overview-grid-v3{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+#page-digest .dg-overview-card .dg-overview-num-row{
+  margin-top:6px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  min-width:0;
+}
+#page-digest .dg-overview-card .dg-overview-num-row .dg-overview-num{
+  margin-top:0;
+}
+#page-digest .dg-delta{
+  display:inline-flex;
+  align-items:center;
+  white-space:nowrap;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:12px;
+  line-height:16px;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  border:1px solid #e7ecf5;
+  background:#f7f9fd;
+  color:#66738a;
+}
+#page-digest .dg-delta.up{background:#eaf8f0;color:#15945f;border-color:#cdeedc;}
+#page-digest .dg-delta.down{background:#fff2f0;color:#cf3a2b;border-color:#ffd6d1;}
+#page-digest .dg-delta.flat{background:#f7f9fd;color:#66738a;border-color:#e7ecf5;}
+#page-digest .dg-change-record-summary{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:0 0 14px;
+}
+#page-digest .dg-change-record-summary-card{
+  min-width:0;
+  background:#fff;
+  border:1px solid #e7ecf5;
+  border-radius:14px;
+  padding:13px 15px;
+  box-shadow:0 1px 2px rgba(36,64,128,.04),0 6px 18px rgba(36,64,128,.04);
+}
+#page-digest .dg-change-record-summary-label{
+  color:#5f6c84;
+  font-size:12px;
+  line-height:18px;
+  font-weight:800;
+}
+#page-digest .dg-change-record-summary-num{
+  margin-top:6px;
+  color:#27324a;
+  font-size:26px;
+  line-height:30px;
+  font-weight:850;
+  font-variant-numeric:tabular-nums;
+}
+#page-digest .dg-change-record-summary-card.with .dg-change-record-summary-num{color:#3573f5;}
+#page-digest .dg-change-record-summary-card.without .dg-change-record-summary-num{color:#8893a8;}
+#page-digest .dg-change-record-summary-sub{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px dashed #e7ecf5;
+  color:#5f6c84;
+  font-size:12px;
+  line-height:18px;
+}
+#page-digest .dg-change-record-summary-sub b{color:#27324a;font-weight:850;}
+@media (max-width:1180px){
+  #page-digest .dg-overview-grid.dg-overview-grid-v3,
+  #page-digest .dg-change-record-summary{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:760px){
+  #page-digest .dg-overview-grid.dg-overview-grid-v3,
+  #page-digest .dg-change-record-summary{grid-template-columns:1fr;}
+}
+</style>
+
+<script id="digest-overview-change-counts-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(v){ return (typeof escape === 'function') ? escape(v == null ? '' : v) : String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]; }); }
+  function parseDateLikeV3(value){
+    if(!value) return 0;
+    var s = String(value).trim();
+    if(!s || s === '/' || s.toLowerCase() === 'null') return 0;
+    s = s.replace(/\s+Asia\/[A-Za-z_]+\s*$/,'');
+    var m = s.match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}(?::\d{2})?))?/);
+    if(m){
+      var t = Date.parse(m[1] + 'T' + (m[2] || '00:00:00'));
+      return isNaN(t) ? 0 : t;
+    }
+    var t2 = Date.parse(s.replace(' ', 'T'));
+    return isNaN(t2) ? 0 : t2;
+  }
+  function rawDetailV3(c){
+    var id = c && c.campaignId;
+    return (typeof DETAILS !== 'undefined' && (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)])) || null;
+  }
+  function timingV3(c){
+    var d = rawDetailV3(c);
+    var campaign = d && d.campaign ? d.campaign : {};
+    var launch = parseDateLikeV3(campaign.launchDate || c.launchDate || c.createTime);
+    var period = campaign.startEndDate || c.startEndDate || '';
+    var end = 0;
+    if(period && String(period).indexOf(' - ') >= 0){
+      var parts = String(period).split(' - ');
+      end = parseDateLikeV3(parts[parts.length - 1]);
+    }
+    return { launch:launch, end:end };
+  }
+  function statusAtV3(c, refTime){
+    var t = timingV3(c);
+    if(t.launch && refTime < t.launch) return 'upcoming';
+    if(t.end && refTime > t.end) return 'ended';
+    if(t.launch || t.end) return 'ongoing';
+    if(c && c.status === 'ended') return 'ended';
+    if(c && (c.status === 'live' || c.status === 'ongoing')) return 'ongoing';
+    return 'upcoming';
+  }
+  function statusCountsAtV3(refTime){
+    var counts = { total:0, nonEnded:0, upcoming:0, ongoing:0, ended:0 };
+    (CAMPAIGNS || []).forEach(function(c){
+      var st = statusAtV3(c, refTime);
+      counts.total++;
+      counts[st] = (counts[st] || 0) + 1;
+      if(st !== 'ended') counts.nonEnded++;
+    });
+    return counts;
+  }
+  function deltaHtmlV3(delta){
+    var cls = delta > 0 ? 'up' : delta < 0 ? 'down' : 'flat';
+    var sign = delta > 0 ? '+' : '';
+    return '<span class="dg-delta '+cls+'">'+sign+delta+' vs yesterday</span>';
+  }
+  function renderCampaignOverviewV3(){
+    var now = Date.now();
+    var yesterday = now - 24 * 60 * 60 * 1000;
+    var today = statusCountsAtV3(now);
+    var prev = statusCountsAtV3(yesterday);
+    var cards = [
+      { cls:'non-ended', label:'Total campaigns', value:today.nonEnded || 0, delta:(today.nonEnded || 0) - (prev.nonEnded || 0) },
+      { cls:'upcoming', label:'Upcoming campaigns', value:today.upcoming || 0, delta:(today.upcoming || 0) - (prev.upcoming || 0) },
+      { cls:'ongoing', label:'Ongoing campaigns', value:today.ongoing || 0, delta:(today.ongoing || 0) - (prev.ongoing || 0) }
+    ];
+    return '<div class="dg-overview-grid dg-overview-grid-v3">' + cards.map(function(card){
+      return '<div class="dg-overview-card '+card.cls+'">'
+        + '<div class="dg-overview-label">'+e(card.label)+'</div>'
+        + '<div class="dg-overview-num-row"><div class="dg-overview-num">'+card.value+'</div>'+deltaHtmlV3(card.delta)+'</div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+  function renderChangeRecordSummaryV3(groups){
+    groups = groups || [];
+    var withGroups = groups.filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = groups.filter(function(g){ return !g.hasMechanism; });
+    var withRecords = withGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    var withoutRecords = withoutGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    return '<div class="dg-change-record-summary">'
+      + '<div class="dg-change-record-summary-card total"><div class="dg-change-record-summary-label">Changed campaigns today</div><div class="dg-change-record-summary-num">'+groups.length+'</div></div>'
+      + '<div class="dg-change-record-summary-card with"><div class="dg-change-record-summary-label">Campaign with mechanism</div><div class="dg-change-record-summary-num">'+withGroups.length+'</div><div class="dg-change-record-summary-sub"><b>'+withRecords+'</b> change record'+(withRecords === 1 ? '' : 's')+'</div></div>'
+      + '<div class="dg-change-record-summary-card without"><div class="dg-change-record-summary-label">Campaign without mechanism</div><div class="dg-change-record-summary-num">'+withoutGroups.length+'</div><div class="dg-change-record-summary-sub"><b>'+withoutRecords+'</b> change record'+(withoutRecords === 1 ? '' : 's')+'</div></div>'
+      + '</div>';
+  }
+  function renderDigestGroupV3(g){
+    var expanded = (typeof DIGEST_GROUP_EXPANDED !== 'undefined' && DIGEST_GROUP_EXPANDED.has(g.id));
+    var previewCount = (typeof DIGEST_PREVIEW_COUNT !== 'undefined') ? DIGEST_PREVIEW_COUNT : 3;
+    var list = g.list || [];
+    var shown = expanded ? list : list.slice(0, previewCount);
+    var more = list.length - previewCount;
+    var regions = (typeof getCampaignRegions === 'function') ? getCampaignRegions(g.c).join(', ') : (g.c && g.c.team ? g.c.team : '');
+    var status = g.computedStatus || (typeof getComputedCampaignStatus === 'function' ? getComputedCampaignStatus(g.c) : statusAtV3(g.c, Date.now()));
+    var statusLabel = (typeof getComputedCampaignStatusLabel === 'function') ? getComputedCampaignStatusLabel(g.c) : (status === 'ongoing' ? 'Ongoing' : status === 'upcoming' ? 'Upcoming' : 'Ended');
+    var mechTitle = g.hasMechanism ? ((g.mechanismValues || []).join(', ') || 'Campaign Mechanism') : 'Campaign Mechanism is empty';
+    var changeHtml = shown.map(function(ch){ return (typeof digestRenderChange === 'function') ? digestRenderChange(g.id, ch) : ''; }).join('');
+    return '<article class="dg-group '+(g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism')+'">'
+      + '<header class="dg-group-head"><div class="dg-group-title">'
+      + '<span class="link-name" role="button" tabindex="0" onclick="openDetail('+Number(g.id)+')" onkeydown="if(event.key===\'Enter\'){openDetail('+Number(g.id)+')}" title="Open campaign detail">'+e(g.c && g.c.campaignName)+'</span>'
+      + '<span class="badge-stage '+e(status)+'">'+e(statusLabel)+'</span>'
+      + '<span class="chip mini">'+e(regions)+'</span>'
+      + '<span class="dg-mech-chip '+(g.hasMechanism ? 'with' : 'without')+'" title="'+e(mechTitle)+'">'+(g.hasMechanism ? 'Campaign with mechanism' : 'Campaign without mechanism')+'</span>'
+      + '</div><div class="dg-group-meta"><span class="dg-count">'+list.length+' update'+(list.length === 1 ? '' : 's')+'</span></div></header>'
+      + '<div class="dg-changes">'+changeHtml+'</div>'
+      + (more > 0 ? '<button class="dg-more" onclick="toggleDigestGroup(\''+e(g.id)+'\')">'+(expanded ? 'Show less' : 'Show all '+list.length+' updates')+'</button>' : '')
+      + '</article>';
+  }
+  function renderGroupedHighlightsV3(groups){
+    groups = groups || [];
+    var withGroups = groups.filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = groups.filter(function(g){ return !g.hasMechanism; });
+    function section(label, arr){
+      var updateCount = arr.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+      var body = arr.length ? arr.map(renderDigestGroupV3).join('') : '<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>';
+      return '<div class="dg-mech-section"><div class="dg-mech-section-title"><span>'+e(label)+'</span><span class="count">'+arr.length+' campaign'+(arr.length === 1 ? '' : 's')+' · '+updateCount+' update'+(updateCount === 1 ? '' : 's')+'</span></div>'+body+'</div>';
+    }
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  function renderDigestV3(){
+    var box = byId('digestBody');
+    if(!box) return;
+    var result = (typeof digestHighlights === 'function') ? digestHighlights() : { groups:[] };
+    var groups = result.groups || [];
+    var totalChanges = groups.reduce(function(s,g){ return s + ((g.list || []).length); }, 0);
+    var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
+    var hero = '<div class="page-card dg-hero">'
+      + '<div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">'+e(dateLabel)+'</div></div></div>'
+      + '<div class="dg-hero-summary"><b>'+totalChanges+'</b> update'+(totalChanges === 1 ? '' : 's')+' across <b>'+groups.length+'</b> changed campaign'+(groups.length === 1 ? '' : 's')+' today</div>'
+      + '</div>';
+    var highlightsBody = renderGroupedHighlightsV3(groups);
+    var highlights = '<div class="page-card dg-card dg-highlights">'+renderChangeRecordSummaryV3(groups)+highlightsBody+'</div>';
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV3() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  }
+  window.renderDigest = renderDigestV3;
+  try { renderDigestV3(); } catch(err) { console.warn('[digest overview change counts patch]', err); }
+})();
+</script>
+
+
+
+<style id="digest-refined-change-records-patch-style">
+/* Digest refinement: compact hero, clearer deltas, no duplicate mechanism labels, operation grouping. */
+#page-digest .dg-hero-v4{
+  align-items:center !important;
+  justify-content:space-between !important;
+  padding:20px 24px !important;
+}
+#page-digest .dg-hero-v4 .dg-hero-main{
+  width:100% !important;
+  min-width:0 !important;
+}
+#page-digest .dg-hero-v4 .dg-hero-title-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:16px;
+  width:100%;
+  min-width:0;
+}
+#page-digest .dg-hero-v4 h2{
+  margin:0;
+  min-width:0;
+}
+#page-digest .dg-hero-v4 .dg-date-right{
+  margin:0;
+  flex:0 0 auto;
+  color:#5f6c84;
+  font-size:13px;
+  line-height:20px;
+  font-weight:650;
+  white-space:nowrap;
+}
+#page-digest .dg-hero-summary{display:none !important;}
+#page-digest .dg-delta.flat{
+  background:#f4f5f8 !important;
+  color:#6b7280 !important;
+  border-color:#e5e7eb !important;
+}
+#page-digest .dg-change-record-summary-card .dg-change-record-num-row{
+  margin-top:6px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  min-width:0;
+}
+#page-digest .dg-change-record-summary-card .dg-change-record-summary-num{
+  margin-top:0;
+}
+#page-digest .dg-record-delta{
+  display:inline-flex;
+  align-items:center;
+  max-width:100%;
+  padding:3px 9px;
+  border-radius:999px;
+  background:#f4f7ff;
+  border:1px solid #dfe8fb;
+  color:#4b658f;
+  font-size:12px;
+  line-height:18px;
+  font-weight:750;
+  white-space:nowrap;
+}
+#page-digest .dg-mech-section-title{
+  justify-content:flex-start !important;
+}
+#page-digest .dg-mech-section-title .count{display:none !important;}
+#page-digest .dg-group-title .dg-mech-chip{display:none !important;}
+#page-digest .dg-op-section{margin-top:9px;}
+#page-digest .dg-op-section:first-child{margin-top:0;}
+#page-digest .dg-op-heading{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:5px 0 6px;
+  color:#27324a;
+  font-size:12px;
+  line-height:18px;
+  font-weight:850;
+}
+#page-digest .dg-op-heading::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#8da2c8;
+  flex:0 0 auto;
+}
+#page-digest .dg-op-heading .dg-op-count{
+  color:#8a93a8;
+  font-weight:650;
+}
+#page-list .campaign-op-group-row td{
+  height:32px !important;
+  padding:7px 10px !important;
+  background:#f6f8fb !important;
+  color:#27324a !important;
+  font-size:12px !important;
+  line-height:18px !important;
+  font-weight:850 !important;
+  border-top:1px solid #e7ecf5 !important;
+  border-bottom:1px solid #e7ecf5 !important;
+  white-space:nowrap !important;
+}
+#page-list .campaign-op-group-row .campaign-op-count{
+  color:#8a93a8;
+  font-weight:650;
+  margin-left:6px;
+}
+@media (max-width:760px){
+  #page-digest .dg-hero-v4 .dg-hero-title-row{align-items:flex-start;flex-direction:column;gap:4px;}
+  #page-digest .dg-hero-v4 .dg-date-right{white-space:normal;}
+}
+</style>
+<script id="digest-refined-change-records-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function pTimeV4(value){
+    if(typeof parseTime === 'function') return parseTime(value);
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function parseDateLikeV4(value){
+    if(!value) return 0;
+    var s = String(value).trim();
+    if(!s || s === '/' || s.toLowerCase() === 'null') return 0;
+    s = s.replace(/\s+Asia\/[A-Za-z_]+\s*$/,'');
+    var m = s.match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}(?::\d{2})?))?/);
+    if(m){
+      var t = Date.parse(m[1] + 'T' + (m[2] || '00:00:00'));
+      return isNaN(t) ? 0 : t;
+    }
+    var t2 = Date.parse(s.replace(' ', 'T'));
+    return isNaN(t2) ? 0 : t2;
+  }
+  function detailForCampaignV4(c){
+    var id = c && c.campaignId;
+    return (typeof DETAILS !== 'undefined' && (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)])) || null;
+  }
+  function campaignTimingV4(c){
+    var d = detailForCampaignV4(c);
+    var campaign = d && d.campaign ? d.campaign : {};
+    var launch = parseDateLikeV4(campaign.launchDate || (c && c.launchDate) || (c && c.createTime));
+    var period = campaign.startEndDate || (c && c.startEndDate) || '';
+    var end = 0;
+    if(period && String(period).indexOf(' - ') >= 0){
+      var parts = String(period).split(' - ');
+      end = parseDateLikeV4(parts[parts.length - 1]);
+    }
+    return { launch:launch, end:end };
+  }
+  function computedStatusAtV4(c, refTime){
+    var t = campaignTimingV4(c);
+    if(t.launch && refTime < t.launch) return 'upcoming';
+    if(t.end && refTime > t.end) return 'ended';
+    if(t.launch || t.end) return 'ongoing';
+    if(c && c.status === 'ended') return 'ended';
+    if(c && (c.status === 'live' || c.status === 'ongoing')) return 'ongoing';
+    return 'upcoming';
+  }
+  function statusCountsAtV4(refTime){
+    var counts = { total:0, nonEnded:0, upcoming:0, ongoing:0, ended:0 };
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      var st = computedStatusAtV4(c, refTime);
+      counts.total += 1;
+      counts[st] = (counts[st] || 0) + 1;
+      if(st !== 'ended') counts.nonEnded += 1;
+    });
+    return counts;
+  }
+  function deltaHtmlV4(delta){
+    if(delta === 0) return '<span class="dg-delta flat">no changes vs yesterday</span>';
+    var cls = delta > 0 ? 'up' : 'down';
+    var sign = delta > 0 ? '+' : '';
+    return '<span class="dg-delta '+cls+'">'+sign+delta+' vs yesterday</span>';
+  }
+  function recordTextV4(n){ return n + ' change record' + (n === 1 ? '' : 's'); }
+  function updateTextV4(n){ return n + ' update' + (n === 1 ? '' : 's'); }
+  function opKeyV4(op){
+    op = String(op || '').toLowerCase();
+    if(op === 'added') return 'add';
+    if(op === 'updated') return 'update';
+    if(op === 'removed' || op === 'delete' || op === 'deleted') return 'remove';
+    return op || 'other';
+  }
+  function opRankV4(op){
+    var key = opKeyV4(op);
+    if(key === 'add') return 0;
+    if(key === 'update') return 1;
+    if(key === 'remove') return 2;
+    return 9;
+  }
+  function opLabelV4(op){
+    var key = opKeyV4(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    if(key === 'add') return 'Added';
+    if(key === 'update') return 'Updated';
+    if(key === 'remove') return 'Removed';
+    return key ? key.charAt(0).toUpperCase() + key.slice(1) : 'Other';
+  }
+  function changeDateRankV4(ch){
+    var raw = ch && ch.time ? String(ch.time).slice(0, 10) : '';
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChangesByOperationV4(list){
+    return (list || []).slice().sort(function(a,b){
+      // Primary: latest Update Time date first.
+      var dateDiff = changeDateRankV4(b) - changeDateRankV4(a);
+      if(dateDiff) return dateDiff;
+      // Same date: finish Added first, then Updated, then Removed/other.
+      var opDiff = opRankV4(a && a.op) - opRankV4(b && b.op);
+      if(opDiff) return opDiff;
+      // Same date and same Operation: newest exact Update Time first.
+      return pTimeV4(b && b.time) - pTimeV4(a && a.time);
+    });
+  }
+  function groupedByOperationV4(list){
+    var sorted = sortChangesByOperationV4(list);
+    var order = ['add','update','remove','other'];
+    var map = { add:[], update:[], remove:[], other:[] };
+    sorted.forEach(function(ch){
+      var key = opKeyV4(ch && ch.op);
+      if(!map[key]) key = 'other';
+      map[key].push(ch);
+    });
+    return order.map(function(key){ return { key:key, label:opLabelV4(key), list:map[key] || [] }; }).filter(function(g){ return g.list.length; });
+  }
+  function removedSectionChangeV4(ch){
+    var scope = String((ch && ch.scope) || '');
+    var field = String((ch && ch.field) || '');
+    return !!(ch && (ch.type === 'collection' || /Collection Basic Info/i.test(scope) || /Asset of Flash Sale Products/i.test(scope) || /Asset of Flash Sale Products/i.test(field)));
+  }
+  function visibleChangesForCampaignV4(id){
+    var list = [];
+    if(typeof campaignChangeList === 'function') list = campaignChangeList(id) || [];
+    else if(typeof CHANGES !== 'undefined') list = (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+    return (list || []).filter(function(ch){ return !removedSectionChangeV4(ch); });
+  }
+  function diffHtmlV4(ch){
+    if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch);
+    if(ch && ch.op === 'add') return '<span class="diff-add">+ '+e(ch.after || '')+'</span>';
+    if(ch && ch.op === 'remove') return '<span class="diff-remove">− '+e(ch.before || '')+'</span>';
+    return '<span class="diff-old">'+e(ch && ch.before || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+e(ch && ch.after || '')+'</span>';
+  }
+  function changeEventNameV4(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    return (typeof TYPE_LABEL !== 'undefined' && TYPE_LABEL[ch && ch.type]) || (ch && (ch.scope || ch.type)) || '-';
+  }
+
+  function renderCampaignOverviewV4(){
+    var now = Date.now();
+    var yesterday = now - 24 * 60 * 60 * 1000;
+    var today = statusCountsAtV4(now);
+    var prev = statusCountsAtV4(yesterday);
+    var cards = [
+      { cls:'non-ended', label:'Total campaigns', value:today.nonEnded || 0, delta:(today.nonEnded || 0) - (prev.nonEnded || 0) },
+      { cls:'upcoming', label:'Upcoming campaigns', value:today.upcoming || 0, delta:(today.upcoming || 0) - (prev.upcoming || 0) },
+      { cls:'ongoing', label:'Ongoing campaigns', value:today.ongoing || 0, delta:(today.ongoing || 0) - (prev.ongoing || 0) }
+    ];
+    return '<div class="dg-overview-grid dg-overview-grid-v3">' + cards.map(function(card){
+      return '<div class="dg-overview-card '+card.cls+'">'
+        + '<div class="dg-overview-label">'+e(card.label)+'</div>'
+        + '<div class="dg-overview-num-row"><div class="dg-overview-num">'+card.value+'</div>'+deltaHtmlV4(card.delta)+'</div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+  function renderChangeRecordSummaryV4(groups){
+    groups = groups || [];
+    var withGroups = groups.filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = groups.filter(function(g){ return !g.hasMechanism; });
+    var withRecords = withGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    var withoutRecords = withoutGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    return '<div class="dg-change-record-summary">'
+      + '<div class="dg-change-record-summary-card total"><div class="dg-change-record-summary-label">Changed campaigns today</div><div class="dg-change-record-summary-num">'+groups.length+'</div></div>'
+      + '<div class="dg-change-record-summary-card with"><div class="dg-change-record-summary-label">Campaign with mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withGroups.length+'</div><span class="dg-record-delta">'+recordTextV4(withRecords)+'</span></div></div>'
+      + '<div class="dg-change-record-summary-card without"><div class="dg-change-record-summary-label">Campaign without mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withoutGroups.length+'</div><span class="dg-record-delta">'+recordTextV4(withoutRecords)+'</span></div></div>'
+      + '</div>';
+  }
+  function renderDigestOperationGroupsV4(id, list){
+    // No extra Added / Updated section headers; keep Operation-based ordering only.
+    var sorted = sortChangesByOperationV4(list);
+    return sorted.map(function(ch){
+      return (typeof digestRenderChange === 'function') ? digestRenderChange(id, ch) : '';
+    }).join('');
+  }
+  window.DIGEST_GROUP_COLLAPSED = window.DIGEST_GROUP_COLLAPSED || new Set();
+  window.toggleDigestGroup = function(id){
+    var key = String(id);
+    if(window.DIGEST_GROUP_COLLAPSED.has(key)) window.DIGEST_GROUP_COLLAPSED.delete(key);
+    else window.DIGEST_GROUP_COLLAPSED.add(key);
+    if(typeof renderDigest === 'function') renderDigest();
+  };
+  try { toggleDigestGroup = window.toggleDigestGroup; } catch(err) {}
+
+  function renderDigestGroupV4(g){
+    var sortedList = sortChangesByOperationV4(g.list || []);
+    var regions = (typeof getCampaignRegions === 'function') ? getCampaignRegions(g.c).join(', ') : ((g.c && g.c.team) || '');
+    var status = g.computedStatus || (typeof getComputedCampaignStatus === 'function' ? getComputedCampaignStatus(g.c) : computedStatusAtV4(g.c, Date.now()));
+    var statusLabel = (typeof getComputedCampaignStatusLabel === 'function') ? getComputedCampaignStatusLabel(g.c) : (status === 'ongoing' ? 'Ongoing' : status === 'upcoming' ? 'Upcoming' : 'Ended');
+    return '<article class="dg-group '+(g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism')+'">'
+      + '<header class="dg-group-head"><div class="dg-group-title">'
+      + '<span class="link-name" role="button" tabindex="0" onclick="openDetail('+Number(g.id)+')" onkeydown="if(event.key===\'Enter\'){openDetail('+Number(g.id)+')}" title="Open campaign detail">'+e(g.c && g.c.campaignName)+'</span>'
+      + '<span class="badge-stage '+e(status)+'">'+e(statusLabel)+'</span>'
+      + '<span class="chip mini">'+e(regions)+'</span>'
+      + '</div><div class="dg-group-meta"><span class="dg-count">'+updateTextV4(sortedList.length)+'</span></div></header>'
+      + '<div class="dg-changes">'+renderDigestOperationGroupsV4(g.id, sortedList)+'</div>'
+      + '</article>';
+  }
+  function renderGroupedHighlightsV4(groups){
+    groups = groups || [];
+    var withGroups = groups.filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = groups.filter(function(g){ return !g.hasMechanism; });
+    function section(label, arr){
+      var body = arr.length ? arr.map(renderDigestGroupV4).join('') : '<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>';
+      return '<div class="dg-mech-section"><div class="dg-mech-section-title"><span>'+e(label)+'</span></div>'+body+'</div>';
+    }
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  function renderDigestV4(){
+    var box = byId('digestBody');
+    if(!box) return;
+    var result = (typeof digestHighlights === 'function') ? digestHighlights() : { groups:[] };
+    var groups = result.groups || [];
+    var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
+    var hero = '<div class="page-card dg-hero dg-hero-v4">'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
+      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Today’s Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
+      + '</div>';
+    var highlights = '<div class="dg-highlights dg-highlights-flat">' + renderChangeRecordSummaryV4(groups) + renderGroupedHighlightsV4(groups) + '</div>';
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV4() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  }
+  window.renderDigest = renderDigestV4;
+  try { renderDigest = renderDigestV4; } catch(err) {}
+
+  function renderCampaignChangeRowsV4(list){
+    return sortChangesByOperationV4(list).map(function(ch){
+      var locale = ch.locale && ch.locale !== '-' ? '<span class="chip mini">'+e(ch.locale)+'</span>' : '<span class="muted">-</span>';
+      return '<tr>'
+        + '<td><span class="op-pill op-'+e(opKeyV4(ch.op))+'">'+e(opLabelV4(ch.op))+'</span></td>'
+        + '<td title="'+e(changeEventNameV4(ch))+'">'+e(changeEventNameV4(ch))+'</td>'
+        + '<td title="'+e(ch.field || '-')+'">'+e(ch.field || '-')+'</td>'
+        + '<td>'+diffHtmlV4(ch)+'</td>'
+        + '<td>'+locale+'</td>'
+        + '<td class="muted" title="'+e(ch.time || '-')+'">'+e(ch.time || '-')+'</td>'
+        + '</tr>';
+    }).join('');
+  }
+  window.renderCampaignChangePanel = function(id){
+    var list = visibleChangesForCampaignV4(id);
+    if(!list.length){
+      return '<div class="campaign-change-panel"><div class="campaign-no-change">No change records for this campaign.</div></div>';
+    }
+    return '<div class="campaign-change-panel">'
+      + '<div class="campaign-change-title">Change Records <span class="campaign-change-count">'+updateTextV4(list.length)+'</span></div>'
+      + '<div class="campaign-changes-scroll">'
+      + '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+      + '<thead><tr><th>Operation</th><th>Change Section</th><th>Field</th><th>Change</th><th>Locale</th><th>Update Time</th></tr></thead>'
+      + '<tbody>'+renderCampaignChangeRowsV4(list)+'</tbody>'
+      + '</table></div></div>';
+  };
+  try { renderCampaignChangePanel = window.renderCampaignChangePanel; } catch(err) {}
+
+  try { renderDigestV4(); } catch(err) { console.warn('[digest refined patch] renderDigest', err); }
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[digest refined patch] renderTable', err); }
+})();
+</script>
+
+
+
 
 </body>
 </html>
