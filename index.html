@@ -10920,6 +10920,239 @@ body.no-read-unread #page-digest .dg-change{
 </style>
 
 
+<script id="change-record-field-display-fix-script">
+(function(){
+  function h(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function js(v){
+    return String(v == null ? '' : v).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n').replace(/\r/g,'');
+  }
+  function s(v){ return String(v == null ? '' : v).trim(); }
+  function lower(v){ return s(v).toLowerCase(); }
+  function opKey(op){
+    var key = lower(op);
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opLabel(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    return key === 'add' ? 'Added' : key === 'update' ? 'Updated' : key === 'remove' ? 'Removed' : key.charAt(0).toUpperCase() + key.slice(1);
+  }
+  function opRank(op){
+    var key = opKey(op);
+    return key === 'add' ? 0 : key === 'update' ? 1 : key === 'remove' ? 2 : 9;
+  }
+  function pTime(value){
+    if(typeof parseTime === 'function') return parseTime(value);
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function dateRank(ch){
+    var raw = ch && ch.time ? String(ch.time).slice(0,10) : '';
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChangeRecords(list){
+    return (list || []).slice().sort(function(a,b){
+      var d = dateRank(b) - dateRank(a);
+      if(d) return d;
+      var o = opRank(a && a.op) - opRank(b && b.op);
+      if(o) return o;
+      return pTime(b && b.time) - pTime(a && a.time);
+    });
+  }
+  function localeLabel(ch){
+    var loc = ch && ch.locale ? String(ch.locale) : '';
+    return (loc && loc !== '-') ? loc : 'Global';
+  }
+  function localeChip(ch){
+    var label = localeLabel(ch);
+    var cls = label === 'Global' ? 'chip mini change-locale-global' : 'chip mini';
+    var title = label === 'Global' ? 'Global / all locales' : label;
+    return '<span class="'+cls+'" title="'+h(title)+'">'+h(label)+'</span>';
+  }
+  function changeSection(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type];
+    if(typeof getSubscribedEventFromScope === 'function') return getSubscribedEventFromScope(ch && ch.scope);
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function diffHtml(ch){
+    if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch);
+    var key = opKey(ch && ch.op);
+    if(key === 'add') return '<span class="diff-add">+ '+h((ch && ch.after) || '')+'</span>';
+    if(key === 'remove') return '<span class="diff-remove">− '+h((ch && ch.before) || '')+'</span>';
+    return '<span class="diff-old">'+h((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+h((ch && ch.after) || '')+'</span>';
+  }
+
+  // Display-only normalization for Change Record > Field.
+  // Values are mapped to the field labels or table headers shown on the Campaign Detail page.
+  window.getChangeRecordDisplayField = function(ch){
+    var field = s(ch && ch.field);
+    var scope = s(ch && ch.scope);
+    var type = lower(ch && ch.type);
+    var f = lower(field);
+    var sc = lower(scope);
+
+    // Coupon Info table headers: Gift ID, Gift Name, Gift Type, Time Zone, Start Time, End Time.
+    if(type === 'coupon' || /coupon info/.test(sc)){
+      if(/gift\s*type/.test(f)) return 'Gift Type';
+      if(/time\s*zone/.test(f)) return 'Time Zone';
+      if(/start\s*time/.test(f)) return 'Start Time';
+      if(/end\s*time/.test(f)) return 'End Time';
+      if(/gift\s*name/.test(f)) return 'Gift Name';
+      // A row-level coupon add/remove is represented by its primary table key.
+      if(/coupon\s*row|row/.test(f) || !field) return 'Gift ID';
+      return field;
+    }
+
+    // Subsidy Info table headers vary by product line. Use the concrete detail-table header
+    // that identifies the changed value instead of generic labels such as "Subsidy row".
+    if(type === 'subsidy' || /subsidy info/.test(sc)){
+      if(/subsidy\s*status|hotel subsidy status/.test(f)) return 'Subsidy Status';
+      if(/hotel/.test(sc)) return /row/.test(f) ? 'Hotel Name' : field;
+      if(/tnt/.test(sc)) return /row/.test(f) ? 'Product Name' : field;
+      if(/bundle/.test(sc)) return /row/.test(f) ? 'Promotion Type' : field;
+      if(/flight/.test(sc)) return /row/.test(f) ? 'Dcity / Acity' : field;
+      return /row/.test(f) ? 'Promotion Info' : field;
+    }
+
+    // Landing Page Info field labels.
+    if(type === 'landing' || /landing page info/.test(sc)){
+      if(/terms\s*&\s*conditions|terms&conditions/.test(f)) return 'Terms&Conditions';
+      if(/landing\s*page\s*url/.test(f)) return 'Landing Page URL';
+      if(/share\s*url/.test(f)) return 'Share URL';
+      if(/share\s*image/.test(f)) return 'Share Image';
+      if(/canonical\s*url/.test(f)) return 'Canonical Url';
+      if(/share\s*title/.test(f)) return 'Share Title';
+      if(/share\s*description/.test(f)) return 'Share Description';
+      if(/description/.test(f)) return 'Description';
+      if(/keywords/.test(f)) return 'Keywords';
+      if(/title/.test(f)) return 'Title';
+      if(/version/.test(f)) return 'Version';
+      if(/update\s*time/.test(f)) return 'Update Time';
+      return field;
+    }
+
+    // Promotion Channel Info table headers: Channel, Copy Headline, Copy Content.
+    if(type === 'promotion' || /promotion/.test(sc)){
+      if(/headline/.test(f)) return 'Copy Headline';
+      if(/copy\s*content|content/.test(f)) return 'Copy Content';
+      if(/channel/.test(f)) return 'Channel';
+      return field;
+    }
+
+    // Supplementary Info block label.
+    if(type === 'supplementary' || /supplementary info/.test(sc)){
+      if(/remark|note|supplementary/.test(f) || !field) return 'Supplementary Info';
+      return field;
+    }
+
+    // Campaign Basic Info labels.
+    if(type === 'campaign' || /campaign basic info/.test(sc)){
+      if(/start\/?end\s*date|start\s*end\s*date/.test(f)) return 'Start/End Date';
+      if(/promoted\s*product\s*lines/.test(f)) return 'Promoted Product Lines';
+      if(/campaign\s*mechanism/.test(f)) return 'Campaign Mechanism';
+      if(/campaign\s*region/.test(f)) return 'Campaign Region';
+      if(/campaign\s*theme/.test(f)) return 'Campaign Theme';
+      if(/campaign\s*grade/.test(f)) return 'Campaign Grade';
+      if(/campaign\s*description/.test(f)) return 'Campaign Description';
+      if(/campaign\s*timezone/.test(f)) return 'Campaign Timezone';
+      if(/launch\s*date/.test(f)) return 'Launch Date';
+      if(/period\s*type/.test(f)) return 'Period Type';
+      if(/campaign\s*status|status/.test(f)) return 'Campaign Status';
+      if(/creator/.test(f)) return 'Creator';
+      if(/update\s*time/.test(f)) return 'Update Time';
+      return field || '-';
+    }
+
+    return field || '-';
+  };
+  function fieldLabel(ch){
+    return window.getChangeRecordDisplayField ? window.getChangeRecordDisplayField(ch) : ((ch && ch.field) || '-');
+  }
+
+  function validSince(value){
+    var m = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return '';
+    var y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+    var date = new Date(y, mo - 1, d, 0, 0, 0, 0);
+    if(date.getFullYear() !== y || date.getMonth() !== mo - 1 || date.getDate() !== d) return '';
+    return m[1] + '-' + m[2] + '-' + m[3];
+  }
+  function filterNote(){
+    var el = document.getElementById('fChangeRecordSince');
+    var v = el ? validSince(el.value) : '';
+    return v ? 'since ' + v : '';
+  }
+  function visibleCampaignChanges(id){
+    var list = [];
+    if(typeof window.campaignVisibleChangesByRecordSince === 'function') list = window.campaignVisibleChangesByRecordSince(id) || [];
+    else if(typeof campaignChangeList === 'function') list = campaignChangeList(id) || [];
+    else if(typeof CHANGES !== 'undefined') list = (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+    return sortChangeRecords(list);
+  }
+  function renderCampaignRows(list){
+    return sortChangeRecords(list).map(function(ch){
+      var field = fieldLabel(ch);
+      return '<tr>'
+        + '<td>'+localeChip(ch)+'</td>'
+        + '<td><span class="op-pill op-'+h(opKey(ch && ch.op))+'">'+h(opLabel(ch && ch.op))+'</span></td>'
+        + '<td title="'+h(changeSection(ch))+'">'+h(changeSection(ch))+'</td>'
+        + '<td title="'+h(field)+'">'+h(field)+'</td>'
+        + '<td>'+diffHtml(ch)+'</td>'
+        + '<td class="muted" title="'+h((ch && ch.time) || '-')+'">'+h((ch && ch.time) || '-')+'</td>'
+        + '</tr>';
+    }).join('');
+  }
+  window.renderCampaignChangePanel = function(id){
+    var list = visibleCampaignChanges(id);
+    var note = filterNote();
+    if(!list.length){
+      return '<div class="campaign-change-panel"><div class="campaign-no-change">No change records'+(note ? ' '+h(note) : '')+' for this campaign.</div></div>';
+    }
+    return '<div class="campaign-change-panel">'
+      + '<div class="campaign-change-title">Change Records <span class="campaign-change-count">'+h(list.length + ' update' + (list.length === 1 ? '' : 's'))+'</span>'+(note ? '<span class="campaign-change-filter-note">'+h(note)+'</span>' : '')+'</div>'
+      + '<div class="campaign-changes-scroll">'
+      + '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+      + '<thead><tr><th>Locale</th><th>Operation</th><th>Change Section</th><th>Field</th><th>Change</th><th>Update Time</th></tr></thead>'
+      + '<tbody>'+renderCampaignRows(list)+'</tbody>'
+      + '</table></div></div>';
+  };
+  try { renderCampaignChangePanel = window.renderCampaignChangePanel; } catch(err) {}
+
+  window.digestRenderChange = function(id, ch){
+    var t = String((ch && ch.time) || '').slice(11, 16);
+    var section = changeSection(ch);
+    var field = fieldLabel(ch);
+    return '<div class="dg-change" role="button" tabindex="0" onclick="digestJump(\''+js(id)+'\',\''+js(ch && ch.type)+'\',\''+js((ch && ch.locale) || '')+'\',\'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();digestJump(\''+js(id)+'\',\''+js(ch && ch.type)+'\',\''+js((ch && ch.locale) || '')+'\',\'\')}" title="Open '+h(section)+' in campaign detail">'
+      + '<span class="dg-locale-cell">'+localeChip(ch)+'</span>'
+      + '<span class="op-pill op-'+h(opKey(ch && ch.op))+'">'+h(opLabel(ch && ch.op))+'</span>'
+      + '<span class="dg-section-cell" title="'+h(section)+'">'+h(section)+'</span>'
+      + '<span class="dg-field" title="'+h((ch && ch.scope) || '')+' · '+h(field)+'">'+h(field)+'</span>'
+      + '<span class="dg-diff">'+diffHtml(ch)+'</span>'
+      + '<span class="dg-time">'+h(t)+'</span>'
+      + '<span class="dg-go" aria-hidden="true">→</span>'
+      + '</div>';
+  };
+  try { digestRenderChange = window.digestRenderChange; } catch(err) {}
+
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[field display fix] renderTable', err); }
+  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[field display fix] renderDigest', err); }
+})();
+</script>
+
+
+
+
+
+
 
 </body>
 </html>
