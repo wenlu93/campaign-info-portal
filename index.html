@@ -9306,6 +9306,1184 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
 
 
 
+<style id="digest-layout-alignment-patch">
+/* Align Digest headings and rebalance Daily Report overview spacing. */
+#page-digest #digestBody{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+}
+#page-digest .dg-hero-v4{
+  margin:0 0 16px !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+#page-digest .dg-hero-v4 .dg-hero-main{
+  padding:0 !important;
+}
+#page-digest .dg-hero-v4 .dg-hero-title-row{
+  padding:0 !important;
+  align-items:baseline !important;
+}
+#page-digest .dg-hero-v4 h2,
+#page-digest .dg-section-title{
+  margin-left:0 !important;
+  padding-left:0 !important;
+}
+#page-digest .dg-section-title{
+  margin:18px 0 10px !important;
+}
+#page-digest .dg-overview-grid.dg-overview-grid-v3{
+  width:100% !important;
+  max-width:none !important;
+  gap:14px !important;
+  grid-template-columns:repeat(3,minmax(220px,1fr)) !important;
+}
+#page-digest .dg-overview-card{
+  min-height:104px !important;
+  padding:18px 24px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  justify-content:center !important;
+}
+#page-digest .dg-overview-card .dg-overview-label{
+  margin-bottom:6px !important;
+}
+#page-digest .dg-overview-card .dg-overview-num-row{
+  width:100% !important;
+  display:flex !important;
+  align-items:baseline !important;
+  justify-content:space-between !important;
+  gap:14px !important;
+}
+#page-digest .dg-overview-card .dg-overview-num{
+  flex:0 0 auto !important;
+}
+#page-digest .dg-overview-card .dg-delta{
+  flex:0 1 auto !important;
+  max-width:58% !important;
+  white-space:normal !important;
+  text-align:right !important;
+  justify-content:center !important;
+}
+#page-digest .dg-change-record-summary{
+  gap:14px !important;
+}
+#page-digest .dg-change-record-summary-card{
+  padding:16px 22px !important;
+}
+#page-digest .dg-change-record-summary-card .dg-change-record-num-row{
+  width:100% !important;
+  justify-content:space-between !important;
+  gap:12px !important;
+}
+#page-digest .dg-record-delta{
+  max-width:62% !important;
+  white-space:normal !important;
+  text-align:right !important;
+  justify-content:center !important;
+}
+@media (max-width:1180px){
+  #page-digest .dg-overview-grid.dg-overview-grid-v3,
+  #page-digest .dg-change-record-summary{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media (max-width:760px){
+  #page-digest .dg-hero-v4 .dg-hero-title-row{
+    align-items:flex-start !important;
+    flex-direction:column !important;
+    gap:4px !important;
+  }
+  #page-digest .dg-overview-grid.dg-overview-grid-v3,
+  #page-digest .dg-change-record-summary{
+    grid-template-columns:1fr !important;
+  }
+  #page-digest .dg-overview-card,
+  #page-digest .dg-change-record-summary-card{
+    padding:16px 18px !important;
+  }
+  #page-digest .dg-overview-card .dg-overview-num-row,
+  #page-digest .dg-change-record-summary-card .dg-change-record-num-row{
+    justify-content:flex-start !important;
+  }
+  #page-digest .dg-overview-card .dg-delta,
+  #page-digest .dg-record-delta{
+    max-width:100% !important;
+    text-align:left !important;
+  }
+}
+</style>
+
+
+
+<style id="digest-change-record-flat-operation-patch">
+/* Latest Daily Report polish: remove the outer Change Record card and keep Operation ordering without visual Added / Updated subheaders. */
+#page-digest .dg-highlights-flat{
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+#page-digest .dg-highlights-flat .dg-change-record-summary{
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+#page-digest .dg-highlights-flat .dg-mech-section{
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+#page-digest .dg-op-heading,
+#page-list .campaign-op-group-row{
+  display:none !important;
+}
+</style>
+
+
+<style id="page-description-patch">
+/* Page-level guidance text under Daily Report and Campaign titles. */
+.page-head.page-head-stack{
+  align-items:flex-start !important;
+}
+.page-title-stack{
+  width:100%;
+}
+.page-head.page-head-stack .page-title-stack h2{
+  margin:0 0 8px !important;
+  flex:initial !important;
+}
+.page-intro{
+  box-sizing:border-box;
+  margin:0;
+  max-width:1040px;
+  padding:10px 14px;
+  color:#536176;
+  background:#fff8dc;
+  border:1px solid #f3dda1;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.6;
+  font-weight:500;
+}
+#page-digest .dg-hero-v4 .dg-hero-title-stack,
+#page-digest .dg-hero-v4 .dg-hero-main{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  gap:0 !important;
+}
+#page-digest .dg-hero-v4 .dg-hero-title-row{
+  width:100% !important;
+}
+#page-digest .dg-page-intro{
+  display:block !important;
+  width:100% !important;
+  margin-top:10px !important;
+  max-width:1040px;
+}
+@media (max-width:760px){
+  .page-intro{
+    font-size:12.5px;
+    line-height:1.55;
+    padding:9px 12px;
+  }
+}
+</style>
+
+
+<style id="digest-no-toggle-detail-title-patch">
+/* Final requested polish: Daily Report change rows are always fully expanded; no Show less / Show all button. */
+#page-digest .dg-more{display:none !important;}
+/* Detail title should show campaign name + status/grade only, not Submitted / Unsubmitted. */
+#page-detail #dTitle .badge-noti{display:none !important;}
+</style>
+
+
+
+<style id="campaign-report-final-polish-patch">
+/* Final requested polish:
+   1) Campaign page header/filter area follows Report page: no outer white card background.
+   2) Keep the Campaign table itself on a white surface. */
+#page-list > .page-card{
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+#page-list .page-head.page-head-stack{
+  padding:0 !important;
+  margin:0 0 12px !important;
+  border-bottom:0 !important;
+  background:transparent !important;
+}
+#page-list .page-title-stack{
+  width:100% !important;
+}
+#page-list .page-head.page-head-stack .page-title-stack h2{
+  margin:0 0 8px !important;
+}
+#page-list .filter{
+  padding:0 !important;
+  margin:0 0 14px !important;
+  border-bottom:0 !important;
+  background:transparent !important;
+  align-items:center !important;
+}
+#page-list .filter .filter-actions{
+  margin-left:auto !important;
+}
+#page-list .tbl-wrap{
+  padding:0 0 12px !important;
+  background:#fff !important;
+  border:1px solid #e7ecf5 !important;
+  border-radius:14px 14px 0 0 !important;
+  box-shadow:0 1px 2px rgba(36,64,128,.04),0 6px 18px rgba(36,64,128,.04) !important;
+  overflow-x:auto !important;
+}
+#page-list .tbl-wrap table{
+  border-radius:14px 14px 0 0 !important;
+}
+#page-list .pagination{
+  margin:0 !important;
+  background:#fff !important;
+  border:1px solid #e7ecf5 !important;
+  border-top:0 !important;
+  border-radius:0 0 14px 14px !important;
+  box-shadow:0 6px 18px rgba(36,64,128,.04) !important;
+}
+#page-list .empty{
+  background:#fff !important;
+}
+</style>
+
+
+<style id="theme-search-inner-focus-fix">
+/* Campaign Theme searchable dropdown: keep only the outer dropdown focus frame.
+   The inline search input previously inherited the generic .filter .field input focus style,
+   which created a second blue frame inside the select. */
+.filter .field input.custom-select-inline-search,
+.filter .field input.custom-select-inline-search:hover,
+.filter .field input.custom-select-inline-search:focus,
+.filter .field input.custom-select-inline-search:focus-visible{
+  border:0 !important;
+  box-shadow:none !important;
+  outline:none !important;
+  border-radius:0 !important;
+  min-width:0 !important;
+  width:100% !important;
+  height:100% !important;
+  padding:0 0 0 10px !important;
+  background:transparent !important;
+}
+</style>
+
+
+
+<style id="campaign-change-record-since-patch-style">
+/* Campaign page: Change Record Since filter, using an English-only text input instead of the browser-native date picker. */
+#page-list .filter .change-record-since-field{
+  align-items:center !important;
+}
+#page-list .filter .change-record-since-field label{
+  white-space:nowrap !important;
+}
+#page-list .filter .change-record-since-wrap{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  width:180px;
+  min-width:180px;
+  height:32px;
+}
+#page-list .filter .change-record-since-wrap::after{
+  content:"";
+  position:absolute;
+  right:10px;
+  top:50%;
+  width:14px;
+  height:14px;
+  transform:translateY(-50%);
+  pointer-events:none;
+  opacity:.68;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:14px 14px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235f6c84' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='4' width='18' height='18' rx='2'/><path d='M16 2v4'/><path d='M8 2v4'/><path d='M3 10h18'/></svg>");
+}
+#page-list .filter .change-record-since-field input.change-record-since-input,
+#page-list .filter .change-record-since-field input.change-record-since-input:hover,
+#page-list .filter .change-record-since-field input.change-record-since-input:focus,
+#page-list .filter .change-record-since-field input.change-record-since-input:focus-visible{
+  width:180px !important;
+  min-width:180px !important;
+  height:32px !important;
+  box-sizing:border-box !important;
+  padding:0 32px 0 10px !important;
+  border:1px solid #e2e8f2 !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  color:#27324a !important;
+  font-size:13px !important;
+  line-height:32px !important;
+  outline:none !important;
+  box-shadow:none !important;
+  appearance:none !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input:hover{
+  border-color:#b9c3d4 !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input:focus,
+#page-list .filter .change-record-since-field input.change-record-since-input:focus-visible{
+  border-color:#3573f5 !important;
+  box-shadow:0 0 0 2px rgba(53,115,245,.10) !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input::placeholder{
+  color:#97a1b4 !important;
+}
+#page-list .campaign-change-title .campaign-change-filter-note{
+  color:#97a1b4;
+  font-size:12px;
+  font-weight:500;
+  margin-left:6px;
+}
+</style>
+
+<script id="campaign-change-record-since-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function esc(v){
+    if(typeof escape === 'function') return escape(v == null ? '' : v);
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]); });
+  }
+  function getValue(){
+    var el = byId('fChangeRecordSince');
+    return el ? String(el.value || '').trim() : '';
+  }
+  function parseDateStart(value){
+    var m = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return 0;
+    var year = Number(m[1]), month = Number(m[2]), day = Number(m[3]);
+    var date = new Date(year, month - 1, day, 0, 0, 0, 0);
+    if(date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return 0;
+    var t = date.getTime();
+    return isNaN(t) ? 0 : t;
+  }
+  function parseChangeTime(ch){
+    if(typeof parseTime === 'function') return parseTime(ch && ch.time);
+    var raw = String((ch && ch.time) || '').replace(' ', 'T');
+    var t = Date.parse(raw);
+    return isNaN(t) ? 0 : t;
+  }
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opLabel(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    if(key === 'add') return 'Added';
+    if(key === 'update') return 'Updated';
+    if(key === 'remove') return 'Removed';
+    return key.charAt(0).toUpperCase() + key.slice(1);
+  }
+  function opRank(op){
+    var key = opKey(op);
+    if(key === 'add') return 0;
+    if(key === 'update') return 1;
+    if(key === 'remove') return 2;
+    return 9;
+  }
+  function changeDateRank(ch){
+    var raw = ch && ch.time ? String(ch.time).slice(0, 10) : '';
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChanges(list){
+    return (list || []).slice().sort(function(a,b){
+      var dateDiff = changeDateRank(b) - changeDateRank(a);
+      if(dateDiff) return dateDiff;
+      var opDiff = opRank(a && a.op) - opRank(b && b.op);
+      if(opDiff) return opDiff;
+      return parseChangeTime(b) - parseChangeTime(a);
+    });
+  }
+  function removedSectionChange(ch){
+    var scope = String((ch && ch.scope) || '');
+    var field = String((ch && ch.field) || '');
+    return !!(ch && (ch.type === 'collection' || /Collection Basic Info/i.test(scope) || /Asset of Flash Sale Products/i.test(scope) || /Asset of Flash Sale Products/i.test(field)));
+  }
+  function baseVisibleChanges(id){
+    var list = [];
+    if(typeof campaignChangeList === 'function') list = campaignChangeList(id) || [];
+    else if(typeof CHANGES !== 'undefined') list = (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+    return sortChanges((list || []).filter(function(ch){ return !removedSectionChange(ch); }));
+  }
+  window.campaignChangeRecordSinceFilterValue = getValue;
+  window.campaignVisibleChangesByRecordSince = function(id){
+    var since = parseDateStart(getValue());
+    return baseVisibleChanges(id).filter(function(ch){
+      var t = parseChangeTime(ch);
+      if(!t) return false;
+      if(since && t < since) return false;
+      return true;
+    });
+  };
+  function updateText(count){ return count + ' update' + (count === 1 ? '' : 's'); }
+  function filterNote(){
+    var v = getValue();
+    return (v && parseDateStart(v)) ? 'since ' + v : '';
+  }
+  function changeEventName(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type];
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function diffHtml(ch){
+    if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch);
+    if(ch && opKey(ch.op) === 'add') return '<span class="diff-add">+ '+esc(ch.after || '')+'</span>';
+    if(ch && opKey(ch.op) === 'remove') return '<span class="diff-remove">− '+esc(ch.before || '')+'</span>';
+    return '<span class="diff-old">'+esc((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+esc((ch && ch.after) || '')+'</span>';
+  }
+  function renderChangeRows(list){
+    return sortChanges(list).map(function(ch){
+      var locale = ch.locale && ch.locale !== '-' ? '<span class="chip mini">'+esc(ch.locale)+'</span>' : '<span class="muted">-</span>';
+      return '<tr>'
+        + '<td><span class="op-pill op-'+esc(opKey(ch && ch.op))+'">'+esc(opLabel(ch && ch.op))+'</span></td>'
+        + '<td title="'+esc(changeEventName(ch))+'">'+esc(changeEventName(ch))+'</td>'
+        + '<td title="'+esc((ch && ch.field) || '-')+'">'+esc((ch && ch.field) || '-')+'</td>'
+        + '<td>'+diffHtml(ch)+'</td>'
+        + '<td>'+locale+'</td>'
+        + '<td class="muted" title="'+esc((ch && ch.time) || '-')+'">'+esc((ch && ch.time) || '-')+'</td>'
+        + '</tr>';
+    }).join('');
+  }
+  window.handleChangeRecordSinceInput = function(input){
+    if(!input) return;
+    var raw = String(input.value || '').replace(/[^0-9]/g, '').slice(0, 8);
+    var formatted = raw;
+    if(raw.length > 4) formatted = raw.slice(0, 4) + '-' + raw.slice(4);
+    if(raw.length > 6) formatted = raw.slice(0, 4) + '-' + raw.slice(4, 6) + '-' + raw.slice(6);
+    if(input.value !== formatted) input.value = formatted;
+  };
+  function ensureFilter(){
+    var filter = document.querySelector('#page-list .filter');
+    if(!filter || byId('fChangeRecordSince')) return;
+    var field = document.createElement('div');
+    field.className = 'field change-record-since-field';
+    field.innerHTML = '<label>Change Record Since:</label><span class="change-record-since-wrap"><input id="fChangeRecordSince" class="change-record-since-input" type="text" inputmode="numeric" maxlength="10" placeholder="YYYY-MM-DD" aria-label="Filter change records by Update Time from this date to now" autocomplete="off" oninput="handleChangeRecordSinceInput(this); onListFilterInput();" onkeydown="if(event.key===\'Enter\'){ onListFilterChange(); }" onchange="onListFilterChange()" /></span>';
+    var actions = filter.querySelector('.filter-actions');
+    if(actions) filter.insertBefore(field, actions);
+    else filter.appendChild(field);
+  }
+  ensureFilter();
+
+  if(typeof getFilteredCampaignRows === 'function' && !window.__changeRecordSinceRowsPatched){
+    window.__changeRecordSinceRowsPatched = true;
+    var previousGetFilteredCampaignRows = getFilteredCampaignRows;
+    getFilteredCampaignRows = function(){
+      var rows = previousGetFilteredCampaignRows.apply(this, arguments) || [];
+      var v = getValue();
+      if(!v || !parseDateStart(v)) return rows;
+      return rows.filter(function(r){ return window.campaignVisibleChangesByRecordSince(r.campaignId).length > 0; });
+    };
+  }
+
+  window.renderCampaignChangePanel = function(id){
+    var list = window.campaignVisibleChangesByRecordSince(id);
+    var note = filterNote();
+    if(!list.length){
+      return '<div class="campaign-change-panel"><div class="campaign-no-change">No change records'+(note ? ' '+esc(note) : '')+' for this campaign.</div></div>';
+    }
+    return '<div class="campaign-change-panel">'
+      + '<div class="campaign-change-title">Change Records <span class="campaign-change-count">'+updateText(list.length)+'</span>'+(note ? '<span class="campaign-change-filter-note">'+esc(note)+'</span>' : '')+'</div>'
+      + '<div class="campaign-changes-scroll">'
+      + '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+      + '<thead><tr><th>Operation</th><th>Change Section</th><th>Field</th><th>Change</th><th>Locale</th><th>Update Time</th></tr></thead>'
+      + '<tbody>'+renderChangeRows(list)+'</tbody>'
+      + '</table></div></div>';
+  };
+  try { renderCampaignChangePanel = window.renderCampaignChangePanel; } catch(err) {}
+
+  if(typeof resetFilter === 'function' && !window.__changeRecordSinceResetPatched){
+    window.__changeRecordSinceResetPatched = true;
+    var previousResetFilter = resetFilter;
+    resetFilter = function(){
+      var el = byId('fChangeRecordSince');
+      if(el) el.value = '';
+      previousResetFilter.apply(this, arguments);
+    };
+  }
+  if(typeof digestOpenList === 'function' && !window.__changeRecordSinceDigestOpenPatched){
+    window.__changeRecordSinceDigestOpenPatched = true;
+    var previousDigestOpenList = digestOpenList;
+    digestOpenList = function(){
+      var el = byId('fChangeRecordSince');
+      if(el) el.value = '';
+      return previousDigestOpenList.apply(this, arguments);
+    };
+  }
+  if(typeof switchPage === 'function' && !window.__changeRecordSinceSwitchPatched){
+    window.__changeRecordSinceSwitchPatched = true;
+    var previousSwitchPage = switchPage;
+    switchPage = function(name){
+      var result = previousSwitchPage.apply(this, arguments);
+      if(name === 'list') ensureFilter();
+      return result;
+    };
+  }
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[change record since patch]', err); }
+})();
+</script>
+
+
+
+<style id="campaign-change-record-since-calendar-style">
+/* Campaign page: Change Record Since custom calendar picker. */
+#page-list .filter .change-record-since-wrap{
+  position:relative !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  width:180px !important;
+  min-width:180px !important;
+  height:32px !important;
+  z-index:1;
+}
+#page-list .filter .change-record-since-wrap::after{
+  content:none !important;
+  display:none !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input{
+  cursor:pointer !important;
+  caret-color:transparent !important;
+  user-select:none !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input:read-only{
+  background:#fff !important;
+}
+#page-list .filter .change-record-since-field input.change-record-since-input.is-open{
+  border-color:#3573f5 !important;
+  box-shadow:0 0 0 2px rgba(53,115,245,.10) !important;
+}
+#page-list .filter .change-record-since-icon{
+  position:absolute;
+  right:1px;
+  top:1px;
+  width:32px;
+  height:30px;
+  border:0;
+  border-left:1px solid #edf1f8;
+  border-radius:0 9px 9px 0;
+  background:#fff;
+  color:#5f6c84;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  transition:background .15s, color .15s;
+}
+#page-list .filter .change-record-since-icon:hover,
+#page-list .filter .change-record-since-wrap.open .change-record-since-icon{
+  background:#ecf3ff;
+  color:#3573f5;
+}
+#page-list .filter .change-record-since-icon svg{
+  width:14px;
+  height:14px;
+  display:block;
+}
+#page-list .change-record-calendar-panel{
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  width:300px;
+  padding:12px;
+  background:#fff;
+  border:1px solid #dde4f0;
+  border-radius:12px;
+  box-shadow:0 12px 28px rgba(20,40,80,.16);
+  z-index:7600;
+  color:#27324a;
+  font-size:13px;
+}
+#page-list .change-record-calendar-head{
+  height:30px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:8px;
+}
+#page-list .change-record-calendar-title{
+  font-size:13px;
+  font-weight:700;
+  color:#27324a;
+  text-align:center;
+  flex:1;
+}
+#page-list .change-record-calendar-nav{
+  width:28px;
+  height:28px;
+  border:1px solid #e2e8f2;
+  border-radius:8px;
+  background:#fff;
+  color:#46536c;
+  cursor:pointer;
+  font-size:18px;
+  line-height:22px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+#page-list .change-record-calendar-nav:hover{
+  border-color:#3573f5;
+  color:#3573f5;
+  background:#ecf3ff;
+}
+#page-list .change-record-calendar-week,
+#page-list .change-record-calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7, 1fr);
+  gap:4px;
+}
+#page-list .change-record-calendar-week{
+  margin-bottom:4px;
+  color:#8893a8;
+  font-size:11px;
+  text-align:center;
+  line-height:22px;
+}
+#page-list .change-record-calendar-day{
+  height:30px;
+  border:1px solid transparent;
+  border-radius:8px;
+  background:#fff;
+  color:#27324a;
+  cursor:pointer;
+  font-size:12px;
+  font-family:inherit;
+}
+#page-list .change-record-calendar-day:hover{
+  background:#ecf3ff;
+  color:#3573f5;
+}
+#page-list .change-record-calendar-day.selected{
+  background:#3573f5;
+  color:#fff;
+  border-color:#3573f5;
+  font-weight:700;
+}
+#page-list .change-record-calendar-day.today:not(.selected){
+  border-color:#9db9f0;
+  color:#3573f5;
+  font-weight:600;
+}
+#page-list .change-record-calendar-day.blank{
+  visibility:hidden;
+  pointer-events:none;
+}
+#page-list .change-record-calendar-foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid #edf1f8;
+}
+#page-list .change-record-calendar-foot .btn{
+  height:28px;
+  padding:0 10px;
+  border-radius:8px;
+  font-size:12px;
+}
+#page-list .change-record-calendar-hint{
+  color:#97a1b4;
+  font-size:11px;
+  line-height:28px;
+  white-space:nowrap;
+}
+</style>
+
+<script id="campaign-change-record-since-calendar-script">
+(function(){
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var WEEKDAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var viewYear = null;
+  var viewMonth = null; // 0-based
+  var isOpen = false;
+
+  function byId(id){ return document.getElementById(id); }
+  function pad2(n){ return String(n).padStart(2, '0'); }
+  function validDateString(value){
+    var m = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return '';
+    var y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+    var date = new Date(y, mo - 1, d);
+    if(date.getFullYear() !== y || date.getMonth() !== mo - 1 || date.getDate() !== d) return '';
+    return m[1] + '-' + m[2] + '-' + m[3];
+  }
+  function dateToStr(d){ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function parseDate(value){
+    var v = validDateString(value);
+    if(!v) return null;
+    return new Date(Number(v.slice(0,4)), Number(v.slice(5,7)) - 1, Number(v.slice(8,10)));
+  }
+  function defaultViewDate(){
+    var selected = parseDate(getInputValue());
+    if(selected) return selected;
+    var latest = 0;
+    try{
+      if(typeof CHANGES !== 'undefined'){
+        Object.keys(CHANGES).forEach(function(id){
+          (CHANGES[id] || []).forEach(function(ch){
+            var t = typeof parseTime === 'function' ? parseTime(ch && ch.time) : Date.parse(String((ch && ch.time) || '').replace(' ', 'T'));
+            if(t && !isNaN(t) && t > latest) latest = t;
+          });
+        });
+      }
+    }catch(e){}
+    return latest ? new Date(latest) : new Date();
+  }
+  function getInput(){ return byId('fChangeRecordSince'); }
+  function getInputValue(){ var input = getInput(); return input ? String(input.value || '').trim() : ''; }
+  function triggerFilter(){
+    if(typeof onListFilterChange === 'function') onListFilterChange();
+    else if(typeof renderTable === 'function') renderTable();
+  }
+  function ensureCalendarControls(){
+    var input = getInput();
+    if(!input) return null;
+    var wrap = input.closest('.change-record-since-wrap');
+    if(!wrap) return null;
+    input.setAttribute('readonly', 'readonly');
+    input.setAttribute('placeholder', 'YYYY-MM-DD');
+    input.setAttribute('aria-haspopup', 'dialog');
+    input.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if(!wrap.querySelector('.change-record-since-icon')){
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'change-record-since-icon';
+      btn.setAttribute('aria-label', 'Open calendar');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4"></path><path d="M8 2v4"></path><path d="M3 10h18"></path></svg>';
+      wrap.appendChild(btn);
+      btn.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); toggleCalendar(); });
+    }
+    if(!input.dataset.changeRecordCalendarBound){
+      input.dataset.changeRecordCalendarBound = '1';
+      input.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); openCalendar(); });
+      input.addEventListener('focus', function(e){ e.stopPropagation(); openCalendar(); });
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){ e.preventDefault(); closeCalendar(); }
+        if(e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown'){
+          e.preventDefault(); e.stopPropagation(); openCalendar();
+        }
+      });
+    }
+    return wrap;
+  }
+  function renderCalendar(){
+    var wrap = ensureCalendarControls();
+    if(!wrap || !isOpen) return;
+    var input = getInput();
+    var selected = parseDate(input && input.value);
+    if(viewYear == null || viewMonth == null){
+      var d = defaultViewDate();
+      viewYear = d.getFullYear();
+      viewMonth = d.getMonth();
+    }
+    var existing = wrap.querySelector('.change-record-calendar-panel');
+    if(existing) existing.remove();
+    var first = new Date(viewYear, viewMonth, 1);
+    var days = new Date(viewYear, viewMonth + 1, 0).getDate();
+    var today = new Date();
+    var todayStr = dateToStr(today);
+    var selectedStr = selected ? dateToStr(selected) : '';
+    var html = '<div class="change-record-calendar-head">'
+      + '<button class="change-record-calendar-nav" type="button" data-nav="prev" aria-label="Previous month">‹</button>'
+      + '<div class="change-record-calendar-title">' + MONTH_NAMES[viewMonth] + ' ' + viewYear + '</div>'
+      + '<button class="change-record-calendar-nav" type="button" data-nav="next" aria-label="Next month">›</button>'
+      + '</div>';
+    html += '<div class="change-record-calendar-week">' + WEEKDAYS.map(function(d){ return '<span>' + d + '</span>'; }).join('') + '</div>';
+    html += '<div class="change-record-calendar-grid">';
+    for(var i=0; i<first.getDay(); i++) html += '<button class="change-record-calendar-day blank" type="button" tabindex="-1"></button>';
+    for(var day=1; day<=days; day++){
+      var value = viewYear + '-' + pad2(viewMonth + 1) + '-' + pad2(day);
+      var cls = 'change-record-calendar-day' + (value === selectedStr ? ' selected' : '') + (value === todayStr ? ' today' : '');
+      html += '<button class="' + cls + '" type="button" data-date="' + value + '">' + day + '</button>';
+    }
+    html += '</div>';
+    html += '<div class="change-record-calendar-foot"><span class="change-record-calendar-hint">Select a start date</span><span style="display:flex;gap:6px;"><button class="btn" type="button" data-action="clear">Clear</button><button class="btn" type="button" data-action="today">Today</button></span></div>';
+    var panel = document.createElement('div');
+    panel.className = 'change-record-calendar-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Change Record Since calendar');
+    panel.innerHTML = html;
+    wrap.appendChild(panel);
+    panel.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      var nav = e.target.closest('[data-nav]');
+      if(nav){
+        var delta = nav.getAttribute('data-nav') === 'prev' ? -1 : 1;
+        var next = new Date(viewYear, viewMonth + delta, 1);
+        viewYear = next.getFullYear();
+        viewMonth = next.getMonth();
+        renderCalendar();
+        return;
+      }
+      var dayBtn = e.target.closest('[data-date]');
+      if(dayBtn){
+        setValue(dayBtn.getAttribute('data-date'));
+        closeCalendar();
+        triggerFilter();
+        return;
+      }
+      var action = e.target.closest('[data-action]');
+      if(action){
+        var name = action.getAttribute('data-action');
+        if(name === 'clear') setValue('');
+        if(name === 'today') setValue(todayStr);
+        closeCalendar();
+        triggerFilter();
+      }
+    });
+  }
+  function setValue(value){
+    var input = getInput();
+    if(!input) return;
+    input.value = value || '';
+  }
+  function openCalendar(){
+    try{
+      if(typeof closeAllFilterDropdowns === 'function') closeAllFilterDropdowns();
+      else if(typeof closeCustomSelect === 'function') closeCustomSelect();
+    }catch(e){}
+    var wrap = ensureCalendarControls();
+    if(!wrap) return;
+    if(!isOpen){
+      var d = defaultViewDate();
+      viewYear = d.getFullYear();
+      viewMonth = d.getMonth();
+    }
+    isOpen = true;
+    wrap.classList.add('open');
+    var input = getInput();
+    if(input){
+      input.classList.add('is-open');
+      input.setAttribute('aria-expanded', 'true');
+    }
+    renderCalendar();
+  }
+  function closeCalendar(){
+    isOpen = false;
+    var input = getInput();
+    var wrap = input && input.closest('.change-record-since-wrap');
+    if(wrap){
+      wrap.classList.remove('open');
+      var panel = wrap.querySelector('.change-record-calendar-panel');
+      if(panel) panel.remove();
+    }
+    if(input){
+      input.classList.remove('is-open');
+      input.setAttribute('aria-expanded', 'false');
+    }
+  }
+  function toggleCalendar(){ isOpen ? closeCalendar() : openCalendar(); }
+  function init(){ ensureCalendarControls(); }
+
+  document.addEventListener('click', function(e){
+    var wrap = document.querySelector('#page-list .change-record-since-wrap');
+    if(wrap && !wrap.contains(e.target)) closeCalendar();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeCalendar(); });
+
+  if(typeof switchPage === 'function' && !window.__changeRecordSinceCalendarSwitchPatched){
+    window.__changeRecordSinceCalendarSwitchPatched = true;
+    var previousSwitchPageForCalendar = switchPage;
+    switchPage = function(name){
+      var result = previousSwitchPageForCalendar.apply(this, arguments);
+      if(name === 'list') setTimeout(init, 0);
+      else closeCalendar();
+      return result;
+    };
+  }
+  if(typeof resetFilter === 'function' && !window.__changeRecordSinceCalendarResetPatched){
+    window.__changeRecordSinceCalendarResetPatched = true;
+    var previousResetFilterForCalendar = resetFilter;
+    resetFilter = function(){
+      closeCalendar();
+      var result = previousResetFilterForCalendar.apply(this, arguments);
+      setTimeout(init, 0);
+      return result;
+    };
+  }
+  init();
+})();
+</script>
+
+
+
+<style id="change-record-locale-before-operation-final-style">
+/* Final polish: Locale column comes before Operation in both Report and Campaign change records. */
+#page-digest .dg-change{
+  grid-template-columns:minmax(70px,96px) auto minmax(96px,150px) minmax(0,1fr) auto 14px !important;
+}
+body.no-read-unread #page-digest .dg-change{
+  grid-template-columns:minmax(70px,96px) auto minmax(96px,150px) minmax(0,1fr) auto 14px !important;
+}
+#page-digest .dg-locale-cell{
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#page-digest .dg-locale-cell .chip.mini,
+#page-list .campaign-changes-table .chip.mini{
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  vertical-align:middle;
+}
+.chip.mini.change-locale-global{
+  background:#eef2f8;
+  color:#5f6c84;
+}
+#page-list .campaign-changes-table col:nth-child(1){width:90px !important;}
+#page-list .campaign-changes-table col:nth-child(2){width:96px !important;}
+#page-list .campaign-changes-table col:nth-child(3){width:15% !important;}
+#page-list .campaign-changes-table col:nth-child(4){width:14% !important;}
+#page-list .campaign-changes-table col:nth-child(5){width:46% !important;}
+#page-list .campaign-changes-table col:nth-child(6){width:150px !important;}
+#page-list .campaign-changes-table th:nth-child(1),
+#page-list .campaign-changes-table td:nth-child(1){width:90px !important;}
+#page-list .campaign-changes-table th:nth-child(2),
+#page-list .campaign-changes-table td:nth-child(2){width:96px !important;}
+#page-list .campaign-changes-table th:nth-child(3),
+#page-list .campaign-changes-table td:nth-child(3){width:15% !important;}
+#page-list .campaign-changes-table th:nth-child(4),
+#page-list .campaign-changes-table td:nth-child(4){width:14% !important;}
+#page-list .campaign-changes-table th:nth-child(5),
+#page-list .campaign-changes-table td:nth-child(5){width:46% !important;}
+#page-list .campaign-changes-table th:nth-child(6),
+#page-list .campaign-changes-table td:nth-child(6){width:150px !important;}
+#page-list .campaign-changes-table td:nth-child(5){
+  white-space:normal !important;
+  overflow:visible !important;
+  text-overflow:clip !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+  line-height:1.45 !important;
+  padding-top:9px !important;
+  padding-bottom:9px !important;
+}
+#page-list .campaign-changes-table td:nth-child(5) .diff-old,
+#page-list .campaign-changes-table td:nth-child(5) .diff-new,
+#page-list .campaign-changes-table td:nth-child(5) .diff-add,
+#page-list .campaign-changes-table td:nth-child(5) .diff-remove{
+  white-space:normal !important;
+  word-break:break-word !important;
+  overflow-wrap:anywhere !important;
+}
+@media (max-width:900px){
+  #page-digest .dg-change,
+  body.no-read-unread #page-digest .dg-change{
+    grid-template-columns:minmax(64px,88px) auto minmax(0,1fr) auto 14px !important;
+  }
+  #page-digest .dg-field{display:none !important;}
+  #page-list .campaign-changes-table{min-width:820px !important;max-width:none !important;}
+  #page-list .campaign-changes-table col:nth-child(5),
+  #page-list .campaign-changes-table th:nth-child(5),
+  #page-list .campaign-changes-table td:nth-child(5){width:320px !important;}
+}
+</style>
+
+<script id="change-record-locale-before-operation-final-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(v){
+    if(typeof escape === 'function') return escape(v == null ? '' : v);
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]; });
+  }
+  function pTime(value){
+    if(typeof parseTime === 'function') return parseTime(value);
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opLabel(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    return key === 'add' ? 'Added' : key === 'update' ? 'Updated' : key === 'remove' ? 'Removed' : key.charAt(0).toUpperCase() + key.slice(1);
+  }
+  function opRank(op){
+    var key = opKey(op);
+    return key === 'add' ? 0 : key === 'update' ? 1 : key === 'remove' ? 2 : 9;
+  }
+  function dateRank(ch){
+    var raw = ch && ch.time ? String(ch.time).slice(0,10) : '';
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChangeRecords(list){
+    return (list || []).slice().sort(function(a,b){
+      var d = dateRank(b) - dateRank(a);
+      if(d) return d;
+      var o = opRank(a && a.op) - opRank(b && b.op);
+      if(o) return o;
+      return pTime(b && b.time) - pTime(a && a.time);
+    });
+  }
+  function localeLabel(ch){
+    var loc = ch && ch.locale ? String(ch.locale) : '';
+    return (loc && loc !== '-') ? loc : 'Global';
+  }
+  function localeChip(ch){
+    var label = localeLabel(ch);
+    var cls = label === 'Global' ? 'chip mini change-locale-global' : 'chip mini';
+    var title = label === 'Global' ? 'Global / all locales' : label;
+    return '<span class="'+cls+'" title="'+e(title)+'">'+e(label)+'</span>';
+  }
+  function changeEventName(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type];
+    if(typeof getSubscribedEventFromScope === 'function') return getSubscribedEventFromScope(ch && ch.scope);
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function diffHtml(ch){
+    if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch);
+    if(opKey(ch && ch.op) === 'add') return '<span class="diff-add">+ '+e((ch && ch.after) || '')+'</span>';
+    if(opKey(ch && ch.op) === 'remove') return '<span class="diff-remove">− '+e((ch && ch.before) || '')+'</span>';
+    return '<span class="diff-old">'+e((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+e((ch && ch.after) || '')+'</span>';
+  }
+  function changeRecordSinceValue(){
+    var el = byId('fChangeRecordSince');
+    return el ? String(el.value || '').trim() : '';
+  }
+  function validSince(value){
+    var m = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return '';
+    var y = Number(m[1]), mo = Number(m[2]), d = Number(m[3]);
+    var date = new Date(y, mo - 1, d, 0, 0, 0, 0);
+    if(date.getFullYear() !== y || date.getMonth() !== mo - 1 || date.getDate() !== d) return '';
+    return m[1] + '-' + m[2] + '-' + m[3];
+  }
+  function sinceStartMs(){
+    var v = validSince(changeRecordSinceValue());
+    if(!v) return 0;
+    return Date.parse(v + 'T00:00:00') || 0;
+  }
+  function removedSectionChange(ch){
+    var scope = String((ch && ch.scope) || '');
+    var field = String((ch && ch.field) || '');
+    return !!(ch && (ch.type === 'collection' || /Collection Basic Info/i.test(scope) || /Asset of Flash Sale Products/i.test(scope) || /Asset of Flash Sale Products/i.test(field)));
+  }
+  function rawVisibleChanges(id){
+    var list = [];
+    try{
+      if(typeof CHANGES !== 'undefined') list = (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+    }catch(err){}
+    return sortChangeRecords(list.filter(function(ch){ return !removedSectionChange(ch); }));
+  }
+  window.campaignVisibleChangesByRecordSince = function(id){
+    var start = sinceStartMs();
+    return rawVisibleChanges(id).filter(function(ch){
+      var t = pTime(ch && ch.time);
+      return !!t && (!start || t >= start);
+    });
+  };
+  function updateText(count){ return count + ' update' + (count === 1 ? '' : 's'); }
+  function filterNote(){
+    var v = validSince(changeRecordSinceValue());
+    return v ? 'since ' + v : '';
+  }
+  function renderCampaignChangeRows(list){
+    return sortChangeRecords(list).map(function(ch){
+      return '<tr>'
+        + '<td>'+localeChip(ch)+'</td>'
+        + '<td><span class="op-pill op-'+e(opKey(ch && ch.op))+'">'+e(opLabel(ch && ch.op))+'</span></td>'
+        + '<td title="'+e(changeEventName(ch))+'">'+e(changeEventName(ch))+'</td>'
+        + '<td title="'+e((ch && ch.field) || '-')+'">'+e((ch && ch.field) || '-')+'</td>'
+        + '<td>'+diffHtml(ch)+'</td>'
+        + '<td class="muted" title="'+e((ch && ch.time) || '-')+'">'+e((ch && ch.time) || '-')+'</td>'
+        + '</tr>';
+    }).join('');
+  }
+  window.renderCampaignChangePanel = function(id){
+    var list = window.campaignVisibleChangesByRecordSince(id);
+    var note = filterNote();
+    if(!list.length){
+      return '<div class="campaign-change-panel"><div class="campaign-no-change">No change records'+(note ? ' '+e(note) : '')+' for this campaign.</div></div>';
+    }
+    return '<div class="campaign-change-panel">'
+      + '<div class="campaign-change-title">Change Records <span class="campaign-change-count">'+updateText(list.length)+'</span>'+(note ? '<span class="campaign-change-filter-note">'+e(note)+'</span>' : '')+'</div>'
+      + '<div class="campaign-changes-scroll">'
+      + '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+      + '<thead><tr><th>Locale</th><th>Operation</th><th>Change Section</th><th>Field</th><th>Change</th><th>Update Time</th></tr></thead>'
+      + '<tbody>'+renderCampaignChangeRows(list)+'</tbody>'
+      + '</table></div></div>';
+  };
+  try { renderCampaignChangePanel = window.renderCampaignChangePanel; } catch(err) {}
+
+  // Change Record Since only filters expanded change records. It must not filter Campaign rows.
+  window.getFilteredCampaignRows = function(){
+    var nameEl = byId('fName');
+    var fName = nameEl ? nameEl.value.trim().toLowerCase() : '';
+    var fTheme = (typeof getSelectValues === 'function') ? getSelectValues('fTheme') : [];
+    var fGrade = (typeof getSelectValues === 'function') ? getSelectValues('fGrade') : [];
+    var fStatus = (typeof getSelectValues === 'function') ? getSelectValues('fStatus') : [];
+    return (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).filter(function(r){
+      if(fName && !String(r.campaignName || '').toLowerCase().includes(fName)) return false;
+      if(fTheme.length && fTheme.indexOf(r.theme) < 0) return false;
+      if(fGrade.length && fGrade.indexOf(r.grade) < 0) return false;
+      if(typeof passListRegionFilter === 'function' && !passListRegionFilter(r)) return false;
+      var status = (typeof getComputedCampaignStatus === 'function') ? getComputedCampaignStatus(r) : r.status;
+      if(fStatus.length && fStatus.indexOf(status) < 0) return false;
+      return true;
+    });
+  };
+  try { getFilteredCampaignRows = window.getFilteredCampaignRows; } catch(err) {}
+
+  window.digestRenderChange = function(id, ch){
+    var d;
+    if(opKey(ch && ch.op) === 'add') d = '<span class="diff-add">+ '+e((ch && ch.after) || '')+'</span>';
+    else if(opKey(ch && ch.op) === 'remove') d = '<span class="diff-remove">− '+e((ch && ch.before) || '')+'</span>';
+    else d = '<span class="diff-old">'+e((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+e((ch && ch.after) || '')+'</span>';
+    var t = String((ch && ch.time) || '').slice(11, 16);
+    var evt = (typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) || (typeof getSubscribedEventFromScope === 'function' ? getSubscribedEventFromScope(ch && ch.scope) : ((ch && ch.scope) || ''));
+    return '<div class="dg-change" role="button" tabindex="0" onclick="digestJump(\''+e(id)+'\',\''+e(ch && ch.type)+'\',\''+e((ch && ch.locale) || '')+'\',\'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();digestJump(\''+e(id)+'\',\''+e(ch && ch.type)+'\',\''+e((ch && ch.locale) || '')+'\',\'\')}" title="Open '+e(evt)+' in campaign detail">'
+      + '<span class="dg-locale-cell">'+localeChip(ch)+'</span>'
+      + '<span class="op-pill op-'+e(opKey(ch && ch.op))+'">'+e(opLabel(ch && ch.op))+'</span>'
+      + '<span class="dg-field" title="'+e((ch && ch.scope) || '')+' · '+e((ch && ch.field) || '')+'">'+e((ch && ch.field) || '-')+'</span>'
+      + '<span class="dg-diff">'+d+'</span>'
+      + '<span class="dg-time">'+e(t)+'</span>'
+      + '<span class="dg-go" aria-hidden="true">→</span>'
+      + '</div>';
+  };
+  try { digestRenderChange = window.digestRenderChange; } catch(err) {}
+
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[locale-before-operation final] renderTable', err); }
+  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[locale-before-operation final] renderDigest', err); }
+})();
+</script>
+
+
+
 
 </body>
 </html>
