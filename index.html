@@ -10484,6 +10484,442 @@ body.no-read-unread #page-digest .dg-change{
 
 
 
+<style id="report-sort-grade-no-search-patch-style">
+/* Final requested polish: Campaign page searches immediately on filter change, so hide/remove the Search button. */
+#page-list .filter-actions .btn-primary{
+  display:none !important;
+}
+#page-list .filter-actions{
+  margin-left:auto !important;
+}
+/* Daily Report group title: keep the grade badge visually aligned as the second tag after status. */
+#page-digest .dg-group-title .badge-tier{
+  vertical-align:middle;
+}
+</style>
+
+<script id="report-sort-grade-no-search-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function e(v){
+    if(typeof escape === 'function') return escape(v == null ? '' : v);
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]; });
+  }
+  function pTime(value){
+    if(typeof value === 'number') return isFinite(value) ? value : 0;
+    if(typeof parseTime === 'function') return parseTime(value);
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function parseDateLike(value){
+    if(!value) return 0;
+    var s = String(value).trim();
+    if(!s || s === '/' || s.toLowerCase() === 'null') return 0;
+    s = s.replace(/\s+Asia\/[A-Za-z_]+\s*$/,'');
+    var m = s.match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}(?::\d{2})?))?/);
+    if(m){
+      var t = Date.parse(m[1] + 'T' + (m[2] || '00:00:00'));
+      return isNaN(t) ? 0 : t;
+    }
+    var t2 = Date.parse(s.replace(' ', 'T'));
+    return isNaN(t2) ? 0 : t2;
+  }
+  function detailForCampaign(c){
+    var id = c && c.campaignId;
+    return (typeof DETAILS !== 'undefined' && (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)])) || null;
+  }
+  function campaignTiming(c){
+    var d = detailForCampaign(c);
+    var campaign = d && d.campaign ? d.campaign : {};
+    var launch = parseDateLike(campaign.launchDate || (c && c.launchDate) || (c && c.createTime));
+    var period = campaign.startEndDate || (c && c.startEndDate) || '';
+    var end = 0;
+    if(period && String(period).indexOf(' - ') >= 0){
+      var parts = String(period).split(' - ');
+      end = parseDateLike(parts[parts.length - 1]);
+    }
+    return { launch:launch, end:end };
+  }
+  function statusAt(c, refTime){
+    var t = campaignTiming(c || {});
+    if(t.launch && refTime < t.launch) return 'upcoming';
+    if(t.end && refTime > t.end) return 'ended';
+    if(t.launch || t.end) return 'ongoing';
+    var st = String((c && c.status) || '').toLowerCase();
+    if(st === 'live') return 'ongoing';
+    if(st === 'upcoming' || st === 'ongoing' || st === 'ended' || st === 'draft') return st;
+    return 'upcoming';
+  }
+  function groupStatus(g){
+    // Sort and display the Report activity groups by the campaign Status field.
+    // In this UI, Live is shown as Ongoing.
+    var raw = String((g && g.c && g.c.status) || '').toLowerCase();
+    if(raw === 'live') return 'ongoing';
+    if(raw === 'upcoming' || raw === 'ongoing' || raw === 'ended' || raw === 'draft') return raw;
+    if(g && g.computedStatus) return String(g.computedStatus).toLowerCase();
+    if(typeof getComputedCampaignStatus === 'function'){
+      try { return String(getComputedCampaignStatus(g && g.c)).toLowerCase(); } catch(err) {}
+    }
+    return statusAt(g && g.c, Date.now());
+  }
+  function statusLabel(st){
+    st = String(st || '').toLowerCase();
+    if(typeof STATUS_LABEL !== 'undefined' && STATUS_LABEL[st]) return STATUS_LABEL[st];
+    if(st === 'live' || st === 'ongoing') return 'Ongoing';
+    if(st === 'upcoming') return 'Upcoming';
+    if(st === 'ended') return 'Ended';
+    if(st === 'draft') return 'Draft';
+    return st ? st.charAt(0).toUpperCase() + st.slice(1) : '-';
+  }
+  function statusRank(st){
+    st = String(st || '').toLowerCase();
+    if(st === 'upcoming') return 0;
+    if(st === 'ongoing' || st === 'live') return 1;
+    if(st === 'draft') return 2;
+    if(st === 'ended') return 3;
+    return 9;
+  }
+  function gradeRank(grade){
+    var g = String(grade || '').toLowerCase().replace(/\s+/g, '');
+    if(g === 'tier1') return 0;
+    if(g === 'tier2') return 1;
+    if(g === 'tier3') return 2;
+    return 9;
+  }
+  function gradeBadge(grade){
+    var label = String(grade || '').trim() || '-';
+    var cls = label.toLowerCase().replace(/\s+/g,'');
+    return '<span class="badge-tier tier-'+e(cls)+'">'+e(label)+'</span>';
+  }
+  function sortReportGroups(groups){
+    return (groups || []).slice().sort(function(a,b){
+      var sd = statusRank(groupStatus(a)) - statusRank(groupStatus(b));
+      if(sd) return sd;
+      var gd = gradeRank(a && a.c && a.c.grade) - gradeRank(b && b.c && b.c.grade);
+      if(gd) return gd;
+      return pTime(b && b.latest) - pTime(a && a.latest);
+    });
+  }
+  function countStatusAt(refTime){
+    var counts = { total:0, nonEnded:0, upcoming:0, ongoing:0, ended:0, draft:0 };
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      var st = statusAt(c, refTime);
+      counts.total += 1;
+      counts[st] = (counts[st] || 0) + 1;
+      if(st !== 'ended') counts.nonEnded += 1;
+    });
+    return counts;
+  }
+  function deltaHtml(delta){
+    if(delta === 0) return '<span class="dg-delta flat">no changes vs yesterday</span>';
+    var cls = delta > 0 ? 'up' : 'down';
+    var sign = delta > 0 ? '+' : '';
+    return '<span class="dg-delta '+cls+'">'+sign+delta+' vs yesterday</span>';
+  }
+  function renderCampaignOverview(){
+    var now = Date.now();
+    var yesterday = now - 24 * 60 * 60 * 1000;
+    var today = countStatusAt(now);
+    var prev = countStatusAt(yesterday);
+    var cards = [
+      { cls:'non-ended', label:'Total campaigns', value:today.nonEnded || 0, delta:(today.nonEnded || 0) - (prev.nonEnded || 0) },
+      { cls:'upcoming', label:'Upcoming campaigns', value:today.upcoming || 0, delta:(today.upcoming || 0) - (prev.upcoming || 0) },
+      { cls:'ongoing', label:'Ongoing campaigns', value:today.ongoing || 0, delta:(today.ongoing || 0) - (prev.ongoing || 0) }
+    ];
+    return '<div class="dg-overview-grid dg-overview-grid-v3">' + cards.map(function(card){
+      return '<div class="dg-overview-card '+card.cls+'">'
+        + '<div class="dg-overview-label">'+e(card.label)+'</div>'
+        + '<div class="dg-overview-num-row"><div class="dg-overview-num">'+card.value+'</div>'+deltaHtml(card.delta)+'</div>'
+        + '</div>';
+    }).join('') + '</div>';
+  }
+  function opKey(op){
+    op = String(op || '').toLowerCase();
+    if(op === 'added') return 'add';
+    if(op === 'updated') return 'update';
+    if(op === 'removed' || op === 'delete' || op === 'deleted') return 'remove';
+    return op || 'other';
+  }
+  function opRank(op){
+    var key = opKey(op);
+    if(key === 'add') return 0;
+    if(key === 'update') return 1;
+    if(key === 'remove') return 2;
+    return 9;
+  }
+  function changeDateRank(ch){
+    var raw = ch && ch.time ? String(ch.time).slice(0, 10) : '';
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChanges(list){
+    return (list || []).slice().sort(function(a,b){
+      var dateDiff = changeDateRank(b) - changeDateRank(a);
+      if(dateDiff) return dateDiff;
+      var opDiff = opRank(a && a.op) - opRank(b && b.op);
+      if(opDiff) return opDiff;
+      return pTime(b && b.time) - pTime(a && a.time);
+    });
+  }
+  function renderUpdatesText(n){ return n + ' update' + (n === 1 ? '' : 's'); }
+  function renderRecordText(n){ return n + ' change record' + (n === 1 ? '' : 's'); }
+  function renderChangeRecordSummary(groups){
+    groups = groups || [];
+    var withGroups = groups.filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = groups.filter(function(g){ return !g.hasMechanism; });
+    var withRecords = withGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    var withoutRecords = withoutGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    return '<div class="dg-change-record-summary">'
+      + '<div class="dg-change-record-summary-card total"><div class="dg-change-record-summary-label">Changed campaigns today</div><div class="dg-change-record-summary-num">'+groups.length+'</div></div>'
+      + '<div class="dg-change-record-summary-card with"><div class="dg-change-record-summary-label">Campaign with mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withGroups.length+'</div><span class="dg-record-delta">'+renderRecordText(withRecords)+'</span></div></div>'
+      + '<div class="dg-change-record-summary-card without"><div class="dg-change-record-summary-label">Campaign without mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withoutGroups.length+'</div><span class="dg-record-delta">'+renderRecordText(withoutRecords)+'</span></div></div>'
+      + '</div>';
+  }
+  function renderDigestGroup(g){
+    var sortedList = sortChanges(g && g.list);
+    var st = groupStatus(g);
+    var badgeClass = st === 'live' ? 'ongoing' : st;
+    return '<article class="dg-group '+(g && g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism')+'">'
+      + '<header class="dg-group-head"><div class="dg-group-title">'
+      + '<span class="link-name" role="button" tabindex="0" onclick="openDetail('+Number(g && g.id)+')" onkeydown="if(event.key===\'Enter\'){openDetail('+Number(g && g.id)+')}" title="Open campaign detail">'+e(g && g.c && g.c.campaignName)+'</span>'
+      + '<span class="badge-stage '+e(badgeClass)+'">'+e(statusLabel(st))+'</span>'
+      + gradeBadge(g && g.c && g.c.grade)
+      + '</div><div class="dg-group-meta"><span class="dg-count">'+renderUpdatesText(sortedList.length)+'</span></div></header>'
+      + '<div class="dg-changes">'+sortedList.map(function(ch){ return (typeof digestRenderChange === 'function') ? digestRenderChange(g.id, ch) : ''; }).join('')+'</div>'
+      + '</article>';
+  }
+  function renderGroupedHighlights(groups){
+    groups = groups || [];
+    var withGroups = sortReportGroups(groups.filter(function(g){ return !!g.hasMechanism; }));
+    var withoutGroups = sortReportGroups(groups.filter(function(g){ return !g.hasMechanism; }));
+    function section(label, arr){
+      var body = arr.length ? arr.map(renderDigestGroup).join('') : '<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>';
+      return '<div class="dg-mech-section"><div class="dg-mech-section-title"><span>'+e(label)+'</span></div>'+body+'</div>';
+    }
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  var previousDigestHighlights = (typeof digestHighlights === 'function') ? digestHighlights : null;
+  if(previousDigestHighlights){
+    window.digestHighlights = function(){
+      var result = previousDigestHighlights.apply(this, arguments) || { groups:[] };
+      // Keep the two mechanism groups separate. Sorting inside each group is done in renderGroupedHighlights.
+      return result;
+    };
+    try { digestHighlights = window.digestHighlights; } catch(err) {}
+  }
+  window.renderDigest = function(){
+    var box = byId('digestBody');
+    if(!box) return;
+    var result = (typeof digestHighlights === 'function') ? digestHighlights() : { groups:[] };
+    var groups = result.groups || [];
+    var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
+    var hero = '<div class="page-card dg-hero dg-hero-v4">'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
+      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Today’s Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
+      + '</div>';
+    var highlights = '<div class="dg-highlights dg-highlights-flat">' + renderChangeRecordSummary(groups) + renderGroupedHighlights(groups) + '</div>';
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverview() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+  };
+  try { renderDigest = window.renderDigest; } catch(err) {}
+
+  function removeCampaignSearchButton(){
+    document.querySelectorAll('#page-list .filter-actions .btn-primary').forEach(function(btn){ btn.remove(); });
+  }
+  removeCampaignSearchButton();
+  try { window.renderDigest(); } catch(err) { console.warn('[report sort grade no search] renderDigest', err); }
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[report sort grade no search] renderTable', err); }
+  removeCampaignSearchButton();
+})();
+</script>
+
+
+
+<style id="report-change-section-column-patch-style">
+/* Report change rows: tighten Locale → Operation spacing and add Change Section after Operation. */
+#page-digest .dg-change,
+body.no-read-unread #page-digest .dg-change{
+  grid-template-columns:minmax(54px,76px) max-content minmax(120px,170px) minmax(96px,150px) minmax(0,1fr) auto 14px !important;
+  column-gap:6px !important;
+  row-gap:6px !important;
+}
+#page-digest .dg-locale-cell{
+  justify-self:start !important;
+  max-width:76px !important;
+}
+#page-digest .dg-locale-cell .chip.mini{
+  margin-right:0 !important;
+}
+#page-digest .dg-change .op-pill{
+  justify-self:start !important;
+  min-width:64px !important;
+}
+#page-digest .dg-section-cell{
+  min-width:0;
+  color:#5f6c84;
+  font-size:12.5px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media (max-width:900px){
+  #page-digest .dg-change,
+  body.no-read-unread #page-digest .dg-change{
+    grid-template-columns:minmax(52px,72px) max-content minmax(92px,140px) minmax(0,1fr) auto 14px !important;
+  }
+  #page-digest .dg-field{display:none !important;}
+}
+</style>
+
+<script id="report-change-section-column-patch-script">
+(function(){
+  function html(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opLabel(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    if(key === 'add') return 'Added';
+    if(key === 'update') return 'Updated';
+    if(key === 'remove') return 'Removed';
+    return key.charAt(0).toUpperCase() + key.slice(1);
+  }
+  function localeLabel(ch){
+    var loc = ch && ch.locale ? String(ch.locale) : '';
+    return (loc && loc !== '-') ? loc : 'Global';
+  }
+  function localeChip(ch){
+    var label = localeLabel(ch);
+    var cls = label === 'Global' ? 'chip mini change-locale-global' : 'chip mini';
+    var title = label === 'Global' ? 'Global / all locales' : label;
+    return '<span class="'+cls+'" title="'+html(title)+'">'+html(label)+'</span>';
+  }
+  function changeSection(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type];
+    if(typeof getSubscribedEventFromScope === 'function') return getSubscribedEventFromScope(ch && ch.scope);
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function diffHtml(ch){
+    var key = opKey(ch && ch.op);
+    if(key === 'add') return '<span class="diff-add">+ '+html((ch && ch.after) || '')+'</span>';
+    if(key === 'remove') return '<span class="diff-remove">− '+html((ch && ch.before) || '')+'</span>';
+    return '<span class="diff-old">'+html((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+html((ch && ch.after) || '')+'</span>';
+  }
+  window.digestRenderChange = function(id, ch){
+    var t = String((ch && ch.time) || '').slice(11, 16);
+    var section = changeSection(ch);
+    return '<div class="dg-change" role="button" tabindex="0" onclick="digestJump(\''+html(id)+'\',\''+html(ch && ch.type)+'\',\''+html((ch && ch.locale) || '')+'\',\'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();digestJump(\''+html(id)+'\',\''+html(ch && ch.type)+'\',\''+html((ch && ch.locale) || '')+'\',\'\')}" title="Open '+html(section)+' in campaign detail">'
+      + '<span class="dg-locale-cell">'+localeChip(ch)+'</span>'
+      + '<span class="op-pill op-'+html(opKey(ch && ch.op))+'">'+html(opLabel(ch && ch.op))+'</span>'
+      + '<span class="dg-section-cell" title="'+html(section)+'">'+html(section)+'</span>'
+      + '<span class="dg-field" title="'+html((ch && ch.scope) || '')+' · '+html((ch && ch.field) || '')+'">'+html((ch && ch.field) || '-')+'</span>'
+      + '<span class="dg-diff">'+diffHtml(ch)+'</span>'
+      + '<span class="dg-time">'+html(t)+'</span>'
+      + '<span class="dg-go" aria-hidden="true">→</span>'
+      + '</div>';
+  };
+  try { digestRenderChange = window.digestRenderChange; } catch(err) {}
+  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[report change section column] renderDigest', err); }
+})();
+</script>
+
+
+
+<style id="report-change-record-spacing-blue-totals-patch">
+/* Requested polish:
+   1) In Report > Today's Change Record, keep the first five change-row columns on one consistent grid gap.
+   2) Use the same blue color for all overview/statistic total numbers on the Report page. */
+#page-digest .dg-change,
+body.no-read-unread #page-digest .dg-change{
+  grid-template-columns:76px 74px minmax(150px,170px) minmax(130px,150px) minmax(0,1fr) 58px 14px !important;
+  column-gap:12px !important;
+  row-gap:6px !important;
+}
+#page-digest .dg-locale-cell,
+#page-digest .dg-section-cell,
+#page-digest .dg-field,
+#page-digest .dg-diff,
+#page-digest .dg-time{
+  margin:0 !important;
+  padding:0 !important;
+  min-width:0 !important;
+  justify-self:stretch !important;
+}
+#page-digest .dg-locale-cell{
+  width:76px !important;
+  max-width:76px !important;
+}
+#page-digest .dg-locale-cell .chip.mini{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:100% !important;
+  max-width:100% !important;
+  margin:0 !important;
+  padding-left:4px !important;
+  padding-right:4px !important;
+  box-sizing:border-box !important;
+}
+#page-digest .dg-change .op-pill{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:74px !important;
+  min-width:74px !important;
+  max-width:74px !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  justify-self:stretch !important;
+}
+#page-digest .dg-section-cell{
+  width:100% !important;
+  max-width:100% !important;
+}
+#page-digest .dg-field{
+  width:100% !important;
+  max-width:100% !important;
+}
+
+/* Report overview/statistic totals: one unified blue. */
+#page-digest .dg-kpi-num,
+#page-digest .dg-region-num,
+#page-digest .dg-overview-card .dg-overview-num,
+#page-digest .dg-overview-card.ongoing .dg-overview-num,
+#page-digest .dg-overview-card.upcoming .dg-overview-num,
+#page-digest .dg-overview-card.with-mechanism .dg-overview-num,
+#page-digest .dg-overview-card.without-mechanism .dg-overview-num,
+#page-digest .dg-change-record-summary-card .dg-change-record-summary-num,
+#page-digest .dg-change-record-summary-card.with .dg-change-record-summary-num,
+#page-digest .dg-change-record-summary-card.without .dg-change-record-summary-num,
+#page-digest .dg-overview-sub b,
+#page-digest .dg-change-record-summary-sub b,
+#page-digest .dg-record-delta{
+  color:#3573f5 !important;
+}
+
+@media (max-width:900px){
+  #page-digest .dg-change,
+  body.no-read-unread #page-digest .dg-change{
+    grid-template-columns:72px 72px minmax(112px,140px) minmax(0,1fr) 58px 14px !important;
+    column-gap:10px !important;
+  }
+  #page-digest .dg-locale-cell{width:72px !important;max-width:72px !important;}
+  #page-digest .dg-change .op-pill{width:72px !important;min-width:72px !important;max-width:72px !important;}
+  #page-digest .dg-field{display:none !important;}
+}
+</style>
+
+
 
 </body>
 </html>
