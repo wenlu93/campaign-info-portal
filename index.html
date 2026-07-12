@@ -3351,8 +3351,8 @@
       <div class="page-card">
         <div class="page-head page-head-stack">
           <div class="page-title-stack">
-            <h2>Campaign</h2>
-            <p class="page-intro">Use this page to browse all campaigns, review each campaign’s change history, and open its latest full information. Click the <strong>expand icon</strong> to view all change records, or click the <strong>Campaign Name</strong> to open the latest campaign detail.</p>
+            <h2>Campaign List</h2>
+            <div class="page-intro campaign-page-intro"><p>This page is used for browsing all campaigns, reviewing each campaign’s change history, and opening its latest full information.</p><ul><li>Click the expand icon to view all change records;</li><li>Click the Campaign Name to open the latest campaign detail.</li></ul></div>
           </div>
         </div>
 
@@ -3929,14 +3929,14 @@ const SUBS = {};
 const CHANGES = {
   31571: [
     { type:'coupon',   locale:'zh-HK', time:'2026-05-15 18:22', isNew:true,
-      op:'add', scope:'Coupon Info', field:'Coupon row',
+      op:'add', scope:'Coupon Info', field:'1176505989',
       after:'Gift 1176505989 · 2026 HK 3.3 Mega MC - Flight 533 (PUBLIC_COUPON)' },
     { type:'subsidy',  locale:'zh-HK', time:'2026-05-13 10:05', isNew:true,
-      op:'add', scope:'Subsidy Info / Flight', field:'Subsidy row',
+      op:'add', scope:'Subsidy Info / Flight', field:'Flight',
       after:'HKG → OSA · HX · ONE_PRICE 333 HKD · 2026-03-03 21:00 - 23:29' },
     { type:'landing',  locale:'zh-HK', time:'2026-05-10 17:42', isNew:true,
-      op:'update', scope:'Landing Page Info', field:'Version',
-      before:'Draft', after:'Live' },
+      op:'update', scope:'Landing Page Info', field:'https://hk.trip.com/sale/mega2026?locale=zh-HK',
+      before:'Version: Draft', after:'Version: Live' },
     { type:'promotion',locale:'en-HK', time:'2026-05-09 09:00', isNew:false,
       op:'update', scope:'Promotion / Flash Sale Products', field:'Asset of Flash Sale Products',
       before:'5 images', after:'7 images' },
@@ -3949,37 +3949,37 @@ const CHANGES = {
       op:'update', scope:'Campaign Basic Info', field:'Start/End Date',
       before:'-', after:'2026-03-03 00:00:00 - 2026-03-06 23:59:59' },
     { type:'coupon',   locale:'zh-TW', time:'2026-05-12 16:40', isNew:true,
-      op:'add', scope:'Coupon Info', field:'Coupon row',
+      op:'add', scope:'Coupon Info', field:'1259109545',
       after:'Gift 1259109545 · TW Baggage Coupon 2026.03.03 (PRIVATE_COUPON)' },
     { type:'subsidy',  locale:'zh-TW', time:'2026-05-11 09:20', isNew:false,
-      op:'remove', scope:'Subsidy Info / Hotel', field:'Subsidy row',
+      op:'remove', scope:'Subsidy Info / Hotel', field:'Hotel',
       before:'TPE Hotel · ONE_PRICE 1500 TWD' }
   ],
   31599: [
     { type:'promotion',locale:'en-SG', time:'2026-05-16 09:30', isNew:true,
-      op:'update', scope:'Promotion / KV', field:'Headline',
-      before:'[SG] 3.3 Mega Sale Up to 70% Off',
-      after:'[SG] 3.3 Mega Sale Up to 80% Off' },
+      op:'update', scope:'Promotion Channel Info', field:'Paid Ads (Facebook, Google UAC, Google Demand Gen)',
+      before:'Headline: [SG] 3.3 Mega Sale Up to 70% Off',
+      after:'Headline: [SG] 3.3 Mega Sale Up to 80% Off' },
     { type:'subsidy',  locale:'en-SG', time:'2026-05-15 21:10', isNew:true,
       op:'add', scope:'Subsidy Info / TNT', field:'Subsidy row',
       after:'China eSIM 7days 10GB · ONE_PRICE 1 SGD' },
     { type:'landing',  locale:'en-SG', time:'2026-05-12 14:20', isNew:false,
-      op:'update', scope:'Landing Page Info', field:'Terms & Conditions',
-      before:'(empty)', after:'Finalized for SG 3.3 Mega Sale' },
+      op:'update', scope:'Landing Page Info', field:'https://sg.trip.com/sale/mega2026?locale=en-SG',
+      before:'Terms & Conditions: (empty)', after:'Terms & Conditions: Finalized for SG 3.3 Mega Sale' },
     { type:'campaign', locale:'-',     time:'2026-05-10 08:50', isNew:false,
       op:'update', scope:'Campaign Basic Info', field:'Campaign Mechanism',
       before:'Coupon Only', after:'Coupon + Subsidy' }
   ],
   31606: [
     { type:'coupon',   locale:'en-MY', time:'2026-05-15 22:11', isNew:true,
-      op:'add', scope:'Coupon Info', field:'Coupon row',
+      op:'add', scope:'Coupon Info', field:'1566640845',
       after:'Gift 1566640845 · 国际租车 MY-Mega 33 0303 50% off cap 65 MYR' },
     { type:'subsidy',  locale:'en-MY', time:'2026-05-14 14:00', isNew:true,
-      op:'add', scope:'Subsidy Info / Flight', field:'Subsidy row',
+      op:'add', scope:'Subsidy Info / Flight', field:'Flight',
       after:'KUL → TYO · PR · ONE_PRICE 899 MYR' },
     { type:'supplementary',locale:'en-MY', time:'2026-05-11 16:30', isNew:false,
-      op:'update', scope:'Supplementary Info', field:'Remark',
-      before:'(empty)', after:'Reviewed by BD lead 2026-05-11' }
+      op:'update', scope:'Supplementary Info', field:'',
+      before:'Remark: (empty)', after:'Remark: Reviewed by BD lead 2026-05-11' }
   ]
 };
 
@@ -5429,16 +5429,16 @@ function buildPrimaryDemoChanges(campaignId, region){
   return [
     demoChange('collection','-','2026-05-16 19:10','update','Collection Basic Info','Collection Name','IBU Mega Sale 2026 Collection','IBU Mega Sale 2026 Collection · Regional',true),
     demoChange('campaign','-','2026-05-16 18:42','update','Campaign Basic Info','Campaign Region',region,`${region}, ${region === 'HK' ? 'MO' : region}`,true),
-    demoChange('subsidy',loc,'2026-05-16 17:35','add','Subsidy Info / Flight','Flight row',null,`${region} flight flash deal · ONE_PRICE 333 ${currency}`,true),
-    demoChange('subsidy',loc,'2026-05-16 16:20','update','Subsidy Info / Hotel','Hotel subsidy status','Pending','Active',true),
-    demoChange('subsidy',loc,'2026-05-16 15:05','add','Subsidy Info / TNT','TNT row',null,`${region} attraction ticket · BOGO · ${currency}`,true),
-    demoChange('subsidy',loc,'2026-05-16 14:18','add','Subsidy Info / Bundle','Bundle row',null,`${region} flight + hotel package · ONE_PRICE`,true),
-    demoChange('coupon',loc,'2026-05-16 13:33','add','Coupon Info','Coupon row',null,`Gift ${campaignId}01 · Member exclusive coupon`,true),
-    demoChange('coupon',loc,'2026-05-16 12:26','update','Coupon Info','Coupon row',`Gift ${campaignId}001`,`Gift ${campaignId}001, Gift ${campaignId}002`,true),
-    demoChange('landing',loc,'2026-05-16 11:12','update','Landing Page Info','Share Title','Mega Sale','Mega Sale · Limited Time Deals',true),
+    demoChange('subsidy',loc,'2026-05-16 17:35','add','Subsidy Info / Flight','Flight',null,`${region} flight flash deal · ONE_PRICE 333 ${currency}`,true),
+    demoChange('subsidy',loc,'2026-05-16 16:20','update','Subsidy Info / Hotel','Hotel','Status: Pending','Status: Active',true),
+    demoChange('subsidy',loc,'2026-05-16 15:05','add','Subsidy Info / TNT','TNT',null,`${region} attraction ticket · BOGO · ${currency}`,true),
+    demoChange('subsidy',loc,'2026-05-16 14:18','add','Subsidy Info / Bundle','Bundle',null,`${region} flight + hotel package · ONE_PRICE`,true),
+    demoChange('coupon',loc,'2026-05-16 13:33','add','Coupon Info',`${campaignId}01`,null,`Gift ${campaignId}01 · Member exclusive coupon`,true),
+    demoChange('coupon',loc,'2026-05-16 12:26','update','Coupon Info',`${campaignId}001`,`Gift: ${campaignId}001`,`Gift: ${campaignId}001, ${campaignId}002`,true),
+    demoChange('landing',loc,'2026-05-16 11:12','update','Landing Page Info',`https://${region.toLowerCase()}.trip.com/sale/mega2026?locale=${loc}`,'Share Title: Mega Sale','Share Title: Mega Sale · Limited Time Deals',true),
     demoChange('promotion',loc,'2026-05-16 10:05','update','Promotion Channel Info','Asset of Flash Sale Products','5 images','8 images',true),
     demoChange('promotion',loc,'2026-05-16 09:30','add','Promotion Channel Info','Asset of Flash Sale Products',null,'3 new flash sale product banners',false),
-    demoChange('supplementary',loc,'2026-05-16 08:45','update','Supplementary Info','Remark','Pending BD review','Reviewed by campaign owner',false)
+    demoChange('supplementary',loc,'2026-05-16 08:45','update','Supplementary Info','','Remark: Pending BD review','Remark: Reviewed by campaign owner',false)
   ];
 }
 function buildGenericDemoChanges(c, idx){
@@ -5446,8 +5446,8 @@ function buildGenericDemoChanges(c, idx){
   const day = String(15 - (idx % 5)).padStart(2,'0');
   return [
     demoChange('campaign','-',`2026-05-${day} 18:0${idx%10}`,'update','Campaign Basic Info','Campaign Status','Draft',STATUS_LABEL[c.status] || c.status,true),
-    demoChange('coupon',loc,`2026-05-${day} 16:2${idx%10}`,'add','Coupon Info','Coupon row',null,`Gift ${c.campaignId}99 · ${c.campaignName} coupon`,idx % 2 === 0),
-    demoChange('promotion',loc,`2026-05-${day} 14:4${idx%10}`,'update','Promotion Channel Info','Headline','Old headline',`${c.campaignName} headline`,false)
+    demoChange('coupon',loc,`2026-05-${day} 16:2${idx%10}`,'add','Coupon Info',`${c.campaignId}99`,null,`Gift ${c.campaignId}99 · ${c.campaignName} coupon`,idx % 2 === 0),
+    demoChange('promotion',loc,`2026-05-${day} 14:4${idx%10}`,'update','Promotion Channel Info','Kol','Headline: Old headline',`Headline: ${c.campaignName} headline`,false)
   ];
 }
 function seedDemoSubscriptions(){
@@ -5547,6 +5547,7 @@ function changeKey(id, ch){
 
 function parseTime(s){
   if(!s) return 0;
+  if(typeof s === 'number') return s; // already an epoch-ms value (e.g. group.latest in sort tie-breaks)
   // Accept "YYYY-MM-DD HH:mm[:ss]" or ISO with 'T'
   const t = Date.parse(s.includes('T') ? s : s.replace(' ', 'T'));
   return isNaN(t) ? 0 : t;
@@ -6528,7 +6529,7 @@ function renderDigest(){
   const hero = `<div class="page-card dg-hero">
     <div class="dg-hero-main">
       <div>
-        <h2>Daily Report</h2>
+        <h2>Campaign Notification Daily Report</h2>
         <div class="dg-date">${digestDateLabel()}</div>
       </div>
     </div>
@@ -6565,7 +6566,7 @@ function renderDigest(){
 
   const highlights = `<div class="page-card dg-card dg-highlights">
     <div class="dg-card-head">
-      <h3>Today's Change Record</h3>
+      <h3>Change Record</h3>
       <span class="dg-card-sub">${groups.length ? 'Newest and unread first' : ''}</span>
     </div>
     ${highlightsBody}
@@ -7702,7 +7703,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     const regionCounts = digestRegionCounts();
     const regionMax = Math.max(1, ...Object.values(regionCounts));
     const hero = `<div class="page-card dg-hero">
-      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
+      <div class="dg-hero-main"><div><h2>Campaign Notification Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
       <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> campaign${groups.length === 1 ? '' : 's'} today</div>
     </div>`;
     const kpis = `<div class="dg-kpis">${DIGEST_STATUS_CARDS.map(card => {
@@ -7714,7 +7715,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     }).join('')}</div>`;
     const highlightsBody = groups.length ? groups.map(g => digestRenderGroup(g)).join('') : `<div class="dg-empty"><div class="dg-empty-art" aria-hidden="true">✓</div><div class="dg-empty-title">No updates today</div><div class="dg-empty-text">All campaigns are steady. Browse the full list to explore details.</div><button class="btn btn-primary" onclick="digestOpenList({})">Open Campaign List</button></div>`;
     const aiSummary = `<div class="page-card dg-card dg-ai-summary"><div class="dg-card-head"><h3>AI Summary</h3><span class="dg-card-sub">Generated from today’s changes</span></div><p>${escape(buildDigestAISummary(groups, totalChanges))}</p></div>`;
-    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Today's Change Record</h3><span class="dg-card-sub">Newest updates first</span></div>${highlightsBody}</div>`;
+    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Change Record</h3><span class="dg-card-sub">Newest updates first</span></div>${highlightsBody}</div>`;
     const regionRows = LIST_REGION_OPTIONS.map(r => {
       const n = regionCounts[r] || 0;
       return `<button class="dg-region-row" onclick="digestOpenList({region:'${r}', toast:'Campaign list filtered: ${r}'})" title="Open the campaign list filtered to ${r}"><span class="dg-region-name">${r}</span><span class="dg-region-bar"><span class="dg-region-fill" style="width:${Math.round(n / regionMax * 100)}%;"></span></span><span class="dg-region-num">${n}</span></button>`;
@@ -7935,7 +7936,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
         <div class="dg-mech-card with">
           <div class="dg-mech-card-title"><span class="dg-mech-dot"></span>Campaign with mechanism</div>
           <div class="dg-mech-num">${s.withCampaigns}</div>
-          <div class="dg-mech-sub">${s.withUpdates} update${s.withUpdates === 1 ? '' : 's'} today · shown first in Today's Change Record</div>
+          <div class="dg-mech-sub">${s.withUpdates} update${s.withUpdates === 1 ? '' : 's'} today · shown first in Change Record</div>
         </div>
         <div class="dg-mech-card without">
           <div class="dg-mech-card-title"><span class="dg-mech-dot"></span>Campaign without mechanism</div>
@@ -7983,7 +7984,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     const regionCounts = digestRegionCounts();
     const regionMax = Math.max(1, ...Object.values(regionCounts));
     const hero = `<div class="page-card dg-hero">
-      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
+      <div class="dg-hero-main"><div><h2>Campaign Notification Daily Report</h2><div class="dg-date">${digestDateLabel()}</div></div></div>
       <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> changed campaign${groups.length === 1 ? '' : 's'} today</div>
     </div>`;
     const kpis = `<div class="dg-kpis">${DIGEST_STATUS_CARDS.map(card => {
@@ -7992,7 +7993,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
       return `<button class="dg-kpi kpi-${card.cls}" onclick="digestOpenList(${arg})" title="Open the campaign list${card.key ? ` filtered to ${card.label}` : ''}"><span class="dg-kpi-icon" aria-hidden="true">${card.icon}</span><span class="dg-kpi-num">${n}</span><span class="dg-kpi-label">${card.label}</span><span class="dg-kpi-go">View in list →</span></button>`;
     }).join('')}</div>`;
     const aiSummary = `<div class="page-card dg-card dg-ai-summary"><div class="dg-card-head"><h3>AI Summary</h3><span class="dg-card-sub">Generated from today’s changes</span></div><p>${e(buildDigestAISummary(groups, totalChanges))}</p></div>`;
-    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Today's Change Record</h3></div>${renderGroupedHighlights(groups)}</div>`;
+    const highlights = `<div class="page-card dg-card dg-highlights"><div class="dg-card-head"><h3>Change Record</h3></div>${renderGroupedHighlights(groups)}</div>`;
     const regionRows = LIST_REGION_OPTIONS.map(r => {
       const n = regionCounts[r] || 0;
       return `<button class="dg-region-row" onclick="digestOpenList({region:'${r}', toast:'Campaign list filtered: ${r}'})" title="Open the campaign list filtered to ${r}"><span class="dg-region-name">${r}</span><span class="dg-region-bar"><span class="dg-region-fill" style="width:${Math.round(n / regionMax * 100)}%;"></span></span><span class="dg-region-num">${n}</span></button>`;
@@ -8645,12 +8646,12 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     const groups = result.groups || [];
     const totalChanges = groups.reduce((s,g) => s + (g.list || []).length, 0);
     const hero = `<div class="page-card dg-hero">
-      <div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">${typeof digestDateLabel === 'function' ? digestDateLabel() : ''}</div></div></div>
+      <div class="dg-hero-main"><div><h2>Campaign Notification Daily Report</h2><div class="dg-date">${typeof digestDateLabel === 'function' ? digestDateLabel() : ''}</div></div></div>
       <div class="dg-hero-summary"><b>${totalChanges}</b> update${totalChanges === 1 ? '' : 's'} across <b>${groups.length}</b> changed campaign${groups.length === 1 ? '' : 's'} today</div>
     </div>`;
     const highlightsBody = renderGroupedHighlightsV2(groups);
     const highlights = `<div class="page-card dg-card dg-highlights">${highlightsBody}</div>`;
-    box.innerHTML = `${hero}<div class="dg-section-title">Overview</div>${renderOverview(groups)}<div class="dg-section-title">Today's Change Record</div>${highlights}`;
+    box.innerHTML = `${hero}<div class="dg-section-title">Overview</div>${renderOverview(groups)}<div class="dg-section-title">Change Record</div>${highlights}`;
     if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
   }
   renderDigest = renderDigestV2;
@@ -8709,7 +8710,7 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
 
 
 <style id="digest-overview-change-counts-patch-style">
-/* Digest v3: Campaign Overview cards and Today's Change Record summary. */
+/* Digest v3: Campaign Overview cards and Change Record summary. */
 #page-digest .dg-overview-grid.dg-overview-grid-v3{
   grid-template-columns:repeat(3,minmax(0,1fr));
 }
@@ -8916,12 +8917,12 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     var totalChanges = groups.reduce(function(s,g){ return s + ((g.list || []).length); }, 0);
     var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
     var hero = '<div class="page-card dg-hero">'
-      + '<div class="dg-hero-main"><div><h2>Daily Report</h2><div class="dg-date">'+e(dateLabel)+'</div></div></div>'
+      + '<div class="dg-hero-main"><div><h2>Campaign Notification Daily Report</h2><div class="dg-date">'+e(dateLabel)+'</div></div></div>'
       + '<div class="dg-hero-summary"><b>'+totalChanges+'</b> update'+(totalChanges === 1 ? '' : 's')+' across <b>'+groups.length+'</b> changed campaign'+(groups.length === 1 ? '' : 's')+' today</div>'
       + '</div>';
     var highlightsBody = renderGroupedHighlightsV3(groups);
     var highlights = '<div class="page-card dg-card dg-highlights">'+renderChangeRecordSummaryV3(groups)+highlightsBody+'</div>';
-    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV3() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV3() + '<div class="dg-section-title">Change Record</div>' + highlights;
     if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
   }
   window.renderDigest = renderDigestV3;
@@ -9261,11 +9262,11 @@ body.no-read-unread #page-sub .changes-v39-table td:nth-child(7)::before{content
     var groups = result.groups || [];
     var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
     var hero = '<div class="page-card dg-hero dg-hero-v4">'
-      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
-      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Today’s Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Campaign Notification Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
+      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
       + '</div>';
     var highlights = '<div class="dg-highlights dg-highlights-flat">' + renderChangeRecordSummaryV4(groups) + renderGroupedHighlightsV4(groups) + '</div>';
-    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV4() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverviewV4() + '<div class="dg-section-title">Change Record</div>' + highlights;
     if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
   }
   window.renderDigest = renderDigestV4;
@@ -10714,11 +10715,11 @@ body.no-read-unread #page-digest .dg-change{
     var groups = result.groups || [];
     var dateLabel = (typeof digestDateLabel === 'function') ? digestDateLabel() : '';
     var hero = '<div class="page-card dg-hero dg-hero-v4">'
-      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
-      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Today’s Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-hero-title-row"><h2>Campaign Notification Daily Report</h2><div class="dg-date dg-date-right">'+e(dateLabel)+'</div></div>'
+      + '<p class="page-intro dg-page-intro">Use this page to monitor campaign status and today’s information changes. <strong>Campaign Overview</strong> shows total, upcoming, and ongoing campaign counts with changes vs yesterday. <strong>Change Record</strong> shows changed campaigns and detailed records, split by campaigns with and without mechanism.</p></div>'
       + '</div>';
     var highlights = '<div class="dg-highlights dg-highlights-flat">' + renderChangeRecordSummary(groups) + renderGroupedHighlights(groups) + '</div>';
-    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverview() + '<div class="dg-section-title">Today\'s Change Record</div>' + highlights;
+    box.innerHTML = hero + '<div class="dg-section-title">Campaign Overview</div>' + renderCampaignOverview() + '<div class="dg-section-title">Change Record</div>' + highlights;
     if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
   };
   try { renderDigest = window.renderDigest; } catch(err) {}
@@ -10837,7 +10838,7 @@ body.no-read-unread #page-digest .dg-change{
 
 <style id="report-change-record-spacing-blue-totals-patch">
 /* Requested polish:
-   1) In Report > Today's Change Record, keep the first five change-row columns on one consistent grid gap.
+   1) In Report > Change Record, keep the first five change-row columns on one consistent grid gap.
    2) Use the same blue color for all overview/statistic total numbers on the Report page. */
 #page-digest .dg-change,
 body.no-read-unread #page-digest .dg-change{
@@ -11149,69 +11150,1675 @@ body.no-read-unread #page-digest .dg-change{
 </script>
 
 
+<style id="daily-report-summary-change-record-patch-style">
+/* Final Daily Report layout: Summary + Change Record. */
+#page-digest .dg-hero-summary{display:none !important;}
+#page-digest .dg-report-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+#page-digest .dg-report-date-pill{display:inline-flex;align-items:center;height:30px;padding:0 12px;border:1px solid #e7ecf5;border-radius:999px;background:#fff;color:#5f6c84;font-size:12px;box-shadow:0 1px 2px rgba(20,40,80,.03);}
+#page-digest .dg-section-title{display:flex;align-items:center;gap:8px;margin:14px 0 10px;font-size:16px;font-weight:800;color:#27324a;}
+#page-digest .dg-section-title::before{content:"";width:4px;height:16px;border-radius:4px;background:#3573f5;display:inline-block;}
+#page-digest .dg-summary-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:16px;}
+#page-digest .dg-summary-card{padding:16px 18px;border:1px solid #e7ecf5;border-radius:14px;background:#fff;box-shadow:0 1px 2px rgba(36,64,128,.04),0 6px 18px rgba(36,64,128,.03);min-width:0;}
+#page-digest .dg-summary-card.priority{border-color:#d9e6fd;background:linear-gradient(135deg,#f7fbff 0%,#fff 76%);}
+#page-digest .dg-summary-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
+#page-digest .dg-summary-head h3{margin:0;font-size:15px;font-weight:800;color:#27324a;}
+#page-digest .dg-priority-tag{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:999px;background:#fff1e6;color:#d9591f;border:1px solid #ffd9bf;font-size:11px;font-weight:800;white-space:nowrap;}
+#page-digest .dg-summary-sentence{margin:0;color:#34415c;font-size:13px;line-height:1.75;}
+#page-digest .dg-summary-sentence b{color:#3573f5;font-weight:850;}
+#page-digest .dg-summary-list-title{margin:12px 0 6px;color:#5f6c84;font-size:12px;font-weight:800;text-transform:none;}
+#page-digest .dg-summary-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;}
+#page-digest .dg-summary-list li{display:flex;align-items:flex-start;gap:8px;min-width:0;padding:7px 9px;border-radius:9px;background:#fbfcff;border:1px solid #edf1f8;color:#27324a;font-size:12.5px;line-height:1.45;}
+#page-digest .dg-summary-list li::before{content:"";width:6px;height:6px;border-radius:50%;background:#3573f5;flex:0 0 auto;margin-top:6px;}
+#page-digest .dg-summary-empty{padding:10px 12px;border:1px dashed #dfe6f3;border-radius:10px;background:#fbfcff;color:#97a1b4;font-size:12.5px;}
+#page-digest .dg-summary-campaign-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#page-digest .dg-summary-campaign-id{color:#5f6c84;white-space:nowrap;}
+#page-digest .dg-summary-list li .badge-tier{flex:0 0 auto;padding:2px 10px;line-height:18px;}
+#page-digest .dg-summary-campaign-name{flex:1 1 auto;}
+#page-digest .dg-summary-campaign-id{flex:0 0 auto;}
+#page-digest .dg-change-record-card{padding:16px 18px;margin-bottom:18px;}
+#page-digest .dg-change-record-card .dg-card-head{margin-bottom:12px;}
+#page-digest .dg-change-record-card .dg-card-head h3{font-size:15px;font-weight:800;}
+#page-digest .dg-change-record-card .dg-card-sub{font-size:12px;color:#97a1b4;}
+
+/* Report Summary Campaign List alignment: Campaign Name + Campaign ID + Grade stay on one horizontal row. */
+#page-digest .dg-summary-list li{align-items:center;}
+#page-digest .dg-summary-list li::before{margin-top:0;}
+#page-digest .dg-summary-campaign-name,
+#page-digest .dg-summary-campaign-id{display:inline-flex;align-items:center;min-height:22px;line-height:18px;}
+#page-digest .dg-summary-list li .badge-tier{display:inline-flex;align-items:center;justify-content:center;min-height:22px;height:22px;}
+@media (max-width:900px){
+  #page-digest .dg-summary-layout{grid-template-columns:1fr;}
+  #page-digest .dg-report-title-row{display:block;}
+  #page-digest .dg-report-date-pill{margin-top:8px;}
+  #page-digest .dg-summary-campaign-name{white-space:normal;}
+}
+
+/* Requested Report page updates: plain mechanism phrases, clickable Summary campaign list, and Change Record title stats. */
+#page-digest .dg-summary-mechanism-phrase{color:#34415c !important;font-weight:400 !important;}
+#page-digest .dg-summary-list li.dg-summary-campaign-item{cursor:pointer;transition:background .14s ease,border-color .14s ease,transform .14s ease;}
+#page-digest .dg-summary-list li.dg-summary-campaign-item:hover,
+#page-digest .dg-summary-list li.dg-summary-campaign-item:focus-visible{background:#f4f8ff;border-color:#cfe0ff;outline:none;transform:translateY(-1px);}
+#page-digest .dg-summary-list li.dg-summary-campaign-item:hover .dg-summary-campaign-name{text-decoration:underline;color:#3573f5;}
+#page-digest .dg-change-record-summary{display:none !important;}
+#page-digest .dg-mech-section-title .dg-mech-title-stat{margin-left:auto;font-size:12px;font-weight:700;color:#5f6c84;white-space:nowrap;}
+@media (max-width:760px){
+  #page-digest .dg-mech-section-title{align-items:flex-start;flex-direction:column;}
+  #page-digest .dg-mech-section-title .dg-mech-title-stat{margin-left:0;white-space:normal;}
+}
+
+</style>
+
+<script id="daily-report-summary-change-record-patch-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function h(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function pTime(value){
+    if(typeof parseTime === 'function'){
+      var parsed = parseTime(value);
+      return isNaN(parsed) ? 0 : parsed;
+    }
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function dayOf(value){
+    var s = String(value || '').trim();
+    var m = s.match(/^(\d{4}-\d{2}-\d{2})/);
+    return m ? m[1] : '';
+  }
+  function reportDay(){
+    if(typeof digestDateStr === 'function'){
+      var d = digestDateStr();
+      if(d) return d;
+    }
+    var max = 0;
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        (CHANGES[id] || []).forEach(function(ch){ var t = pTime(ch && ch.time); if(t > max) max = t; });
+      });
+    }
+    if(typeof CAMPAIGNS !== 'undefined'){
+      CAMPAIGNS.forEach(function(c){ var t = pTime(c && c.createTime); if(t > max) max = t; });
+    }
+    if(max){
+      var dt = new Date(max), pad = function(n){ return String(n).padStart(2, '0'); };
+      return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
+    }
+    var now = new Date(), padNow = function(n){ return String(n).padStart(2, '0'); };
+    return now.getFullYear() + '-' + padNow(now.getMonth() + 1) + '-' + padNow(now.getDate());
+  }
+  function reportDateLabel(day){
+    if(typeof digestDateLabel === 'function') return digestDateLabel();
+    var names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var d = new Date(String(day || '').replace(/-/g, '/'));
+    if(isNaN(d.getTime())) return h(day || '');
+    return weekdays[d.getDay()] + ', ' + names[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+  function getCampaign(id){
+    if(typeof getCampaignById === 'function') return getCampaignById(id);
+    var key = String(id);
+    return (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).find(function(c){ return String(c && c.campaignId) === key; }) || null;
+  }
+  function getDetail(id){
+    return (typeof DETAILS !== 'undefined') ? (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)] || null) : null;
+  }
+  function rawChanges(id){
+    if(typeof CHANGES === 'undefined') return [];
+    return (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+  }
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opRank(op){
+    var key = opKey(op);
+    return key === 'add' ? 0 : key === 'update' ? 1 : key === 'remove' ? 2 : 9;
+  }
+  function sortChanges(list){
+    return (list || []).slice().sort(function(a,b){
+      var dateA = Date.parse((dayOf(a && a.time) || '1970-01-01') + 'T00:00:00');
+      var dateB = Date.parse((dayOf(b && b.time) || '1970-01-01') + 'T00:00:00');
+      var dd = (isNaN(dateB) ? 0 : dateB) - (isNaN(dateA) ? 0 : dateA);
+      if(dd) return dd;
+      var od = opRank(a && a.op) - opRank(b && b.op);
+      if(od) return od;
+      return pTime(b && b.time) - pTime(a && a.time);
+    });
+  }
+  function changesOnDay(id, day){
+    return sortChanges(rawChanges(id).filter(function(ch){ return dayOf(ch && ch.time) === day; }));
+  }
+  function mechanismValues(id){
+    if(window.campaignMechanismValuesForDigest){
+      try { return window.campaignMechanismValuesForDigest(id) || []; } catch(err) {}
+    }
+    var d = getDetail(id);
+    var raw = d && d.campaign ? d.campaign.mechanism : null;
+    var arr = Array.isArray(raw) ? raw : String(raw || '').split(/[,;|/、，]+/);
+    return arr.map(function(v){ return String(v == null ? '' : v).trim(); })
+      .filter(function(v){ var low = v.toLowerCase(); return !!v && v !== '/' && low !== 'null' && low !== 'none' && low !== 'n/a'; });
+  }
+  function hasMechanism(id){ return mechanismValues(id).length > 0; }
+  function gradeLabel(c){ return String((c && c.grade) || '').trim() || '-'; }
+  function tierCounts(list){
+    var out = {'Tier 1':0,'Tier 2':0,'Tier 3':0};
+    (list || []).forEach(function(c){
+      var g = gradeLabel(c).toLowerCase().replace(/\s+/g, '');
+      if(g === 'tier1') out['Tier 1'] += 1;
+      if(g === 'tier2') out['Tier 2'] += 1;
+      if(g === 'tier3') out['Tier 3'] += 1;
+    });
+    return out;
+  }
+  function campaignStatus(c){
+    var raw = String((c && c.status) || '').toLowerCase();
+    if(raw === 'live' || raw === 'ongoing') return 'ongoing';
+    if(raw === 'upcoming' || raw === 'ended' || raw === 'draft') return raw;
+    return raw || 'upcoming';
+  }
+  function statusLabel(st){
+    st = String(st || '').toLowerCase();
+    if(st === 'ongoing' || st === 'live') return 'Ongoing';
+    if(st === 'upcoming') return 'Upcoming';
+    if(st === 'ended') return 'Ended';
+    if(st === 'draft') return 'Draft';
+    return st ? st.charAt(0).toUpperCase() + st.slice(1) : '-';
+  }
+  function statusClass(st){ return st === 'ongoing' ? 'ongoing' : st; }
+  function statusRank(st){
+    st = String(st || '').toLowerCase();
+    if(st === 'upcoming') return 0;
+    if(st === 'ongoing' || st === 'live') return 1;
+    if(st === 'draft') return 2;
+    if(st === 'ended') return 3;
+    return 9;
+  }
+  function gradeRank(grade){
+    var g = String(grade || '').toLowerCase().replace(/\s+/g, '');
+    if(g === 'tier1') return 0;
+    if(g === 'tier2') return 1;
+    if(g === 'tier3') return 2;
+    return 9;
+  }
+  function sortGroups(groups){
+    return (groups || []).slice().sort(function(a,b){
+      var sd = statusRank(campaignStatus(a && a.c)) - statusRank(campaignStatus(b && b.c));
+      if(sd) return sd;
+      var gd = gradeRank(a && a.c && a.c.grade) - gradeRank(b && b.c && b.c.grade);
+      if(gd) return gd;
+      return pTime(b && b.latest) - pTime(a && a.latest);
+    });
+  }
+  function isCampaignAddChange(ch){
+    if(opKey(ch && ch.op) !== 'add') return false;
+    var text = [ch && ch.type, ch && ch.scope, ch && ch.field].join(' ').toLowerCase();
+    if(!/campaign/.test(text)) return false;
+    if(/coupon|subsidy|landing|promotion|supplementary/.test(text)) return false;
+    return true;
+  }
+  function newCampaigns(day){
+    var ids = {};
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      if(dayOf(c && c.createTime) === day) ids[String(c.campaignId)] = true;
+    });
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        if(changesOnDay(id, day).some(isCampaignAddChange)) ids[String(id)] = true;
+      });
+    }
+    return Object.keys(ids).map(getCampaign).filter(Boolean).sort(function(a,b){ return pTime(b.createTime) - pTime(a.createTime); });
+  }
+  function subsidyCouponChanged(g){
+    return (g && g.list || []).some(function(ch){
+      var text = [ch && ch.type, ch && ch.scope].join(' ').toLowerCase();
+      return /subsidy/.test(text) || /coupon/.test(text);
+    });
+  }
+  function fallbackDigestGroups(day){
+    var groups = [];
+    if(typeof CHANGES === 'undefined') return groups;
+    Object.keys(CHANGES || {}).forEach(function(id){
+      var c = getCampaign(id); if(!c) return;
+      var list = changesOnDay(id, day);
+      if(!list.length) return;
+      groups.push({ id:String(id), c:c, list:list, latest:pTime(list[0] && list[0].time), hasMechanism:hasMechanism(id), mechanismValues:mechanismValues(id) });
+    });
+    return sortGroups(groups);
+  }
+  function getDigestGroups(day){
+    var groups = [];
+    if(typeof digestHighlights === 'function'){
+      try {
+        var result = digestHighlights() || {};
+        groups = result.groups || [];
+        if(result.day && result.day !== day) day = result.day;
+      } catch(err) { groups = []; }
+    }
+    if(!groups.length) groups = fallbackDigestGroups(day);
+    return sortGroups(groups.map(function(g){
+      var id = String(g.id || (g.c && g.c.campaignId));
+      var c = g.c || getCampaign(id);
+      return {
+        id:id,
+        c:c,
+        list:sortChanges(g.list || changesOnDay(id, day)),
+        latest:g.latest || pTime((g.list || [])[0] && (g.list || [])[0].time),
+        hasMechanism:(typeof g.hasMechanism === 'boolean') ? g.hasMechanism : hasMechanism(id),
+        mechanismValues:g.mechanismValues || mechanismValues(id)
+      };
+    }).filter(function(g){ return !!g.c && g.list.length; }));
+  }
+  function hasSubsidyCouponMechanism(id){
+    var d = getDetail(id);
+    var hasRows = false;
+    function scanSubsidy(subsidy){
+      Object.keys(subsidy || {}).forEach(function(locale){
+        var localeBlock = subsidy[locale] || {};
+        ['flight','hotel','tnt','bundle'].forEach(function(line){
+          var block = localeBlock[line] || {};
+          if(Array.isArray(block.rows) && block.rows.length) hasRows = true;
+        });
+      });
+    }
+    function scanCoupon(coupon){
+      Object.keys(coupon || {}).forEach(function(locale){
+        var block = coupon[locale] || {};
+        if(Array.isArray(block.rows) && block.rows.length) hasRows = true;
+      });
+    }
+    if(d){ scanSubsidy(d.subsidy); scanCoupon(d.coupon); }
+    if(hasRows) return true;
+    if(rawChanges(id).some(function(ch){
+      var text = [ch && ch.type, ch && ch.scope, ch && ch.field].join(' ').toLowerCase();
+      return /subsidy|coupon/.test(text);
+    })) return true;
+    return hasMechanism(id);
+  }
+  function tierRankForCampaign(c){
+    if(typeof gradeRank === 'function') return gradeRank(c && c.grade);
+    var g = String((c && c.grade) || '').toLowerCase().replace(/\s+/g, '');
+    if(g === 'tier1') return 0;
+    if(g === 'tier2') return 1;
+    if(g === 'tier3') return 2;
+    return 9;
+  }
+  function sortedSummaryItems(items){
+    return (items || []).map(function(item, idx){
+      var c = item.c || item;
+      return { item:item, c:c, idx:idx };
+    }).sort(function(a,b){
+      var tr = tierRankForCampaign(a.c) - tierRankForCampaign(b.c);
+      if(tr) return tr;
+      return a.idx - b.idx;
+    }).map(function(x){ return x.item; });
+  }
+  function tierBadge(c){
+    var label = gradeLabel(c);
+    var cls = label.toLowerCase().replace(/\s+/g,'');
+    return '<span class="badge-tier tier-'+h(cls)+'">'+h(label)+'</span>';
+  }
+  function summaryCampaignList(items){
+    items = sortedSummaryItems(items || []);
+    if(!items.length) return '<div class="dg-summary-empty">None</div>';
+    return '<ul class="dg-summary-list">' + items.map(function(item){
+      var c = item.c || item;
+      var id = item.id || c.campaignId;
+      return '<li class="dg-summary-campaign-item" role="button" tabindex="0" onclick="openDetail('+Number(id)+')" onkeydown="if(event.key===&quot;Enter&quot;||event.key===&quot; &quot;){event.preventDefault();openDetail('+Number(id)+')}" title="Open campaign detail"><span class="dg-summary-campaign-name" title="'+h(c.campaignName)+'">'+h(c.campaignName)+'</span><span class="dg-summary-campaign-id">Campaign ID: '+h(id)+'</span>'+tierBadge(c)+'</li>';
+    }).join('') + '</ul>';
+  }
+  function plural(n, word){ return n + ' ' + word + (n === 1 ? '' : 's'); }
+  function renderSummary(day, groups){
+    var newList = sortedSummaryItems(newCampaigns(day));
+    var newIdMap = {};
+    newList.forEach(function(c){ newIdMap[String(c.campaignId)] = true; });
+    var existingGroups = (groups || []).filter(function(g){ return !newIdMap[String(g.id)]; });
+    var newWithMech = newList.filter(function(c){ return hasSubsidyCouponMechanism(c.campaignId); }).length;
+    var subsidyCouponGroups = sortedSummaryItems(existingGroups.filter(subsidyCouponChanged));
+    return '<div class="dg-summary-layout">'
+      + '<section class="dg-summary-card priority">'
+      + '<div class="dg-summary-head"><h3>New Campaigns</h3></div>'
+      + '<p class="dg-summary-sentence"><b>'+newList.length+'</b> new '+(newList.length === 1 ? 'campaign was' : 'campaigns were')+' added, including <span class="dg-summary-mechanism-phrase">'+newWithMech+' '+(newWithMech === 1 ? 'campaign' : 'campaigns')+' with mechanism (Subsidy Info / Coupon Info)</span>.</p>'
+      + '<div class="dg-summary-list-title">Campaign List</div>'
+      + summaryCampaignList(newList)
+      + '</section>'
+      + '<section class="dg-summary-card priority">'
+      + '<div class="dg-summary-head"><h3>Existing Campaign (unended) Changes</h3></div>'
+      + '<p class="dg-summary-sentence"><b>'+existingGroups.length+'</b> existing '+(existingGroups.length === 1 ? 'campaign' : 'campaigns')+' changed, including <span class="dg-summary-mechanism-phrase">'+subsidyCouponGroups.length+' '+(subsidyCouponGroups.length === 1 ? 'campaign' : 'campaigns')+' with mechanism (Subsidy Info / Coupon Info) changes</span>.</p>'
+      + '<div class="dg-summary-list-title">Campaign List</div>'
+      + summaryCampaignList(existingGroups)
+      + '</section>'
+      + '</div>';
+  }
+  
+  function recordText(n){ return n + ' change record' + (n === 1 ? '' : 's'); }
+  function renderChangeRecordSummary(groups){
+    var withGroups = (groups || []).filter(function(g){ return !!g.hasMechanism; });
+    var withoutGroups = (groups || []).filter(function(g){ return !g.hasMechanism; });
+    var withRecords = withGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    var withoutRecords = withoutGroups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    return '<div class="dg-change-record-summary">'
+      + '<div class="dg-change-record-summary-card total"><div class="dg-change-record-summary-label">Changed campaigns today</div><div class="dg-change-record-summary-num">'+groups.length+'</div></div>'
+      + '<div class="dg-change-record-summary-card with"><div class="dg-change-record-summary-label">Campaign with mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withGroups.length+'</div><span class="dg-record-delta">'+recordText(withRecords)+'</span></div></div>'
+      + '<div class="dg-change-record-summary-card without"><div class="dg-change-record-summary-label">Campaign without mechanism</div><div class="dg-change-record-num-row"><div class="dg-change-record-summary-num">'+withoutGroups.length+'</div><span class="dg-record-delta">'+recordText(withoutRecords)+'</span></div></div>'
+      + '</div>';
+  }
+  function renderUpdatesText(n){ return n + ' update' + (n === 1 ? '' : 's'); }
+  function gradeBadge(grade){
+    var label = String(grade || '').trim() || '-';
+    var cls = label.toLowerCase().replace(/\s+/g,'');
+    return '<span class="badge-tier tier-'+h(cls)+'">'+h(label)+'</span>';
+  }
+  function renderDigestGroupForRecord(g){
+    var sortedList = sortChanges(g && g.list);
+    var st = campaignStatus(g && g.c);
+    return '<article class="dg-group '+(g && g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism')+'">'
+      + '<header class="dg-group-head"><div class="dg-group-title">'
+      + '<span class="link-name" role="button" tabindex="0" onclick="openDetail('+Number(g && g.id)+')" onkeydown="if(event.key===\'Enter\'){openDetail('+Number(g && g.id)+')}" title="Open campaign detail">'+h(g && g.c && g.c.campaignName)+'</span>'
+      + '<span class="badge-stage '+h(statusClass(st))+'">'+h(statusLabel(st))+'</span>'
+      + gradeBadge(g && g.c && g.c.grade)
+      + '</div><div class="dg-group-meta"><span class="dg-count">'+renderUpdatesText(sortedList.length)+'</span></div></header>'
+      + '<div class="dg-changes">'+sortedList.map(function(ch){ return (typeof digestRenderChange === 'function') ? digestRenderChange(g.id, ch) : ''; }).join('')+'</div>'
+      + '</article>';
+  }
+  function renderGroupedHighlights(groups){
+    groups = groups || [];
+    if(!groups.length){
+      return '<div class="dg-empty"><div class="dg-empty-art" aria-hidden="true">✓</div><div class="dg-empty-title">No changes today</div><div class="dg-empty-text">All campaigns are steady.</div></div>';
+    }
+    var withGroups = sortGroups(groups.filter(function(g){ return !!g.hasMechanism; }));
+    var withoutGroups = sortGroups(groups.filter(function(g){ return !g.hasMechanism; }));
+    function section(label, arr){
+      var updateCount = (arr || []).reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+      var stat = arr.length + ' campaign' + (arr.length === 1 ? '' : 's') + ' · ' + updateCount + ' update' + (updateCount === 1 ? '' : 's');
+      var body = arr.length ? arr.map(renderDigestGroupForRecord).join('') : '<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>';
+      return '<div class="dg-mech-section"><div class="dg-mech-section-title"><span>'+h(label)+'</span><span class="dg-mech-title-stat">'+h(stat)+'</span></div>'+body+'</div>';
+    }
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  window.renderDigest = function(){
+    var box = byId('digestBody');
+    if(!box) return;
+    var day = reportDay();
+    var groups = getDigestGroups(day);
+    var totalChanges = groups.reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+    var hero = '<div class="page-card dg-hero dg-hero-v4">'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-report-title-row"><div><h2>Campaign Notification Daily Report</h2><p class="page-intro dg-page-intro">This page is used for reviewing today\'s new campaigns and existing campaign changes, with key focus on campaign mechanism (Subsidy Info / Coupon Info) changes.</p></div><span class="dg-report-date-pill">'+h(reportDateLabel(day))+'</span></div></div>'
+      + '</div>';
+    var changeRecord = '<div class="dg-highlights dg-highlights-flat">' + renderGroupedHighlights(groups) + '</div>';
+    box.innerHTML = hero + '<div class="dg-section-title">Summary</div>' + renderSummary(day, groups) + '<div class="dg-section-title">Change Record</div>' + changeRecord;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+    if(typeof refreshTableOverflowTooltips === 'function') refreshTableOverflowTooltips(box);
+  };
+  try { renderDigest = window.renderDigest; } catch(err) {}
+  try { window.renderDigest(); } catch(err) { console.warn('[daily report summary/change record patch]', err); }
+})();
+</script>
+
+
+<style id="report-summary-campaign-list-font-fix">
+/* Report Summary Campaign List: keep Campaign ID and Grade visually consistent. */
+#page-digest .dg-summary-list li.dg-summary-campaign-item{
+  align-items:center !important;
+}
+#page-digest .dg-summary-campaign-name,
+#page-digest .dg-summary-campaign-id,
+#page-digest .dg-summary-list li.dg-summary-campaign-item .badge-tier{
+  font-size:12.5px !important;
+  line-height:18px !important;
+  min-height:22px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  box-sizing:border-box !important;
+}
+#page-digest .dg-summary-campaign-id{
+  font-weight:400 !important;
+}
+#page-digest .dg-summary-list li.dg-summary-campaign-item .badge-tier{
+  height:22px !important;
+  padding:2px 10px !important;
+  justify-content:center !important;
+  vertical-align:middle !important;
+}
+</style>
 
 
 
-
-<style id="report-static-overview-final-fix-style">
-/* Final Report fix: keep Campaign Overview responsive and make demo counts/date static. */
-#page-digest .dg-overview-card .dg-overview-num-row{
-  display:flex !important;
+<style id="report-locale-plain-and-sorted-style">
+/* Report page: locale is plain text only; Change Record is sorted by locale without group headers. */
+#page-digest .dg-locale-cell,
+body.no-read-unread #page-digest .dg-locale-cell{
+  color:#5f6c84 !important;
+  font-size:12.5px !important;
+  font-weight:400 !important;
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  display:inline-flex !important;
   align-items:center !important;
   justify-content:flex-start !important;
-  gap:18px !important;
-  flex-wrap:wrap !important;
-  width:100% !important;
-}
-#page-digest .dg-overview-card .dg-overview-num{
-  flex:0 0 auto !important;
+  width:76px !important;
+  max-width:76px !important;
   min-width:0 !important;
-  line-height:1 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
 }
-#page-digest .dg-overview-card .dg-delta{
-  flex:0 1 auto !important;
+#page-digest .dg-locale-cell .chip,
+#page-digest .dg-locale-cell .chip.mini,
+#page-digest .dg-locale-cell .change-locale-global{
+  all:unset !important;
+  display:inline !important;
+  color:inherit !important;
+  font:inherit !important;
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+}
+#page-digest .dg-locale-text{
+  display:inline-block !important;
   max-width:100% !important;
-  min-width:0 !important;
-  width:auto !important;
-  text-align:left !important;
-  white-space:normal !important;
-  overflow-wrap:anywhere !important;
-  justify-content:center !important;
-  margin-left:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  color:inherit !important;
+  background:transparent !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
 }
-@media (max-width:1180px){
-  #page-digest .dg-overview-card .dg-overview-num-row{
-    gap:12px !important;
-  }
-  #page-digest .dg-overview-card .dg-delta{
-    font-size:12px !important;
-    line-height:18px !important;
-    padding-left:14px !important;
-    padding-right:14px !important;
-  }
+#page-digest .dg-change-locale-group{
+  margin-top:8px;
 }
-@media (max-width:760px){
-  #page-digest .dg-overview-card .dg-overview-num-row{
-    align-items:flex-start !important;
-    flex-direction:column !important;
-    gap:8px !important;
+#page-digest .dg-change-locale-group:first-child{
+  margin-top:0;
+}
+#page-digest .dg-change-locale-group-title{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  min-height:22px;
+  margin:4px 0 2px;
+  color:#5f6c84;
+  font-size:12px;
+  font-weight:600;
+  line-height:18px;
+  background:transparent;
+  border:0;
+  padding:0;
+}
+#page-digest .dg-change-locale-group-title::before{
+  content:none !important;
+  display:none !important;
+}
+@media (max-width:900px){
+  #page-digest .dg-locale-cell,
+  body.no-read-unread #page-digest .dg-locale-cell{
+    width:72px !important;
+    max-width:72px !important;
   }
 }
 </style>
 
-<script id="report-static-overview-final-fix-script">
+<script id="report-locale-plain-and-sorted-script">
 (function(){
-  var REPORT_FIXED_TODAY = '2026-05-16';
-  var REPORT_FIXED_DATE_LABEL = 'Saturday, May 16, 2026';
-  function text(v){ return String(v == null ? '' : v); }
-  function e(v){
-    return text(v).replace(/[&<>\"']/g, function(c){
+  function h(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
       return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
     });
   }
-  function rawStatus(c){ return String((c && c.status) || '').toLowerCase(); }
+  function js(v){
+    return String(v == null ? '' : v)
+      .replace(/\\/g,'\\\\')
+      .replace(/'/g,"\\'")
+      .replace(/\n/g,'\\n')
+      .replace(/\r/g,'');
+  }
+  function pTime(value){
+    if(typeof parseTime === 'function') return parseTime(value);
+    var t = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(t) ? 0 : t;
+  }
+  function reportDay(){
+    if(typeof digestDateStr === 'function'){
+      try { var d = digestDateStr(); if(d) return d; } catch(err) {}
+    }
+    var max = 0;
+    try{
+      if(typeof CHANGES !== 'undefined'){
+        Object.keys(CHANGES || {}).forEach(function(id){
+          (CHANGES[id] || []).forEach(function(ch){ var t = pTime(ch && ch.time); if(t > max) max = t; });
+        });
+      }
+      if(typeof CAMPAIGNS !== 'undefined'){
+        CAMPAIGNS.forEach(function(c){ var t = pTime(c && c.createTime); if(t > max) max = t; });
+      }
+    }catch(err){}
+    var dt = max ? new Date(max) : new Date();
+    var pad = function(n){ return String(n).padStart(2, '0'); };
+    return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate());
+  }
+  function reportDateLabel(day){
+    if(typeof digestDateLabel === 'function'){
+      try { return digestDateLabel(); } catch(err) {}
+    }
+    var names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var d = new Date(String(day || '').replace(/-/g, '/'));
+    if(isNaN(d.getTime())) return h(day || '');
+    return weekdays[d.getDay()] + ', ' + names[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+  function dayOf(value){
+    var s = String(value || '');
+    var m = s.match(/^(\d{4}-\d{2}-\d{2})/);
+    return m ? m[1] : '';
+  }
+  function getCampaign(id){
+    if(typeof getCampaignById === 'function'){
+      try { return getCampaignById(id); } catch(err) {}
+    }
+    var key = String(id);
+    return (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).find(function(c){ return String(c && c.campaignId) === key; }) || null;
+  }
+  function getDetail(id){
+    return (typeof DETAILS !== 'undefined') ? (DETAILS[id] || DETAILS[Number(id)] || DETAILS[String(id)] || null) : null;
+  }
+  function rawChanges(id){
+    if(typeof CHANGES === 'undefined') return [];
+    return (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+  }
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') key = 'remove';
+    return key || 'other';
+  }
+  function opLabel(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    return key === 'add' ? 'Added' : key === 'update' ? 'Updated' : key === 'remove' ? 'Removed' : key.charAt(0).toUpperCase() + key.slice(1);
+  }
+  function opRank(op){
+    var key = opKey(op);
+    return key === 'add' ? 0 : key === 'update' ? 1 : key === 'remove' ? 2 : 9;
+  }
+  function localeLabel(ch){
+    var loc = ch && ch.locale ? String(ch.locale).trim() : '';
+    return (loc && loc !== '-') ? loc : 'Global';
+  }
+  function localeRank(label, c){
+    label = String(label || 'Global');
+    var team = c && c.team;
+    var locales = (typeof TEAM_LOCALES !== 'undefined' && team && TEAM_LOCALES[team]) ? TEAM_LOCALES[team] : [];
+    var idx = locales.indexOf(label);
+    if(idx >= 0) return idx;
+    if(label === 'Global') return locales.length + 100;
+    return locales.length + 200 + label.toLowerCase().charCodeAt(0);
+  }
+  function dateRank(ch){
+    var raw = dayOf(ch && ch.time);
+    var t = raw ? Date.parse(raw + 'T00:00:00') : 0;
+    return isNaN(t) ? 0 : t;
+  }
+  function sortChangesByLocaleThenOperation(list, c){
+    return (list || []).slice().sort(function(a,b){
+      var d = dateRank(b) - dateRank(a);
+      if(d) return d;
+      var lr = localeRank(localeLabel(a), c) - localeRank(localeLabel(b), c);
+      if(lr) return lr;
+      var o = opRank(a && a.op) - opRank(b && b.op);
+      if(o) return o;
+      return pTime(b && b.time) - pTime(a && a.time);
+    });
+  }
+  function groupedByLocale(list, c){
+    var sorted = sortChangesByLocaleThenOperation(list || [], c);
+    var groups = [];
+    sorted.forEach(function(ch){
+      var label = localeLabel(ch);
+      var last = groups[groups.length - 1];
+      if(!last || last.label !== label) groups.push({ label:label, items:[] });
+      groups[groups.length - 1].items.push(ch);
+    });
+    return groups;
+  }
+  function mechanismValues(id){
+    if(window.campaignMechanismValuesForDigest){
+      try { return window.campaignMechanismValuesForDigest(id) || []; } catch(err) {}
+    }
+    var d = getDetail(id);
+    var raw = d && d.campaign ? d.campaign.mechanism : null;
+    var arr = Array.isArray(raw) ? raw : String(raw || '').split(/[,;|/、，]+/);
+    return arr.map(function(v){ return String(v == null ? '' : v).trim(); }).filter(function(v){
+      var low = v.toLowerCase();
+      return !!v && v !== '/' && low !== 'null' && low !== 'none' && low !== 'n/a';
+    });
+  }
+  function hasMechanism(id){ return mechanismValues(id).length > 0; }
+  function hasSubsidyCouponMechanism(id){
+    var d = getDetail(id);
+    var hasRows = false;
+    function scanSubsidy(subsidy){
+      Object.keys(subsidy || {}).forEach(function(locale){
+        var localeBlock = subsidy[locale] || {};
+        ['flight','hotel','tnt','bundle'].forEach(function(line){
+          var block = localeBlock[line] || {};
+          if(Array.isArray(block.rows) && block.rows.length) hasRows = true;
+        });
+      });
+    }
+    function scanCoupon(coupon){
+      Object.keys(coupon || {}).forEach(function(locale){
+        var block = coupon[locale] || {};
+        if(Array.isArray(block.rows) && block.rows.length) hasRows = true;
+      });
+    }
+    if(d){ scanSubsidy(d.subsidy); scanCoupon(d.coupon); }
+    if(hasRows) return true;
+    if(rawChanges(id).some(function(ch){
+      var text = [ch && ch.type, ch && ch.scope, ch && ch.field].join(' ').toLowerCase();
+      return /subsidy|coupon/.test(text);
+    })) return true;
+    return hasMechanism(id);
+  }
+  function gradeLabel(c){ return String((c && c.grade) || '').trim() || '-'; }
+  function gradeRank(grade){
+    var g = String(grade || '').toLowerCase().replace(/\s+/g, '');
+    return g === 'tier1' ? 0 : g === 'tier2' ? 1 : g === 'tier3' ? 2 : 9;
+  }
+  function gradeBadge(grade){
+    var label = String(grade || '').trim() || '-';
+    var cls = label.toLowerCase().replace(/\s+/g,'');
+    return '<span class="badge-tier tier-'+h(cls)+'">'+h(label)+'</span>';
+  }
+  function tierRankForCampaign(c){ return gradeRank(c && c.grade); }
+  function sortedSummaryItems(items){
+    return (items || []).map(function(item, idx){ var c = item.c || item; return {item:item, c:c, idx:idx}; })
+      .sort(function(a,b){ var tr = tierRankForCampaign(a.c) - tierRankForCampaign(b.c); return tr || (a.idx - b.idx); })
+      .map(function(x){ return x.item; });
+  }
+  function tierBadge(c){ return gradeBadge(c && c.grade); }
+  function statusRaw(c){
+    var raw = String((c && c.status) || '').toLowerCase();
+    if(raw === 'live' || raw === 'ongoing') return 'ongoing';
+    if(raw === 'upcoming' || raw === 'ended' || raw === 'draft') return raw;
+    return raw || 'upcoming';
+  }
+  function statusLabel(st){
+    st = String(st || '').toLowerCase();
+    if(st === 'ongoing' || st === 'live') return 'Ongoing';
+    if(st === 'upcoming') return 'Upcoming';
+    if(st === 'ended') return 'Ended';
+    if(st === 'draft') return 'Draft';
+    return st ? st.charAt(0).toUpperCase() + st.slice(1) : '-';
+  }
+  function statusClass(st){ return st === 'ongoing' ? 'ongoing' : st; }
+  function statusRank(st){
+    st = String(st || '').toLowerCase();
+    if(st === 'upcoming') return 0;
+    if(st === 'ongoing' || st === 'live') return 1;
+    if(st === 'draft') return 2;
+    if(st === 'ended') return 3;
+    return 9;
+  }
+  function sortGroups(groups){
+    return (groups || []).slice().sort(function(a,b){
+      var sd = statusRank(statusRaw(a && a.c)) - statusRank(statusRaw(b && b.c));
+      if(sd) return sd;
+      var gd = gradeRank(a && a.c && a.c.grade) - gradeRank(b && b.c && b.c.grade);
+      if(gd) return gd;
+      return pTime(b && b.latest) - pTime(a && a.latest);
+    });
+  }
+  function isCampaignAddChange(ch){
+    if(opKey(ch && ch.op) !== 'add') return false;
+    var text = [ch && ch.type, ch && ch.scope, ch && ch.field].join(' ').toLowerCase();
+    if(!/campaign/.test(text)) return false;
+    if(/coupon|subsidy|landing|promotion|supplementary/.test(text)) return false;
+    return true;
+  }
+  function newCampaigns(day){
+    var ids = {};
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      if(dayOf(c && c.createTime) === day) ids[String(c.campaignId)] = true;
+    });
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        var list = rawChanges(id).filter(function(ch){ return dayOf(ch && ch.time) === day; });
+        if(list.some(isCampaignAddChange)) ids[String(id)] = true;
+      });
+    }
+    return Object.keys(ids).map(getCampaign).filter(Boolean).sort(function(a,b){ return pTime(b.createTime) - pTime(a.createTime); });
+  }
+  function subsidyCouponChanged(g){
+    return (g && g.list || []).some(function(ch){
+      var text = [ch && ch.type, ch && ch.scope].join(' ').toLowerCase();
+      return /subsidy/.test(text) || /coupon/.test(text);
+    });
+  }
+  function changesOnDay(id, day){
+    return rawChanges(id).filter(function(ch){ return dayOf(ch && ch.time) === day; });
+  }
+  function getDigestGroups(day){
+    var groups = [];
+    if(typeof digestHighlights === 'function'){
+      try{
+        var result = digestHighlights() || {};
+        if(result.day && result.day !== day) day = result.day;
+        groups = result.groups || [];
+      }catch(err){ groups = []; }
+    }
+    if(!groups.length && typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        var c = getCampaign(id); if(!c) return;
+        var list = changesOnDay(id, day);
+        if(!list.length) return;
+        groups.push({id:String(id), c:c, list:list, latest:pTime(list[0] && list[0].time)});
+      });
+    }
+    return sortGroups(groups.map(function(g){
+      var id = String(g.id || (g.c && g.c.campaignId));
+      var c = g.c || getCampaign(id);
+      var list = changesOnDay(id, day);
+      if(g.list && g.list.length){
+        list = (g.list || []).filter(function(ch){ return !day || !dayOf(ch && ch.time) || dayOf(ch && ch.time) === day; });
+      }
+      list = sortChangesByLocaleThenOperation(list, c);
+      return {
+        id:id,
+        c:c,
+        list:list,
+        latest:g.latest || pTime((list || [])[0] && (list || [])[0].time),
+        hasMechanism:(typeof g.hasMechanism === 'boolean') ? g.hasMechanism : hasMechanism(id),
+        mechanismValues:g.mechanismValues || mechanismValues(id)
+      };
+    }).filter(function(g){ return !!g.c && g.list.length; }));
+  }
+  function plural(n, word){ return n + ' ' + word + (n === 1 ? '' : 's'); }
+  function summaryCampaignList(items){
+    items = sortedSummaryItems(items || []);
+    if(!items.length) return '<div class="dg-summary-empty">None</div>';
+    return '<ul class="dg-summary-list">' + items.map(function(item){
+      var c = item.c || item;
+      var id = item.id || c.campaignId;
+      return '<li class="dg-summary-campaign-item" role="button" tabindex="0" onclick="openDetail('+Number(id)+')" onkeydown="if(event.key===&quot;Enter&quot;||event.key===&quot; &quot;){event.preventDefault();openDetail('+Number(id)+')}" title="Open campaign detail"><span class="dg-summary-campaign-name" title="'+h(c.campaignName)+'">'+h(c.campaignName)+'</span><span class="dg-summary-campaign-id">Campaign ID: '+h(id)+'</span>'+tierBadge(c)+'</li>';
+    }).join('') + '</ul>';
+  }
+  function renderSummary(day, groups){
+    var newList = sortedSummaryItems(newCampaigns(day));
+    var newIdMap = {};
+    newList.forEach(function(c){ newIdMap[String(c.campaignId)] = true; });
+    var existingGroups = (groups || []).filter(function(g){ return !newIdMap[String(g.id)]; });
+    var newWithMech = newList.filter(function(c){ return hasSubsidyCouponMechanism(c.campaignId); }).length;
+    var subsidyCouponGroups = sortedSummaryItems(existingGroups.filter(subsidyCouponChanged));
+    return '<div class="dg-summary-layout">'
+      + '<section class="dg-summary-card priority">'
+      + '<div class="dg-summary-head"><h3>New Campaigns</h3></div>'
+      + '<p class="dg-summary-sentence"><b>'+newList.length+'</b> new '+(newList.length === 1 ? 'campaign was' : 'campaigns were')+' added, including <span class="dg-summary-mechanism-phrase">'+newWithMech+' '+(newWithMech === 1 ? 'campaign' : 'campaigns')+' with mechanism (Subsidy Info / Coupon Info)</span>.</p>'
+      + '<div class="dg-summary-list-title">Campaign List</div>'
+      + summaryCampaignList(newList)
+      + '</section>'
+      + '<section class="dg-summary-card priority">'
+      + '<div class="dg-summary-head"><h3>Existing Campaign (unended) Changes</h3></div>'
+      + '<p class="dg-summary-sentence"><b>'+existingGroups.length+'</b> existing '+(existingGroups.length === 1 ? 'campaign' : 'campaigns')+' changed, including <span class="dg-summary-mechanism-phrase">'+subsidyCouponGroups.length+' '+(subsidyCouponGroups.length === 1 ? 'campaign' : 'campaigns')+' with mechanism (Subsidy Info / Coupon Info) changes</span>.</p>'
+      + '<div class="dg-summary-list-title">Campaign List</div>'
+      + summaryCampaignList(existingGroups)
+      + '</section>'
+      + '</div>';
+  }
+  function renderUpdatesText(n){ return n + ' update' + (n === 1 ? '' : 's'); }
+  function diffHtml(ch){
+    if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch);
+    var key = opKey(ch && ch.op);
+    if(key === 'add') return '<span class="diff-add">+ '+h((ch && ch.after) || '')+'</span>';
+    if(key === 'remove') return '<span class="diff-remove">− '+h((ch && ch.before) || '')+'</span>';
+    return '<span class="diff-old">'+h((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+h((ch && ch.after) || '')+'</span>';
+  }
+  function changeSection(ch){
+    if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch);
+    if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type];
+    if(typeof getSubscribedEventFromScope === 'function') return getSubscribedEventFromScope(ch && ch.scope);
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function fieldLabel(ch){
+    if(window.getChangeRecordDisplayField) return window.getChangeRecordDisplayField(ch);
+    return (ch && ch.field) || '-';
+  }
+  window.digestRenderChange = function(id, ch){
+    var t = String((ch && ch.time) || '').slice(11, 16);
+    var section = changeSection(ch);
+    var field = fieldLabel(ch);
+    return '<div class="dg-change" role="button" tabindex="0" onclick="digestJump(\''+js(id)+'\',\''+js(ch && ch.type)+'\',\''+js((ch && ch.locale) || '')+'\',\'\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();digestJump(\''+js(id)+'\',\''+js(ch && ch.type)+'\',\''+js((ch && ch.locale) || '')+'\',\'\')}" title="Open '+h(section)+' in campaign detail">'
+      + '<span class="dg-locale-cell"><span class="dg-locale-text" title="'+h(localeLabel(ch))+'">'+h(localeLabel(ch))+'</span></span>'
+      + '<span class="op-pill op-'+h(opKey(ch && ch.op))+'">'+h(opLabel(ch && ch.op))+'</span>'
+      + '<span class="dg-section-cell" title="'+h(section)+'">'+h(section)+'</span>'
+      + '<span class="dg-field" title="'+h((ch && ch.scope) || '')+' · '+h(field)+'">'+h(field)+'</span>'
+      + '<span class="dg-diff">'+diffHtml(ch)+'</span>'
+      + '<span class="dg-time">'+h(t)+'</span>'
+      + '<span class="dg-go" aria-hidden="true">→</span>'
+      + '</div>';
+  };
+  try { digestRenderChange = window.digestRenderChange; } catch(err) {}
+  function renderLocaleGroupedChanges(g){
+    return sortChangesByLocaleThenOperation((g && g.list) || [], g && g.c)
+      .map(function(ch){ return window.digestRenderChange(g.id, ch); })
+      .join('');
+  }
+  function renderDigestGroupForRecord(g){
+    var sortedList = sortChangesByLocaleThenOperation(g && g.list, g && g.c);
+    var st = statusRaw(g && g.c);
+    return '<article class="dg-group '+(g && g.hasMechanism ? 'dg-group-with-mechanism' : 'dg-group-without-mechanism')+'">'
+      + '<header class="dg-group-head"><div class="dg-group-title">'
+      + '<span class="link-name" role="button" tabindex="0" onclick="openDetail('+Number(g && g.id)+')" onkeydown="if(event.key===\'Enter\'){openDetail('+Number(g && g.id)+')}" title="Open campaign detail">'+h(g && g.c && g.c.campaignName)+'</span>'
+      + '<span class="badge-stage '+h(statusClass(st))+'">'+h(statusLabel(st))+'</span>'
+      + gradeBadge(g && g.c && g.c.grade)
+      + '</div><div class="dg-group-meta"><span class="dg-count">'+renderUpdatesText(sortedList.length)+'</span></div></header>'
+      + '<div class="dg-changes">'+renderLocaleGroupedChanges({id:g.id, c:g.c, list:sortedList})+'</div>'
+      + '</article>';
+  }
+  function renderGroupedHighlights(groups){
+    groups = groups || [];
+    if(!groups.length){
+      return '<div class="dg-empty"><div class="dg-empty-art" aria-hidden="true">✓</div><div class="dg-empty-title">No changes today</div><div class="dg-empty-text">All campaigns are steady.</div></div>';
+    }
+    var withGroups = sortGroups(groups.filter(function(g){ return !!g.hasMechanism; }));
+    var withoutGroups = sortGroups(groups.filter(function(g){ return !g.hasMechanism; }));
+    function section(label, arr){
+      var updateCount = (arr || []).reduce(function(sum, g){ return sum + ((g.list || []).length); }, 0);
+      var stat = arr.length + ' campaign' + (arr.length === 1 ? '' : 's') + ' · ' + updateCount + ' update' + (updateCount === 1 ? '' : 's');
+      var body = arr.length ? arr.map(renderDigestGroupForRecord).join('') : '<div class="dg-empty dg-empty-inline"><div class="dg-empty-title">No changes today</div></div>';
+      return '<div class="dg-mech-section"><div class="dg-mech-section-title"><span>'+h(label)+'</span><span class="dg-mech-title-stat">'+h(stat)+'</span></div>'+body+'</div>';
+    }
+    return section('Campaign with mechanism', withGroups) + section('Campaign without mechanism', withoutGroups);
+  }
+  window.renderDigest = function(){
+    var box = document.getElementById('digestBody');
+    if(!box) return;
+    var day = reportDay();
+    var groups = getDigestGroups(day);
+    var hero = '<div class="page-card dg-hero dg-hero-v4">'
+      + '<div class="dg-hero-main dg-hero-title-stack"><div class="dg-report-title-row"><div><h2>Campaign Notification Daily Report</h2><p class="page-intro dg-page-intro">This page is used for reviewing today\'s new campaigns and existing campaign changes, with key focus on campaign mechanism (Subsidy Info / Coupon Info) changes.</p></div><span class="dg-report-date-pill">'+h(reportDateLabel(day))+'</span></div></div>'
+      + '</div>';
+    var changeRecord = '<div class="dg-highlights dg-highlights-flat">' + renderGroupedHighlights(groups) + '</div>';
+    box.innerHTML = hero + '<div class="dg-section-title">Summary</div>' + renderSummary(day, groups) + '<div class="dg-section-title">Change Record</div>' + changeRecord;
+    if(typeof refreshDigestBadge === 'function') refreshDigestBadge();
+    if(typeof refreshTableOverflowTooltips === 'function') refreshTableOverflowTooltips(box);
+  };
+  try { renderDigest = window.renderDigest; } catch(err) {}
+  try { window.renderDigest(); } catch(err) { console.warn('[report locale plain/sorted change record]', err); }
+})();
+</script>
+
+
+
+<style id="report-change-record-even-column-spacing-fix">
+/* Report page: make Locale / Operation / Section / Field / Change use a single, consistent column rhythm. */
+#page-digest .dg-change,
+body.no-read-unread #page-digest .dg-change{
+  --report-change-col-gap:14px;
+  display:grid !important;
+  grid-template-columns:52px 76px 146px 136px minmax(260px,1fr) 58px 14px !important;
+  column-gap:var(--report-change-col-gap) !important;
+  row-gap:6px !important;
+  align-items:center !important;
+  padding-left:8px !important;
+  padding-right:8px !important;
+}
+#page-digest .dg-locale-cell,
+body.no-read-unread #page-digest .dg-locale-cell,
+#page-digest .dg-change .op-pill,
+#page-digest .dg-section-cell,
+#page-digest .dg-field,
+#page-digest .dg-diff{
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+  min-width:0 !important;
+  justify-self:stretch !important;
+}
+#page-digest .dg-locale-cell,
+body.no-read-unread #page-digest .dg-locale-cell{
+  width:52px !important;
+  min-width:52px !important;
+  max-width:52px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  text-align:left !important;
+}
+#page-digest .dg-locale-text{
+  display:block !important;
+  width:100% !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+#page-digest .dg-change .op-pill{
+  width:76px !important;
+  min-width:76px !important;
+  max-width:76px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+#page-digest .dg-section-cell{
+  width:146px !important;
+  min-width:146px !important;
+  max-width:146px !important;
+}
+#page-digest .dg-field{
+  width:136px !important;
+  min-width:136px !important;
+  max-width:136px !important;
+}
+#page-digest .dg-diff{
+  width:100% !important;
+  max-width:100% !important;
+}
+#page-digest .dg-time{
+  margin:0 !important;
+  padding:0 !important;
+  justify-self:start !important;
+  width:58px !important;
+  min-width:58px !important;
+  max-width:58px !important;
+}
+#page-digest .dg-go{
+  justify-self:center !important;
+}
+@media (max-width:900px){
+  #page-digest .dg-change,
+  body.no-read-unread #page-digest .dg-change{
+    grid-template-columns:50px 72px 132px minmax(0,1fr) 54px 14px !important;
+    column-gap:12px !important;
+  }
+  #page-digest .dg-locale-cell,
+  body.no-read-unread #page-digest .dg-locale-cell{
+    width:50px !important;
+    min-width:50px !important;
+    max-width:50px !important;
+  }
+  #page-digest .dg-change .op-pill{
+    width:72px !important;
+    min-width:72px !important;
+    max-width:72px !important;
+  }
+  #page-digest .dg-section-cell{
+    width:132px !important;
+    min-width:132px !important;
+    max-width:132px !important;
+  }
+  #page-digest .dg-field{display:none !important;}
+  #page-digest .dg-time{
+    width:54px !important;
+    min-width:54px !important;
+    max-width:54px !important;
+  }
+}
+</style>
+
+
+
+<style id="report-campaign-id-priority-and-summary-copy-style">
+/* Report page: Change Record campaign ID + priority label + summary copy refinements. */
+#page-digest .dg-change-campaign-id{
+  color:#5f6c84;
+  font-size:12.5px;
+  font-weight:400;
+  line-height:20px;
+  white-space:nowrap;
+}
+#page-digest .dg-group-title .link-name + .dg-change-campaign-id{
+  margin-left:2px;
+}
+#page-digest .dg-high-priority-tag{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:22px;
+  padding:0 10px;
+  border-radius:999px;
+  background:#fff1e6;
+  color:#d9591f;
+  font-size:11px;
+  font-weight:700;
+  line-height:22px;
+  white-space:nowrap;
+  margin-left:8px;
+}
+#page-digest .dg-mech-section-title{
+  gap:8px;
+}
+#page-digest .dg-mech-section-title .dg-mech-title-stat{
+  margin-left:auto;
+}
+#page-digest .dg-summary-sentence .dg-summary-note{
+  color:#34415c;
+  font-weight:400;
+}
+</style>
+
+<script id="report-campaign-id-priority-and-summary-copy-script">
+(function(){
+  function esc(v){
+    return String(v == null ? '' : v).replace(/[&<>\"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function getCampaignIdFromLink(link){
+    if(!link) return '';
+    var onclick = link.getAttribute('onclick') || '';
+    var m = onclick.match(/openDetail\((\d+)\)/);
+    if(m) return m[1];
+    var name = (link.textContent || '').trim();
+    if(typeof CAMPAIGNS !== 'undefined' && name){
+      var c = (CAMPAIGNS || []).find(function(item){ return String(item && item.campaignName || '').trim() === name; });
+      if(c) return String(c.campaignId);
+    }
+    return '';
+  }
+  function appendSummaryNotes(root){
+    var cards = root.querySelectorAll('.dg-summary-card');
+    if(cards[0]){
+      var firstSentence = cards[0].querySelector('.dg-summary-sentence');
+      if(firstSentence && !firstSentence.querySelector('.dg-summary-note')){
+        firstSentence.insertAdjacentHTML('beforeend', ' <span class="dg-summary-note">Check all information of any campaign by clicking campaign name below.</span>');
+      }
+    }
+    if(cards[1]){
+      var secondSentence = cards[1].querySelector('.dg-summary-sentence');
+      if(secondSentence && !secondSentence.querySelector('.dg-summary-note')){
+        secondSentence.insertAdjacentHTML('beforeend', ' <span class="dg-summary-note">Please find all change details in next section of &quot;Change Record&quot; by campaign.</span>');
+      }
+    }
+  }
+  function addCampaignIds(root){
+    root.querySelectorAll('.dg-mech-section .dg-group-title .link-name').forEach(function(link){
+      var id = getCampaignIdFromLink(link);
+      if(!id) return;
+      var next = link.nextElementSibling;
+      if(next && next.classList && next.classList.contains('dg-change-campaign-id')){
+        next.textContent = '(Campaign ID: ' + id + ')';
+        return;
+      }
+      link.insertAdjacentHTML('afterend', '<span class="dg-change-campaign-id">(Campaign ID: '+esc(id)+')</span>');
+    });
+  }
+  function addHighPriorityTag(root){
+    root.querySelectorAll('.dg-mech-section-title').forEach(function(title){
+      var first = title.querySelector('span');
+      if(!first) return;
+      if((first.textContent || '').trim() !== 'Campaign with mechanism') return;
+      if(title.querySelector('.dg-high-priority-tag')) return;
+      first.insertAdjacentHTML('afterend', '<span class="dg-high-priority-tag">High priority</span>');
+    });
+  }
+  function postProcessReport(){
+    var root = document.getElementById('page-digest');
+    if(!root) return;
+    appendSummaryNotes(root);
+    addCampaignIds(root);
+    addHighPriorityTag(root);
+    if(typeof refreshTableOverflowTooltips === 'function'){
+      try { refreshTableOverflowTooltips(root); } catch(err) {}
+    }
+  }
+  window.postProcessReportCampaignIdPriority = postProcessReport;
+  var previousRender = window.renderDigest || (typeof renderDigest === 'function' ? renderDigest : null);
+  if(previousRender && !previousRender.__campaignIdPriorityWrapped){
+    var wrapped = function(){
+      var result = previousRender.apply(this, arguments);
+      try { postProcessReport(); } catch(err) { console.warn('[report campaign id / priority patch]', err); }
+      return result;
+    };
+    wrapped.__campaignIdPriorityWrapped = true;
+    window.renderDigest = wrapped;
+    try { renderDigest = wrapped; } catch(err) {}
+  }
+  try { postProcessReport(); } catch(err) { console.warn('[report campaign id / priority patch]', err); }
+})();
+</script>
+
+
+
+<style id="report-heading-hierarchy-fix">
+/* Report page: clarify heading hierarchy.
+   H1: Daily Report · H2: Summary / Change Record · H3: section titles inside each block. */
+#page-digest .dg-hero-v4 h2,
+#page-digest .dg-hero h2{
+  margin:0 !important;
+  font-size:24px !important;
+  line-height:32px !important;
+  font-weight:850 !important;
+  letter-spacing:.1px !important;
+  color:#27324a !important;
+}
+#page-digest .dg-page-intro{
+  margin:6px 0 0 !important;
+  font-size:13px !important;
+  line-height:20px !important;
+  font-weight:400 !important;
+  color:#5f6c84 !important;
+}
+#page-digest .dg-section-title{
+  margin:24px 0 12px !important;
+  padding-left:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  font-size:18px !important;
+  line-height:26px !important;
+  font-weight:820 !important;
+  color:#27324a !important;
+  letter-spacing:.05px !important;
+}
+#page-digest .dg-section-title:first-of-type{
+  margin-top:18px !important;
+}
+#page-digest .dg-section-title::before{
+  width:4px !important;
+  height:18px !important;
+  border-radius:4px !important;
+  background:#3573f5 !important;
+  flex:0 0 auto !important;
+}
+#page-digest .dg-summary-head{
+  margin-bottom:10px !important;
+}
+#page-digest .dg-summary-head h3,
+#page-digest .dg-mech-section-title > span:first-child{
+  margin:0 !important;
+  font-size:15px !important;
+  line-height:22px !important;
+  font-weight:760 !important;
+  color:#27324a !important;
+  letter-spacing:0 !important;
+}
+#page-digest .dg-mech-section-title{
+  margin:0 0 10px !important;
+  padding:8px 10px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  font-size:15px !important;
+  line-height:22px !important;
+  font-weight:760 !important;
+  color:#27324a !important;
+}
+#page-digest .dg-mech-section-title .dg-mech-title-stat{
+  margin-left:auto !important;
+  font-size:12px !important;
+  line-height:18px !important;
+  font-weight:600 !important;
+  color:#5f6c84 !important;
+}
+#page-digest .dg-high-priority-tag{
+  height:20px !important;
+  padding:0 9px !important;
+  font-size:11px !important;
+  line-height:20px !important;
+  font-weight:700 !important;
+}
+@media (max-width:760px){
+  #page-digest .dg-hero-v4 h2,
+  #page-digest .dg-hero h2{
+    font-size:22px !important;
+    line-height:30px !important;
+  }
+  #page-digest .dg-section-title{
+    font-size:17px !important;
+    line-height:24px !important;
+  }
+  #page-digest .dg-mech-section-title{
+    align-items:flex-start !important;
+    flex-direction:column !important;
+  }
+  #page-digest .dg-mech-section-title .dg-mech-title-stat{
+    margin-left:0 !important;
+  }
+}
+</style>
+
+
+
+<style id="report-responsive-title-and-priority-fix">
+/* Report page responsive fix:
+   1) Keep the date pill attached to the title area instead of dropping below the page description.
+   2) Keep the High priority tag next to Campaign with mechanism before letting the stats wrap. */
+#page-digest .dg-report-title-row{
+  position:relative !important;
+  display:block !important;
+  gap:0 !important;
+  padding-right:190px !important;
+  min-width:0 !important;
+}
+#page-digest .dg-report-title-row > div{
+  min-width:0 !important;
+}
+#page-digest .dg-report-title-row h2{
+  margin:0 !important;
+  max-width:100% !important;
+}
+#page-digest .dg-report-title-row .dg-page-intro{
+  margin-top:14px !important;
+  max-width:100% !important;
+}
+#page-digest .dg-report-date-pill{
+  position:absolute !important;
+  top:3px !important;
+  right:0 !important;
+  margin-top:0 !important;
+  white-space:nowrap !important;
+  flex:0 0 auto !important;
+}
+#page-digest .dg-mech-section-title,
+#page-digest .dg-mech-section-title[style]{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex-wrap:wrap !important;
+  gap:8px 10px !important;
+}
+#page-digest .dg-mech-section-title > span:first-child{
+  flex:0 1 auto !important;
+  min-width:0 !important;
+  order:1 !important;
+}
+#page-digest .dg-mech-section-title .dg-high-priority-tag{
+  order:2 !important;
+  flex:0 0 auto !important;
+  margin-left:6px !important;
+}
+#page-digest .dg-mech-section-title .dg-mech-title-stat{
+  order:3 !important;
+  flex:0 0 auto !important;
+  margin-left:auto !important;
+}
+@media (max-width:900px){
+  #page-digest .dg-report-title-row{
+    display:block !important;
+    padding-right:176px !important;
+  }
+  #page-digest .dg-report-date-pill{
+    top:2px !important;
+    right:0 !important;
+    margin-top:0 !important;
+  }
+  #page-digest .dg-mech-section-title{
+    flex-direction:row !important;
+    align-items:center !important;
+  }
+}
+@media (max-width:560px){
+  #page-digest .dg-report-title-row{
+    padding-right:0 !important;
+  }
+  #page-digest .dg-report-date-pill{
+    position:static !important;
+    display:inline-flex !important;
+    margin-top:10px !important;
+  }
+  #page-digest .dg-report-title-row .dg-page-intro{
+    margin-top:14px !important;
+  }
+  #page-digest .dg-mech-section-title .dg-mech-title-stat{
+    flex-basis:100% !important;
+    margin-left:0 !important;
+  }
+}
+</style>
+
+
+
+<style id="report-responsive-heading-line-final-fix">
+/* Final responsive hierarchy fix: keep date on the title line and keep High priority beside the level-3 title. */
+#page-digest .dg-report-title-row{
+  display:block !important;
+  position:static !important;
+  padding-right:0 !important;
+  min-width:0 !important;
+}
+#page-digest .dg-report-title-row > div{
+  width:100% !important;
+  min-width:0 !important;
+}
+#page-digest .dg-report-heading-line{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  flex-wrap:nowrap !important;
+  gap:12px !important;
+  width:100% !important;
+  min-width:0 !important;
+}
+#page-digest .dg-report-heading-line h2{
+  flex:1 1 auto !important;
+  min-width:0 !important;
+  margin:0 !important;
+  line-height:1.2 !important;
+}
+#page-digest .dg-report-heading-line .dg-report-date-pill{
+  position:static !important;
+  top:auto !important;
+  right:auto !important;
+  flex:0 0 auto !important;
+  margin:4px 0 0 12px !important;
+  white-space:nowrap !important;
+}
+#page-digest .dg-report-title-row .dg-page-intro{
+  margin-top:18px !important;
+}
+#page-digest .dg-mech-section-title{
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  flex-wrap:wrap !important;
+  gap:8px 10px !important;
+}
+#page-digest .dg-mech-section-title > span:first-child{
+  order:1 !important;
+  flex:0 1 auto !important;
+  min-width:0 !important;
+}
+#page-digest .dg-mech-section-title .dg-high-priority-tag{
+  order:2 !important;
+  flex:0 0 auto !important;
+  margin-left:6px !important;
+}
+#page-digest .dg-mech-section-title .dg-mech-title-stat{
+  order:3 !important;
+  flex:0 0 auto !important;
+  margin-left:auto !important;
+}
+@media (max-width:760px){
+  #page-digest .dg-report-heading-line{gap:10px !important;}
+  #page-digest .dg-report-heading-line .dg-report-date-pill{font-size:11.5px !important;padding:0 10px !important;margin-left:10px !important;}
+  #page-digest .dg-mech-section-title{flex-direction:row !important;align-items:center !important;}
+  #page-digest .dg-mech-section-title .dg-mech-title-stat{flex-basis:100% !important;margin-left:0 !important;}
+}
+</style>
+<script id="report-responsive-heading-line-final-script">
+(function(){
+  function fixReportTitleDateLayout(){
+    var root = document.getElementById('page-digest');
+    if(!root) return;
+    var row = root.querySelector('.dg-report-title-row');
+    if(!row || row.querySelector('.dg-report-heading-line')) return;
+    var first = row.children && row.children.length ? row.children[0] : null;
+    var date = row.querySelector(':scope > .dg-report-date-pill') || row.querySelector('.dg-report-date-pill');
+    if(!first || !date) return;
+    var title = first.querySelector('h2');
+    var intro = first.querySelector('.dg-page-intro');
+    if(!title || !intro) return;
+    var line = document.createElement('div');
+    line.className = 'dg-report-heading-line';
+    first.insertBefore(line, intro);
+    line.appendChild(title);
+    line.appendChild(date);
+  }
+  window.fixReportTitleDateLayout = fixReportTitleDateLayout;
+  var previousRender = window.renderDigest || (typeof renderDigest === 'function' ? renderDigest : null);
+  if(previousRender && !previousRender.__responsiveHeadingLineWrapped){
+    var wrapped = function(){
+      var result = previousRender.apply(this, arguments);
+      try { fixReportTitleDateLayout(); } catch(err) { console.warn('[report responsive heading line]', err); }
+      return result;
+    };
+    wrapped.__responsiveHeadingLineWrapped = true;
+    window.renderDigest = wrapped;
+    try { renderDigest = wrapped; } catch(err) {}
+  }
+  try { fixReportTitleDateLayout(); } catch(err) { console.warn('[report responsive heading line]', err); }
+})();
+</script>
+
+<script id="portfolio-demo-realistic-data-patch">
+(function(){
+  /* Portfolio demo data: bring the report day (2026-05-16) closer to a real
+     production day — campaigns launched today, a mix of campaigns with and
+     without mechanism configured, and copy / schedule-only updates alongside
+     the big Tier 1 mechanism changes. Data-only patch: rendering untouched. */
+  function campaign(id){
+    var hit = null;
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      if(String(c.campaignId) === String(id)) hit = c;
+    });
+    return hit;
+  }
+  function detail(id){
+    if(typeof DETAILS === 'undefined') return null;
+    return DETAILS[id] || DETAILS[String(id)] || DETAILS[Number(id)] || null;
+  }
+  function setTimes(id, createTime, updateTime){
+    var c = campaign(id);
+    if(c){ c.createTime = createTime; c.updateTime = updateTime; }
+    var d = detail(id);
+    if(d && d.campaign){ d.campaign.createTime = createTime; d.campaign.updateTime = updateTime; }
+  }
+  function prependChanges(id, list){
+    if(typeof CHANGES === 'undefined' || typeof demoChange !== 'function') return;
+    var key = String(id);
+    CHANGES[key] = list.concat(CHANGES[key] || CHANGES[Number(id)] || []);
+  }
+
+  /* 1. Two campaigns were created today. */
+  setTimes(31642, '2026-05-16 09:30', '2026-05-16 09:30'); /* HK Coupon Rush · Bundle (draft) */
+  setTimes(31655, '2026-05-16 11:12', '2026-05-16 11:12'); /* SG Weekend Escape (upcoming) */
+
+  /* 2. Not every campaign runs a mechanism: branding / member / brand-new
+        content campaigns have no Subsidy Info & Coupon Info configured. */
+  [31624, 31649, 31655].forEach(function(id){
+    var d = detail(id);
+    if(d && d.campaign) d.campaign.mechanism = [];
+  });
+  /* The brand-new 31655 has empty Subsidy / Coupon tables as well. */
+  (function(){
+    var d = detail(31655);
+    if(!d) return;
+    Object.keys(d.subsidy || {}).forEach(function(locale){
+      var lb = d.subsidy[locale] || {};
+      ['flight','hotel','tnt','bundle'].forEach(function(line){
+        if(lb[line] && Array.isArray(lb[line].rows)) lb[line].rows = [];
+      });
+    });
+    Object.keys(d.coupon || {}).forEach(function(locale){
+      var lb = d.coupon[locale] || {};
+      if(Array.isArray(lb.rows)) lb.rows = [];
+    });
+  })();
+
+  /* 3. Today's changes beyond the two Tier 1 Mega Sales. */
+  if(typeof demoChange === 'function'){
+    prependChanges(31630, [ /* SG Flight Festival · Tier 1 · mechanism changed */
+      demoChange('coupon','en-SG','2026-05-16 17:02','update','Coupon Info','P31630001','Coupon Name: [Mkt] SG-Mega Sale-Flight 8% off','Coupon Name: [Mkt] SG-Mega Sale-Flight 10% off',true),
+      demoChange('subsidy','en-SG','2026-05-16 16:31','add','Subsidy Info / Flight','Flight',null,'SIN → TYO · SQ · ONE_PRICE 88 SGD',true)
+    ]);
+    prependChanges(31618, [ /* HK Summer Getaway · copy & schedule only */
+      demoChange('landing','zh-HK','2026-05-16 16:05','update','Landing Page Info','https://hk.trip.com/sale/mega2026?locale=zh-HK','Title: HK Summer Getaway · Hotel | Trip.com HK','Title: HK Summer Getaway · Hotel Sale | Trip.com HK',true),
+      demoChange('landing','zh-HK','2026-05-16 15:40','update','Landing Page Info','https://hk.trip.com/sale/mega2026?locale=zh-HK','Share Image: mock-kv-1.jpg','Share Image: summer_kv_v3.png',true),
+      demoChange('campaign','-','2026-05-16 14:20','update','Campaign Basic Info','Start/End Date','2026-05-01 - 2026-06-15','2026-05-01 - 2026-06-30',true)
+    ]);
+    prependChanges(31649, [ /* TW Member Exclusive · no mechanism configured */
+      demoChange('landing','zh-TW','2026-05-16 13:18','update','Landing Page Info','https://tw.trip.com/sale/mega2026?locale=zh-TW','Description: Members save 8% on selected hotels','Description: Members save 10% on selected hotels',true),
+      demoChange('promotion','zh-TW','2026-05-16 12:55','update','Promotion Channel Info','Kol','Headline: Hotel deals for members','Headline: Hotel deals up to 10% off',true)
+    ]);
+    prependChanges(31624, [ /* TW Branding · Japan Cherry · no mechanism configured */
+      demoChange('landing','zh-TW','2026-05-16 10:46','update','Landing Page Info','https://tw.trip.com/sale/mega2026?locale=zh-TW','Share Image: sakura_kv_teaser.png','Share Image: sakura_kv_final.png',true)
+    ]);
+  }
+})();
+</script>
+
+
+<style id="campaign-change-record-since-calendar-overlay-fix-style">
+/* vCalendarOverlayFix: keep the Campaign page Change Record Since calendar above the table/list when the page is narrow. */
+#page-list .page-card,
+#page-list .filter,
+#page-list .filter .field.change-record-since-field,
+#page-list .filter .change-record-since-wrap{
+  overflow:visible !important;
+}
+#page-list .filter{
+  position:relative !important;
+  z-index:9000 !important;
+}
+#page-list .filter .field.change-record-since-field{
+  position:relative !important;
+  z-index:9100 !important;
+}
+#page-list .filter .change-record-since-wrap{
+  position:relative !important;
+}
+#page-list .filter .change-record-since-wrap.open{
+  z-index:9200 !important;
+}
+#page-list .change-record-calendar-panel{
+  z-index:9300 !important;
+  isolation:isolate !important;
+}
+#page-list .tbl-wrap{
+  position:relative !important;
+  z-index:1 !important;
+}
+#page-list .tbl-wrap table thead th,
+#page-list .tbl-wrap table th.sticky,
+#page-list .tbl-wrap table td.sticky{
+  z-index:2;
+}
+#page-list .tbl-wrap table thead th.sticky{
+  z-index:3;
+}
+/* Keep other dropdown panels above normal content but below the opened calendar. */
+body.filter-dropdown-open #page-list .filter .custom-select.open,
+body.filter-dropdown-open #page-list .filter .region-dropdown.open{
+  z-index:8500 !important;
+}
+</style>
+
+<style id="portfolio-filter-dropdown-layer-fix">
+/* vFilterDropdownLayerFix: two root causes on the Campaign List filters.
+   1) The calendar overlay fix pins the "Change Record Since" field at
+      z-index 9100 and knocks open dropdowns down to 8500 !important, so the
+      Theme / Region panels rendered underneath the Since row. The rules
+      below match that rule's specificity and come later, so they win.
+   2) Sibling stacking is decided at the .field level, so the field that
+      owns the open dropdown (or keyboard focus) is lifted above the pinned
+      Since field. */
+#page-list .filter .field{
+  position:relative;
+}
+#page-list .filter .field:has(.custom-select.open),
+#page-list .filter .field:has(.region-dropdown.open),
+#page-list .filter .field:focus-within{
+  z-index:9250 !important;
+}
+#page-list .filter .field.change-record-since-field:has(.change-record-since-wrap.open){
+  z-index:9300 !important;
+}
+#page-list .filter .custom-select.open,
+#page-list .filter .region-dropdown.open{
+  position:relative;
+  z-index:9250 !important;
+}
+body.filter-dropdown-open #page-list .filter .custom-select.open,
+body.filter-dropdown-open #page-list .filter .region-dropdown.open{
+  z-index:9250 !important;
+}
+body.filter-dropdown-open #page-list .filter .custom-select.open .custom-select-menu,
+body.filter-dropdown-open #page-list .filter .region-dropdown.open .rd-panel{
+  z-index:9251 !important;
+}
+</style>
+
+<script id="portfolio-filter-popover-exclusive-fix">
+(function(){
+  /* The custom-select trigger stops click propagation, so the Since
+     calendar's document-level "click outside closes me" handler never runs
+     when the user opens a dropdown — leaving BOTH popovers open at once.
+     Listen in the capture phase (unaffected by stopPropagation) and, when a
+     dropdown is being interacted with while the calendar is open, dispatch a
+     synthetic document click so the calendar closes through its own handler
+     (keeping its internal isOpen state in sync). */
+  document.addEventListener('click', function(e){
+    if(!e.isTrusted) return; /* ignore our own synthetic click */
+    var t = e.target;
+    if(!t || !t.closest) return;
+    var inDropdown = t.closest('#page-list .filter .custom-select, #page-list .filter .region-dropdown');
+    if(!inDropdown) return;
+    if(t.closest('#page-list .change-record-since-wrap')) return;
+    var openCal = document.querySelector('#page-list .change-record-since-wrap.open');
+    if(!openCal) return;
+    try {
+      document.dispatchEvent(new MouseEvent('click', { bubbles:false }));
+    } catch(err) {
+      /* very old engines: replicate the close directly */
+      openCal.classList.remove('open');
+      var p = openCal.querySelector('.change-record-calendar-panel');
+      if(p) p.remove();
+      var i = openCal.querySelector('input.change-record-since-input');
+      if(i){ i.classList.remove('is-open'); i.setAttribute('aria-expanded','false'); }
+    }
+  }, true);
+})();
+</script>
+
+<style id="campaign-list-title-and-intro-final-fix">
+/* Final polish: Campaign page title and guidance copy. */
+#page-list .page-head.page-head-stack .page-title-stack h2{
+  margin:0 0 10px !important;
+  font-size:24px !important;
+  line-height:32px !important;
+  font-weight:850 !important;
+  letter-spacing:.1px !important;
+  color:#27324a !important;
+}
+#page-list .page-intro{
+  width:100% !important;
+  max-width:none !important;
+}
+#page-list .campaign-page-intro{
+  display:block !important;
+}
+#page-list .campaign-page-intro p{
+  margin:0 !important;
+}
+#page-list .campaign-page-intro ul{
+  margin:4px 0 0 18px !important;
+  padding-left:14px !important;
+}
+#page-list .campaign-page-intro li{
+  margin:2px 0 !important;
+  padding-left:0 !important;
+}
+@media (max-width:760px){
+  #page-list .page-head.page-head-stack .page-title-stack h2{
+    font-size:22px !important;
+    line-height:30px !important;
+  }
+}
+</style>
+
+<script id="portfolio-demo-static-status-script">
+(function(){
+  /* Portfolio demo stability (carried over from the 2026-07-04 portfolio build):
+     derive campaign status from the static demo Status field instead of the
+     browser clock, so the page renders identically whenever it is opened.
+     The report date needs no pin here — digestDateStr() already derives the
+     report day from the change data itself, independent of the clock. */
   function statusForReport(c){
-    var s = rawStatus(c);
+    var s = String((c && c.status) || '').toLowerCase();
     if(s === 'live' || s === 'ongoing') return 'ongoing';
     if(s === 'upcoming') return 'upcoming';
     if(s === 'ended') return 'ended';
@@ -11226,87 +12833,403 @@ body.no-read-unread #page-digest .dg-change{
     if(s === 'draft') return 'Draft';
     return '-';
   }
-  function countsFromStaticData(){
-    var campaigns = (typeof CAMPAIGNS !== 'undefined' && Array.isArray(CAMPAIGNS)) ? CAMPAIGNS : [];
-    var counts = { total:campaigns.length, upcoming:0, ongoing:0, ended:0, draft:0 };
-    campaigns.forEach(function(c){
-      var s = statusForReport(c);
-      counts[s] = (counts[s] || 0) + 1;
-    });
-    return counts;
+  window.getComputedCampaignStatus = function(c){ return statusForReport(c); };
+  window.getComputedCampaignStatusLabel = function(c){ return statusLabelForReport(c); };
+  try { getComputedCampaignStatus = window.getComputedCampaignStatus; } catch(err) {}
+  try { getComputedCampaignStatusLabel = window.getComputedCampaignStatusLabel; } catch(err) {}
+  if(typeof STATUS_LABEL !== 'undefined'){
+    STATUS_LABEL.ongoing = 'Ongoing';
+    STATUS_LABEL.live = 'Ongoing';
+    STATUS_LABEL.upcoming = 'Upcoming';
+    STATUS_LABEL.ended = 'Ended';
+    STATUS_LABEL.draft = 'Draft';
   }
-  function deltaHtml(){ return '<span class="dg-delta flat">no changes vs yesterday</span>'; }
-  function staticOverviewHtml(){
-    var counts = countsFromStaticData();
-    var cards = [
-      { cls:'non-ended', label:'Total campaigns', value:counts.total },
-      { cls:'upcoming', label:'Upcoming campaigns', value:counts.upcoming },
-      { cls:'ongoing', label:'Ongoing campaigns', value:counts.ongoing }
-    ];
-    return '<div class="dg-overview-grid dg-overview-grid-v3">' + cards.map(function(card){
-      return '<div class="dg-overview-card '+e(card.cls)+'">'
-        + '<div class="dg-overview-label">'+e(card.label)+'</div>'
-        + '<div class="dg-overview-num-row"><div class="dg-overview-num">'+e(card.value)+'</div>'+deltaHtml()+'</div>'
-        + '</div>';
-    }).join('') + '</div>';
-  }
-  function patchDigestDateFunctions(){
-    window.REPORT_FIXED_TODAY = REPORT_FIXED_TODAY;
-    window.digestDateStr = function(){ return REPORT_FIXED_TODAY; };
-    window.digestDateLabel = function(){ return REPORT_FIXED_DATE_LABEL; };
-    try { digestDateStr = window.digestDateStr; } catch(err) {}
-    try { digestDateLabel = window.digestDateLabel; } catch(err) {}
-  }
-  function patchComputedStatusFunctions(){
-    // Use the static demo Status field instead of the browser's current date.
-    // This keeps the report stable for demos run at any time.
-    window.getComputedCampaignStatus = function(c){ return statusForReport(c); };
-    window.getComputedCampaignStatusLabel = function(c){ return statusLabelForReport(c); };
-    try { getComputedCampaignStatus = window.getComputedCampaignStatus; } catch(err) {}
-    try { getComputedCampaignStatusLabel = window.getComputedCampaignStatusLabel; } catch(err) {}
-    if(typeof STATUS_LABEL !== 'undefined'){
-      STATUS_LABEL.ongoing = 'Ongoing';
-      STATUS_LABEL.live = 'Ongoing';
-      STATUS_LABEL.upcoming = 'Upcoming';
-      STATUS_LABEL.ended = 'Ended';
-      STATUS_LABEL.draft = 'Draft';
-    }
-  }
-  function patchReportDom(){
-    var digest = document.getElementById('page-digest');
-    if(!digest) return;
-    digest.querySelectorAll('.dg-date, .dg-date-right').forEach(function(el){ el.textContent = REPORT_FIXED_DATE_LABEL; });
-    var sectionTitles = Array.from(digest.querySelectorAll('.dg-section-title'));
-    var overviewTitle = sectionTitles.find(function(el){ return /Campaign Overview/i.test(el.textContent || ''); });
-    var grid = digest.querySelector('.dg-overview-grid.dg-overview-grid-v3') || digest.querySelector('.dg-overview-grid');
-    if(grid){
-      var holder = document.createElement('div');
-      holder.innerHTML = staticOverviewHtml();
-      grid.replaceWith(holder.firstElementChild);
-    } else if(overviewTitle){
-      overviewTitle.insertAdjacentHTML('afterend', staticOverviewHtml());
-    }
-  }
-  patchDigestDateFunctions();
-  patchComputedStatusFunctions();
-  var previousRenderDigest = (typeof renderDigest === 'function') ? renderDigest : null;
-  if(previousRenderDigest && !window.__reportStaticOverviewFinalWrapped){
-    window.__reportStaticOverviewFinalWrapped = true;
-    window.renderDigest = function(){
-      patchDigestDateFunctions();
-      patchComputedStatusFunctions();
-      var result = previousRenderDigest.apply(this, arguments);
-      patchReportDom();
-      return result;
-    };
-    try { renderDigest = window.renderDigest; } catch(err) {}
-  }
-  patchReportDom();
-  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[report static overview final fix] renderDigest', err); }
+  try { if(typeof renderDigest === 'function') renderDigest(); } catch(err) { console.warn('[portfolio demo static status] renderDigest', err); }
+  try { if(typeof renderTable === 'function') renderTable(); } catch(err) { console.warn('[portfolio demo static status] renderTable', err); }
 })();
 </script>
 
+<style id="report-ai-summary-brief-style">
+/* AI Summary brief: sits right under the "Summary" section title. */
+#page-digest .dg-ai-brief{
+  position:relative;
+  margin:0 0 16px;
+  padding:16px 18px 14px;
+  border:1px solid #dfe5f5;
+  border-radius:14px;
+  background:linear-gradient(135deg, #f6f8ff 0%, #fdfbff 60%, #f7fdff 100%);
+  overflow:hidden;
+}
+#page-digest .dg-ai-brief .dg-ai-brief-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:24px;
+  height:24px;
+  flex:0 0 24px;
+  border-radius:8px;
+  background:linear-gradient(135deg, #eef1ff 0%, #f3edff 100%);
+  border:1px solid #d8defc;
+  box-shadow:0 1px 2px rgba(91,108,255,.12);
+}
+#page-digest .dg-ai-brief .dg-ai-brief-icon svg{
+  display:block;
+}
+#page-digest .dg-ai-brief h3{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 10px;
+  font-size:15px;
+  line-height:22px;
+  font-weight:760;
+  color:#27324a;
+}
+#page-digest .dg-ai-brief .dg-ai-brief-lead{
+  margin:0 0 10px;
+  font-size:13px;
+  line-height:1.75;
+  color:#33415e;
+}
+#page-digest .dg-ai-brief ul.dg-ai-brief-points{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+#page-digest .dg-ai-brief ul.dg-ai-brief-points li{
+  position:relative;
+  padding-left:18px;
+  font-size:13px;
+  line-height:1.7;
+  color:#42506b;
+}
+#page-digest .dg-ai-brief ul.dg-ai-brief-points li::before{
+  content:'';
+  position:absolute;
+  left:4px;
+  top:9px;
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#6a7dff;
+}
+#page-digest .dg-ai-brief .dg-ai-brief-name{
+  font-weight:700;
+  color:#2d3c66;
+}
+#page-digest .dg-ai-brief b{
+  font-weight:760;
+  color:#22304f;
+}
+@media (max-width:760px){
+  #page-digest .dg-ai-brief{ padding:14px 14px 12px; }
+}
+</style>
 
+<script id="report-ai-summary-brief-script">
+(function(){
+  /* AI Summary brief v2 — generated from the same day/groups data that feeds
+     the Summary cards and Change Record. Reader-first structure: what to
+     check today, in which order, and why it matters. */
+  function h(v){
+    return String(v == null ? '' : v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function pTime(v){
+    if(!v) return 0;
+    var t = Date.parse(String(v).replace(/-/g, '/'));
+    return isNaN(t) ? 0 : t;
+  }
+  function dayOf(v){
+    var m = String(v || '').match(/^(\d{4}-\d{2}-\d{2})/);
+    return m ? m[1] : '';
+  }
+  function getCampaign(id){
+    var hit = null;
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      if(String(c.campaignId) === String(id)) hit = c;
+    });
+    return hit;
+  }
+  function opNorm(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added' || key === 'create' || key === 'created') key = 'add';
+    if(key === 'updated') key = 'update';
+    if(key === 'removed' || key === 'deleted' || key === 'delete') key = 'remove';
+    return key || 'other';
+  }
+  function hiddenDigestChange(ch){
+    var type = String((ch && ch.type) || '').toLowerCase();
+    if(type === 'collection') return true;
+    var text = [ch && ch.scope, ch && ch.field].join(' ');
+    if(/Collection Basic Info/i.test(text)) return true;
+    if(/Asset of Flash Sale Products/i.test(text)) return true;
+    return false;
+  }
+  function reportDay(){
+    if(typeof digestDateStr === 'function'){
+      try { var v = digestDateStr(); if(v) return v; } catch(err) {}
+    }
+    var max = 0;
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        (CHANGES[id] || []).forEach(function(ch){
+          var t = pTime(ch && ch.time);
+          if(t > max) max = t;
+        });
+      });
+    }
+    return max ? dayOf(new Date(max).getFullYear() + '-' + String(new Date(max).getMonth() + 1).padStart(2, '0') + '-' + String(new Date(max).getDate()).padStart(2, '0')) : '';
+  }
+  function dayGroups(day){
+    var groups = [];
+    if(typeof digestHighlights === 'function'){
+      try {
+        var res = digestHighlights() || {};
+        if(res.groups && res.groups.length){
+          return res.groups.map(function(g){
+            var id = String(g.id || (g.c && g.c.campaignId));
+            return { id:id, c:g.c || getCampaign(id), list:(g.list || []).slice() };
+          }).filter(function(g){ return !!g.c && g.list.length; });
+        }
+      } catch(err) {}
+    }
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        var c = getCampaign(id);
+        if(!c) return;
+        var list = (CHANGES[id] || []).filter(function(ch){
+          return dayOf(ch && ch.time) === day && !hiddenDigestChange(ch);
+        });
+        if(list.length) groups.push({ id:String(id), c:c, list:list });
+      });
+    }
+    return groups;
+  }
+  function isCampaignAddChange(ch){
+    if(opNorm(ch && ch.op) !== 'add') return false;
+    var text = [ch && ch.type, ch && ch.scope, ch && ch.field].join(' ').toLowerCase();
+    if(!/campaign/.test(text)) return false;
+    if(/coupon|subsidy|landing|promotion|supplementary/.test(text)) return false;
+    return true;
+  }
+  function newCampaigns(day){
+    var ids = {};
+    (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).forEach(function(c){
+      if(dayOf(c && c.createTime) === day) ids[String(c.campaignId)] = true;
+    });
+    if(typeof CHANGES !== 'undefined'){
+      Object.keys(CHANGES || {}).forEach(function(id){
+        if((CHANGES[id] || []).some(function(ch){ return dayOf(ch && ch.time) === day && isCampaignAddChange(ch); })) ids[String(id)] = true;
+      });
+    }
+    return Object.keys(ids).map(getCampaign).filter(Boolean).sort(function(a,b){ return pTime(b.createTime) - pTime(a.createTime); });
+  }
+  function mechConfigured(id){
+    if(window.campaignMechanismValuesForDigest){
+      try { return (window.campaignMechanismValuesForDigest(id) || []).length > 0; } catch(err) {}
+    }
+    return null; /* unknown */
+  }
+  function gradeOf(c){ return String((c && c.grade) || '').trim(); }
+  function tierRank(c){
+    var g = gradeOf(c).toLowerCase().replace(/\s+/g, '');
+    return g === 'tier1' ? 0 : g === 'tier2' ? 1 : g === 'tier3' ? 2 : 9;
+  }
+  function statusKey(c){
+    var raw = String((c && c.status) || '').toLowerCase();
+    if(raw === 'live' || raw === 'ongoing') return 'ongoing';
+    if(raw === 'upcoming' || raw === 'ended' || raw === 'draft') return raw;
+    return 'upcoming';
+  }
+  function plural(n, word){ return n + ' ' + word + (n === 1 ? '' : 's'); }
+  function trunc(s, n){
+    s = String(s == null ? '' : s);
+    return s.length > n ? s.slice(0, n - 1) + '…' : s;
+  }
+  function splitLabeled(v){
+    var m = String(v == null ? '' : v).match(/^([A-Za-z][\w &()\/.-]{0,40}):\s+([\s\S]*)$/);
+    return m ? { label: m[1], value: m[2] } : { label: '', value: String(v == null ? '' : v) };
+  }
+  function nameHtml(c){ return '<span class="dg-ai-brief-name">' + h(c && c.campaignName) + '</span>'; }
+  function nameTierHtml(c){
+    var g = gradeOf(c);
+    return nameHtml(c) + (g ? ' (' + h(g) + ')' : '');
+  }
+  function joinNames(parts){
+    if(parts.length <= 1) return parts.join('');
+    return parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
+  }
+  function analyzeGroup(g){
+    var st = { mech:false, subAdd:0, subUpd:0, subRem:0, couAdd:0, couUpd:0, couRem:0, records:(g.list || []).length, locales:[] };
+    var locSeen = {};
+    (g.list || []).forEach(function(ch){
+      var type = String((ch && ch.type) || '').toLowerCase();
+      var scope = String((ch && ch.scope) || '');
+      var op = opNorm(ch && ch.op);
+      var loc = String((ch && ch.locale) || '').trim();
+      if(loc && loc !== '-' && !locSeen[loc]){ locSeen[loc] = 1; st.locales.push(loc); }
+      if(type === 'subsidy' || /subsidy/i.test(scope)){
+        st.mech = true;
+        if(op === 'add') st.subAdd++; else if(op === 'remove') st.subRem++; else st.subUpd++;
+      } else if(type === 'coupon' || /coupon/i.test(scope)){
+        st.mech = true;
+        if(op === 'add') st.couAdd++; else if(op === 'remove') st.couRem++; else st.couUpd++;
+      }
+    });
+    return st;
+  }
+  function statusReasons(camps){
+    var ongoing = [], upcoming = [], draft = [];
+    camps.forEach(function(c){
+      var k = statusKey(c);
+      if(k === 'ongoing') ongoing.push(nameHtml(c));
+      else if(k === 'upcoming') upcoming.push(nameHtml(c));
+      else if(k === 'draft') draft.push(nameHtml(c));
+    });
+    var parts = [];
+    if(ongoing.length) parts.push(joinNames(ongoing) + ' ' + (ongoing.length === 1 ? 'is' : 'are') + ' already live — errors are user-visible now');
+    if(upcoming.length) parts.push(joinNames(upcoming) + ' ' + (upcoming.length === 1 ? 'launches' : 'launch') + ' soon — this is the last pre-launch check');
+    if(draft.length) parts.push(joinNames(draft) + ' ' + (draft.length === 1 ? 'is' : 'are') + ' still in draft');
+    return parts.join('; ');
+  }
+  function looksAsset(v){ return /\.(png|jpe?g|gif|webp|svg|mp4)(\?|$)/i.test(String(v || '')); }
+  function looksCopyField(f){ return /headline|title|copy|subtitle|content|description|benefit/i.test(String(f || '')); }
+  function pickNotable(groups, skipIds){
+    var best = null, bestScore = 99;
+    groups.forEach(function(g){
+      (g.list || []).forEach(function(ch){
+        var type = String((ch && ch.type) || '').toLowerCase();
+        if(type !== 'promotion' && type !== 'landing') return;
+        if(opNorm(ch && ch.op) !== 'update') return;
+        if(ch.before == null || ch.after == null) return;
+        var score = tierRank(g.c);
+        if(looksAsset(ch.before) || looksAsset(ch.after)) score += 6; /* asset swaps are rarely the story */
+        if(!looksCopyField(ch.field) && !looksCopyField(splitLabeled(ch.before).label || splitLabeled(ch.after).label)) score += 2;
+        if(skipIds[String(g.id)]) score += 3; /* prefer campaigns not already featured */
+        if(score < bestScore){ bestScore = score; best = { g:g, ch:ch }; }
+      });
+    });
+    return best;
+  }
+  function buildHtml(){
+    var day = reportDay();
+    var groups = dayGroups(day);
+    var newList = newCampaigns(day);
+    var newIds = {};
+    newList.forEach(function(c){ newIds[String(c.campaignId)] = true; });
+    var existing = groups.filter(function(g){ return !newIds[String(g.id)]; });
+
+    if(!groups.length && !newList.length){
+      return '<p class="dg-ai-brief-lead">No campaign information changed today — nothing needs review: no new campaigns, and no mechanism (Subsidy Info / Coupon Info), copy or schedule movement on existing campaigns.</p>';
+    }
+
+    var analyzed = existing.map(function(g){ return { g:g, st:analyzeGroup(g) }; });
+    var mech = analyzed.filter(function(x){ return x.st.mech; })
+      .sort(function(a,b){
+        var tr = tierRank(a.g.c) - tierRank(b.g.c);
+        if(tr) return tr;
+        return b.st.records - a.st.records;
+      });
+    var copyOnly = analyzed.filter(function(x){ return !x.st.mech; });
+    var out = [];
+
+    /* Lead: the single most important thing today, and why. */
+    if(mech.length){
+      var mechNames = joinNames(mech.map(function(x){ return nameTierHtml(x.g.c); }));
+      out.push('<p class="dg-ai-brief-lead"><b>What matters today:</b> ' + plural(mech.length, 'campaign') + ' changed Subsidy / Coupon mechanism — ' + mechNames + '. Mechanism changes decide the prices and benefits users actually get, so they carry the highest risk on this page.</p>');
+    } else if(newList.length){
+      out.push('<p class="dg-ai-brief-lead"><b>What matters today:</b> no mechanism changes — the day is about ' + plural(newList.length, 'newly created campaign') + '. The main risk is incomplete initial setup rather than a wrong change.</p>');
+    } else {
+      out.push('<p class="dg-ai-brief-lead"><b>What matters today:</b> no Subsidy / Coupon mechanism was touched — ' + (existing.length === 1 ? 'the single changed campaign' : 'all ' + plural(existing.length, 'changed campaign')) + ' stayed at copy, visual or schedule level, which is low risk.</p>');
+    }
+
+    var items = [];
+
+    /* 1. Mechanism verification — the concrete ask plus per-campaign urgency. */
+    if(mech.length){
+      var totalAdds = 0, totalUpds = 0, totalRems = 0, locSeen = {}, locs = [];
+      mech.forEach(function(x){
+        totalAdds += x.st.subAdd + x.st.couAdd;
+        totalUpds += x.st.subUpd + x.st.couUpd;
+        totalRems += x.st.subRem + x.st.couRem;
+        x.st.locales.forEach(function(l){ if(!locSeen[l]){ locSeen[l] = 1; locs.push(l); } });
+      });
+      var volume = [];
+      if(totalAdds) volume.push(plural(totalAdds, 'new subsidy / coupon row'));
+      if(totalUpds) volume.push(plural(totalUpds, 'updated record'));
+      if(totalRems) volume.push(plural(totalRems, 'removed record'));
+      var reasons = statusReasons(mech.slice(0, 3).map(function(x){ return x.g.c; }));
+      items.push('<li><b>First, verify the mechanism changes</b> — ' + (volume.length ? volume.join(', ') + ' in total: ' : '') + 'check amounts, validity windows and locale coverage' + (locs.length ? ' (' + h(locs.join(' / ')) + ')' : '') + '.' + (reasons ? ' ' + reasons + '.' : '') + '</li>');
+    }
+
+    /* 2. New campaigns — completeness, not correctness. */
+    if(newList.length){
+      var newNames = joinNames(newList.slice(0, 3).map(nameHtml)) + (newList.length > 3 ? ' and ' + (newList.length - 3) + ' more' : '');
+      var noMech = newList.filter(function(c){ return mechConfigured(c.campaignId) === false; });
+      var noMechNote = noMech.length ? ' Note ' + joinNames(noMech.map(nameHtml)) + ' ' + (noMech.length === 1 ? 'has' : 'have') + ' no mechanism configured yet — confirm that is intentional.' : '';
+      items.push('<li><b>' + (mech.length ? 'Then sanity-check' : 'Sanity-check') + ' the ' + plural(newList.length, 'new campaign') + '</b> created today (' + newNames + '): new setups most often miss coupon linkage or locale variants, so do a quick completeness pass.' + noMechNote + '</li>');
+    }
+
+    /* 3. One notable customer-facing copy change, with the reason to care. */
+    var skip = {};
+    mech.slice(0, 2).forEach(function(x){ skip[String(x.g.id)] = true; });
+    var notable = pickNotable(groups, skip);
+    if(notable){
+      var bl = splitLabeled(notable.ch.before), al = splitLabeled(notable.ch.after);
+      var what = (bl.label && bl.label === al.label) ? bl.label : (notable.ch.field || 'copy');
+      var claimLike = /%|\boff\b|save|discount|free/i.test(String(al.value || ''));
+      var why = claimLike
+        ? '— confirm the actual offer backs the stronger claim before users see it.'
+        : '— double-check the live page shows the new copy as intended.';
+      items.push('<li><b>Customer-facing copy:</b> ' + nameHtml(notable.g.c) + ' changed ' + h(what) + ' from \u201C' + h(trunc(bl.value, 44)) + '\u201D to \u201C' + h(trunc(al.value, 44)) + '\u201D ' + why + '</li>');
+    }
+
+    /* 4. Everything else is low risk — say so explicitly. */
+    var lowRisk = copyOnly.filter(function(x){ return !notable || String(x.g.id) !== String(notable.g.id); });
+    if(lowRisk.length){
+      var lowNames = joinNames(lowRisk.slice(0, 3).map(function(x){ return nameHtml(x.g.c); })) + (lowRisk.length > 3 ? ' and ' + (lowRisk.length - 3) + ' more' : '');
+      items.push('<li><b>Low risk, skim only:</b> ' + plural(lowRisk.length, 'campaign') + ' (' + lowNames + ') had copy / visual / schedule updates with no mechanism touched — a quick accuracy skim is enough.</li>');
+    }
+
+    if(items.length) out.push('<ul class="dg-ai-brief-points">' + items.join('') + '</ul>');
+    return out.join('');
+  }
+  function briefHtml(){
+    return '<section class="page-card dg-card dg-ai-brief" aria-label="AI summary of today\u2019s campaign changes">'
+      + '<h3><span class="dg-ai-brief-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" fill="#5b6cff"/><path d="M18.6 3.2l.75 1.95 1.95.75-1.95.75-.75 1.95-.75-1.95-1.95-.75 1.95-.75.75-1.95z" fill="#8b9bff"/><path d="M6.2 15.4l.65 1.7 1.7.65-1.7.65-.65 1.7-.65-1.7-1.7-.65 1.7-.65.65-1.7z" fill="#a9b5ff"/></svg></span>AI Summary</h3>'
+      + buildHtml()
+      + '</section>';
+  }
+  function insertBrief(){
+    var box = document.getElementById('digestBody');
+    if(!box) return;
+    var old = box.querySelector('.dg-ai-brief');
+    if(old) old.remove();
+    var layout = box.querySelector('.dg-summary-layout');
+    if(!layout) return;
+    layout.insertAdjacentHTML('beforebegin', briefHtml());
+  }
+  window.buildReportAiBriefHtml = buildHtml;
+  window.renderReportAiBrief = insertBrief;
+  var prev = (typeof renderDigest === 'function') ? renderDigest : (window.renderDigest || null);
+  if(prev && !prev.__aiBriefWrapped){
+    var wrapped = function(){
+      var result = prev.apply(this, arguments);
+      try { insertBrief(); } catch(err) { console.warn('[ai brief] insert', err); }
+      return result;
+    };
+    wrapped.__aiBriefWrapped = true;
+    window.renderDigest = wrapped;
+    try { renderDigest = wrapped; } catch(err) {}
+  }
+  try { insertBrief(); } catch(err) { console.warn('[ai brief] initial insert', err); }
+})();
+</script>
 
 
 </body>
