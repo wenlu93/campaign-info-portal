@@ -13232,5 +13232,648 @@ body.filter-dropdown-open #page-list .filter .region-dropdown.open .rd-panel{
 </script>
 
 
+
+<style id="campaign-list-requested-fixes-20260713">
+/* ======================================================================
+   Campaign List requested fixes — 2026-07-13
+   1) frozen Campaign ID column + Campaign ID search
+   2) single active filter popover at zoomed layouts
+   3) Change Record uses the parent table's horizontal scroll geometry
+   4) Locale is plain text
+   ====================================================================== */
+
+/* Re-enable the Campaign ID filter removed by the slim-list override. */
+#page-list .filter .field.campaign-id-filter-field,
+#page-list .filter .field:has(#fCmp){
+  display:flex !important;
+}
+#page-list #fCmp{
+  min-width:180px;
+}
+
+/* Campaign List frozen columns: expand control, Campaign ID, Campaign Name. */
+#page-list{
+  --campaign-list-table-width:1330px;
+  --campaign-list-viewport-width:100%;
+}
+#page-list .tbl-wrap > table{
+  width:var(--campaign-list-table-width) !important;
+  min-width:var(--campaign-list-table-width) !important;
+  max-width:none !important;
+  table-layout:fixed !important;
+}
+#page-list .tbl-wrap > table th:nth-child(4),
+#page-list .tbl-wrap > table td:nth-child(4){width:190px !important;min-width:190px !important;max-width:190px !important;}
+#page-list .tbl-wrap > table th:nth-child(5),
+#page-list .tbl-wrap > table td:nth-child(5){width:80px !important;min-width:80px !important;max-width:80px !important;}
+#page-list .tbl-wrap > table th:nth-child(6),
+#page-list .tbl-wrap > table td:nth-child(6){width:120px !important;min-width:120px !important;max-width:120px !important;}
+#page-list .tbl-wrap > table th:nth-child(7),
+#page-list .tbl-wrap > table td:nth-child(7){width:134px !important;min-width:134px !important;max-width:134px !important;}
+#page-list .tbl-wrap > table th:nth-child(8),
+#page-list .tbl-wrap > table td:nth-child(8){width:150px !important;min-width:150px !important;max-width:150px !important;}
+#page-list .tbl-wrap > table th:nth-child(9),
+#page-list .tbl-wrap > table td:nth-child(9){width:150px !important;min-width:150px !important;max-width:150px !important;}
+#page-list .tbl-wrap > table th:nth-child(10),
+#page-list .tbl-wrap > table td:nth-child(10){width:90px !important;min-width:90px !important;max-width:90px !important;}
+#page-list .tbl-wrap table th.s-chk,
+#page-list .tbl-wrap table td.s-chk{
+  position:sticky !important;
+  left:0 !important;
+  width:44px !important;
+  min-width:44px !important;
+  max-width:44px !important;
+  z-index:6 !important;
+  background:#fff !important;
+}
+#page-list .tbl-wrap table th.s-campaign-id,
+#page-list .tbl-wrap table td.s-campaign-id{
+  position:sticky !important;
+  left:44px !important;
+  width:112px !important;
+  min-width:112px !important;
+  max-width:112px !important;
+  z-index:6 !important;
+  background:#fff !important;
+}
+#page-list .tbl-wrap table th.s-l4,
+#page-list .tbl-wrap table td.s-l4{
+  position:sticky !important;
+  left:156px !important;
+  width:260px !important;
+  min-width:260px !important;
+  max-width:260px !important;
+  z-index:6 !important;
+  background:#fff !important;
+  box-shadow:1px 0 0 #e7ecf5 !important;
+}
+#page-list .tbl-wrap table thead th.s-chk,
+#page-list .tbl-wrap table thead th.s-campaign-id,
+#page-list .tbl-wrap table thead th.s-l4{
+  z-index:9 !important;
+  background:#fafcfe !important;
+}
+#page-list .campaign-parent-row:hover td.s-chk,
+#page-list .campaign-parent-row:hover td.s-campaign-id,
+#page-list .campaign-parent-row:hover td.s-l4,
+#page-list .campaign-parent-row.expanded td.s-chk,
+#page-list .campaign-parent-row.expanded td.s-campaign-id,
+#page-list .campaign-parent-row.expanded td.s-l4{
+  background:#f4f8ff !important;
+}
+#page-list .campaign-id-cell{
+  color:#27324a;
+  font-variant-numeric:tabular-nums;
+}
+
+/* Dropdown layering at browser zoom: the field owning the open panel is the
+   only elevated sibling; panels are never allowed below the table/calendar. */
+#page-list .page-card,
+#page-list .filter{
+  overflow:visible !important;
+}
+#page-list .filter{
+  position:relative !important;
+  isolation:isolate;
+}
+#page-list .filter .field{
+  position:relative !important;
+  z-index:1 !important;
+}
+#page-list .filter .field:has(.custom-select.open),
+#page-list .filter .field:has(.region-dropdown.open){
+  z-index:20020 !important;
+}
+#page-list .filter .custom-select.open,
+#page-list .filter .region-dropdown.open,
+body.filter-dropdown-open #page-list .filter .custom-select.open,
+body.filter-dropdown-open #page-list .filter .region-dropdown.open{
+  position:relative !important;
+  z-index:20020 !important;
+}
+#page-list .filter .custom-select.open .custom-select-menu,
+#page-list .filter .region-dropdown.open .rd-panel,
+body.filter-dropdown-open #page-list .filter .custom-select.open .custom-select-menu,
+body.filter-dropdown-open #page-list .filter .region-dropdown.open .rd-panel{
+  z-index:20021 !important;
+  pointer-events:auto !important;
+}
+#page-list .tbl-wrap{
+  position:relative !important;
+  z-index:0 !important;
+}
+
+/* Change Record fills the visible parent viewport, but owns an independent
+   horizontal scroll container. Parent and child scroll positions never sync. */
+#page-list .campaign-change-row > td{
+  width:auto !important;
+  max-width:none !important;
+  overflow:visible !important;
+}
+#page-list .campaign-change-panel{
+  position:sticky !important;
+  left:0 !important;
+  right:auto !important;
+  transform:none !important;
+  width:var(--campaign-list-viewport-width) !important;
+  min-width:var(--campaign-list-viewport-width) !important;
+  max-width:var(--campaign-list-viewport-width) !important;
+  box-sizing:border-box !important;
+  padding:12px 0 16px !important;
+}
+#page-list .campaign-change-title,
+#page-list .campaign-no-change{
+  margin-left:16px !important;
+  margin-right:16px !important;
+}
+#page-list .campaign-changes-scroll{
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:auto !important;
+  overflow-y:auto !important;
+  box-sizing:border-box !important;
+  overscroll-behavior:contain;
+}
+#page-list .campaign-changes-table{
+  width:var(--campaign-list-table-width) !important;
+  min-width:var(--campaign-list-table-width) !important;
+  max-width:var(--campaign-list-table-width) !important;
+  table-layout:fixed !important;
+  border-collapse:separate !important;
+  border-spacing:0 !important;
+}
+#page-list .campaign-changes-table col:nth-child(1),
+#page-list .campaign-changes-table th:nth-child(1),
+#page-list .campaign-changes-table td:nth-child(1){width:96px !important;}
+#page-list .campaign-changes-table col:nth-child(2),
+#page-list .campaign-changes-table th:nth-child(2),
+#page-list .campaign-changes-table td:nth-child(2){width:104px !important;}
+#page-list .campaign-changes-table col:nth-child(3),
+#page-list .campaign-changes-table th:nth-child(3),
+#page-list .campaign-changes-table td:nth-child(3){width:180px !important;}
+#page-list .campaign-changes-table col:nth-child(4),
+#page-list .campaign-changes-table th:nth-child(4),
+#page-list .campaign-changes-table td:nth-child(4){width:180px !important;}
+#page-list .campaign-changes-table col:nth-child(5),
+#page-list .campaign-changes-table th:nth-child(5),
+#page-list .campaign-changes-table td:nth-child(5){width:auto !important;}
+#page-list .campaign-changes-table col:nth-child(6),
+#page-list .campaign-changes-table th:nth-child(6),
+#page-list .campaign-changes-table td:nth-child(6){width:160px !important;}
+#page-list .campaign-changes-table .campaign-change-locale-text{
+  display:inline;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  color:#27324a;
+  font-size:12px;
+  line-height:inherit;
+  font-weight:400;
+}
+
+@media (max-width:900px){
+  #page-list .campaign-change-panel{
+    width:var(--campaign-list-viewport-width) !important;
+    min-width:var(--campaign-list-viewport-width) !important;
+    max-width:var(--campaign-list-viewport-width) !important;
+  }
+  #page-list .campaign-changes-table{
+    width:var(--campaign-list-table-width) !important;
+    min-width:var(--campaign-list-table-width) !important;
+    max-width:var(--campaign-list-table-width) !important;
+  }
+}
+</style>
+
+<script id="campaign-list-requested-fixes-20260713-script">
+(function(){
+  function byId(id){ return document.getElementById(id); }
+  function esc(value){
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+    });
+  }
+  function statusValue(c){
+    try{
+      if(typeof getComputedCampaignStatus === 'function') return getComputedCampaignStatus(c);
+    }catch(err){}
+    var raw = String((c && c.status) || '').toLowerCase();
+    return raw === 'live' ? 'ongoing' : raw;
+  }
+  function statusText(c){
+    try{
+      if(typeof getComputedCampaignStatusLabel === 'function') return getComputedCampaignStatusLabel(c);
+    }catch(err){}
+    var st = statusValue(c);
+    if(st === 'ongoing') return 'Ongoing';
+    if(st === 'upcoming') return 'Upcoming';
+    if(st === 'ended') return 'Ended';
+    if(st === 'draft') return 'Draft';
+    return st || '-';
+  }
+
+  function syncCampaignListTableWidth(){
+    var page = byId('page-list');
+    var wrap = page && page.querySelector('.tbl-wrap');
+    var table = wrap && wrap.querySelector(':scope > table');
+    if(!page || !wrap || !table) return 1330;
+    var width = Math.max(1330, Math.floor(wrap.clientWidth || wrap.getBoundingClientRect().width || 0));
+    page.style.setProperty('--campaign-list-table-width', width+'px');
+    page.style.setProperty('--campaign-list-viewport-width', Math.max(0, Math.floor(wrap.clientWidth || wrap.getBoundingClientRect().width || 0))+'px');
+    table.style.width = width+'px';
+    table.style.minWidth = width+'px';
+    table.style.maxWidth = 'none';
+    return width;
+  }
+
+  /* Parent list and expanded Change Record use independent horizontal scroll positions. */
+  window.syncCampaignChangeRecordScroll = function(){
+    /* Intentionally empty: scrolling a child list must not move the parent list. */
+  };
+  try{ syncCampaignChangeRecordScroll = window.syncCampaignChangeRecordScroll; }catch(err){}
+
+  function bindCampaignListScrollSync(){
+    /* Intentionally do not bind parent/child scroll synchronization. */
+  }
+
+  function alignCampaignChangeScrollers(){
+    /* Intentionally empty: resizing must preserve independent scroll positions. */
+  }
+
+  function ensureCampaignIdFilter(){
+    var nameInput = byId('fName');
+    if(!nameInput) return;
+    var nameField = nameInput.closest('.field');
+    if(!nameField) return;
+    var idInput = byId('fCmp');
+    var idField = idInput && idInput.closest('.field');
+    if(!idInput){
+      idField = document.createElement('div');
+      idField.className = 'field campaign-id-filter-field';
+      idField.innerHTML = '<label for="fCmp">Campaign ID:</label><input id="fCmp" inputmode="numeric" autocomplete="off" aria-label="Search by Campaign ID" oninput="onListFilterInput()" onkeydown="onListFilterKey(event)" />';
+      nameField.parentNode.insertBefore(idField, nameField);
+      idInput = byId('fCmp');
+    }else{
+      idField.classList.add('campaign-id-filter-field');
+      idInput.setAttribute('inputmode','numeric');
+      idInput.setAttribute('autocomplete','off');
+      idInput.setAttribute('aria-label','Search by Campaign ID');
+      idInput.setAttribute('oninput','onListFilterInput()');
+      idInput.setAttribute('onkeydown','onListFilterKey(event)');
+      if(idField.nextElementSibling !== nameField) nameField.parentNode.insertBefore(idField, nameField);
+    }
+  }
+
+  function ensureCampaignListHeader(){
+    var row = document.querySelector('#page-list .tbl-wrap table thead tr');
+    if(!row) return;
+    row.innerHTML = '<th class="sticky s-chk"></th>'
+      + '<th class="sticky s-campaign-id">Campaign ID</th>'
+      + '<th class="sticky s-l4">Campaign Name</th>'
+      + '<th>Theme</th>'
+      + '<th>Grade</th>'
+      + '<th>Campaign Region</th>'
+      + '<th>Campaign Status</th>'
+      + '<th>Create Time</th>'
+      + '<th>Update Time</th>'
+      + '<th>Creator</th>';
+  }
+
+  function selectedValues(id){
+    try{ if(typeof getSelectValues === 'function') return getSelectValues(id); }catch(err){}
+    var select = byId(id);
+    if(!select) return [];
+    return Array.from(select.selectedOptions || []).map(function(opt){ return opt.value; }).filter(Boolean);
+  }
+
+  window.getFilteredCampaignRows = function(){
+    var idInput = byId('fCmp');
+    var nameInput = byId('fName');
+    var fCmp = idInput ? String(idInput.value || '').trim().toLowerCase() : '';
+    var fName = nameInput ? String(nameInput.value || '').trim().toLowerCase() : '';
+    var fTheme = selectedValues('fTheme');
+    var fGrade = selectedValues('fGrade');
+    var fStatus = selectedValues('fStatus');
+    return (typeof CAMPAIGNS !== 'undefined' ? CAMPAIGNS : []).filter(function(c){
+      if(fCmp && String(c.campaignId == null ? '' : c.campaignId).toLowerCase().indexOf(fCmp) < 0) return false;
+      if(fName && String(c.campaignName || '').toLowerCase().indexOf(fName) < 0) return false;
+      if(fTheme.length && fTheme.indexOf(c.theme) < 0) return false;
+      if(fGrade.length && fGrade.indexOf(c.grade) < 0) return false;
+      if(typeof passListRegionFilter === 'function' && !passListRegionFilter(c)) return false;
+      if(fStatus.length && fStatus.indexOf(statusValue(c)) < 0) return false;
+      return true;
+    });
+  };
+  try{ getFilteredCampaignRows = window.getFilteredCampaignRows; }catch(err){}
+
+  function renderCampaignParentRow(c, expanded){
+    var regions = (typeof getCampaignRegions === 'function') ? getCampaignRegions(c).join(', ') : (c.team || '');
+    var st = statusValue(c);
+    return '<tr class="campaign-parent-row '+(expanded ? 'expanded' : '')+'">'
+      + '<td class="sticky s-chk"><button class="campaign-expand-btn" aria-label="'+(expanded ? 'Collapse' : 'Expand')+' campaign '+esc(c.campaignId)+'" onclick="toggleCampaignExpand('+Number(c.campaignId)+')">'+(expanded ? '▾' : '▸')+'</button></td>'
+      + '<td class="id-cell campaign-id-cell sticky s-campaign-id" title="Campaign ID '+esc(c.campaignId)+'">'+esc(c.campaignId)+'</td>'
+      + '<td class="link-name sticky s-l4" onclick="openDetail('+Number(c.campaignId)+')" title="'+esc(c.campaignName)+'">'+esc(c.campaignName)+'</td>'
+      + '<td>'+esc(c.theme)+'</td>'
+      + '<td class="grade">'+esc(c.grade)+'</td>'
+      + '<td>'+esc(regions)+'</td>'
+      + '<td class="campaign-status-cell"><span class="badge-stage '+esc(st)+'">'+esc(statusText(c))+'</span></td>'
+      + '<td>'+esc(c.createTime)+'</td>'
+      + '<td>'+esc(c.updateTime)+'</td>'
+      + '<td>'+esc(c.creator)+'</td>'
+      + '</tr>';
+  }
+
+  window.renderTable = function(){
+    ensureCampaignIdFilter();
+    ensureCampaignListHeader();
+    syncCampaignListTableWidth();
+    if(typeof renderListRegionFilter === 'function') renderListRegionFilter();
+    var all = window.getFilteredCampaignRows();
+    var total = all.length;
+    var totalPages = Math.max(1, Math.ceil(total / pageSize));
+    if(pageNum > totalPages) pageNum = totalPages;
+    if(pageNum < 1) pageNum = 1;
+    var start = (pageNum - 1) * pageSize;
+    var rows = all.slice(start, start + pageSize);
+    var tbody = byId('tbody');
+    if(!tbody) return;
+    tbody.innerHTML = rows.map(function(c){
+      var expanded = CAMPAIGN_EXPANDED.has(String(c.campaignId));
+      var parent = renderCampaignParentRow(c, expanded);
+      return expanded
+        ? parent + '<tr class="campaign-change-row"><td colspan="10">'+renderCampaignChangePanel(c.campaignId)+'</td></tr>'
+        : parent;
+    }).join('');
+    syncCampaignListTableWidth();
+    bindCampaignListScrollSync();
+    alignCampaignChangeScrollers();
+    var empty = byId('emptyHint');
+    if(empty) empty.style.display = rows.length ? 'none' : 'block';
+    if(typeof renderPagination === 'function') renderPagination(total, totalPages);
+    if(typeof enhanceCustomSelects === 'function') enhanceCustomSelects(document);
+    if(typeof refreshFilterDropdownTooltips === 'function') refreshFilterDropdownTooltips(byId('page-list') || document);
+    if(typeof refreshTableOverflowTooltips === 'function') refreshTableOverflowTooltips(byId('page-list') || document);
+  };
+  try{ renderTable = window.renderTable; }catch(err){}
+
+  window.currentPageRows = function(){
+    var all = window.getFilteredCampaignRows();
+    var start = (pageNum - 1) * pageSize;
+    return all.slice(start, start + pageSize);
+  };
+  try{ currentPageRows = window.currentPageRows; }catch(err){}
+
+  /* Preserve the existing calendar-reset behavior, adding Campaign ID to it. */
+  if(typeof resetFilter === 'function'){
+    var previousResetFilterFinal = resetFilter;
+    window.resetFilter = function(){
+      var idInput = byId('fCmp');
+      if(idInput) idInput.value = '';
+      return previousResetFilterFinal.apply(this, arguments);
+    };
+    try{ resetFilter = window.resetFilter; }catch(err){}
+  }
+
+  /* Report-to-list navigation can also target Campaign ID. */
+  if(typeof digestOpenList === 'function'){
+    var previousDigestOpenListFinal = digestOpenList;
+    window.digestOpenList = function(opts){
+      opts = opts || {};
+      var result = previousDigestOpenListFinal.apply(this, arguments);
+      var idInput = byId('fCmp');
+      if(idInput){
+        idInput.value = opts.campaignId == null ? '' : String(opts.campaignId);
+        if(opts.campaignId != null){ pageNum = 1; window.renderTable(); }
+      }
+      return result;
+    };
+    try{ digestOpenList = window.digestOpenList; }catch(err){}
+  }
+
+  function opKey(op){
+    var key = String(op || '').toLowerCase();
+    if(key === 'added') return 'add';
+    if(key === 'updated') return 'update';
+    if(key === 'removed' || key === 'delete' || key === 'deleted') return 'remove';
+    return key || 'other';
+  }
+  function opText(op){
+    var key = opKey(op);
+    if(typeof OP_LABEL !== 'undefined' && OP_LABEL[key]) return OP_LABEL[key];
+    if(key === 'add') return 'Added';
+    if(key === 'update') return 'Updated';
+    if(key === 'remove') return 'Removed';
+    return String(op || '-');
+  }
+  function timeValue(value){
+    try{ if(typeof parseTime === 'function') return parseTime(value); }catch(err){}
+    var parsed = Date.parse(String(value || '').replace(' ', 'T'));
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  function operationRank(op){
+    var key = opKey(op);
+    return key === 'add' ? 0 : key === 'update' ? 1 : key === 'remove' ? 2 : 9;
+  }
+  function visibleChanges(id){
+    var list = [];
+    try{
+      if(typeof window.campaignVisibleChangesByRecordSince === 'function') list = window.campaignVisibleChangesByRecordSince(id) || [];
+      else if(typeof campaignChangeList === 'function') list = campaignChangeList(id) || [];
+      else if(typeof CHANGES !== 'undefined') list = (CHANGES[id] || CHANGES[Number(id)] || CHANGES[String(id)] || []).slice();
+    }catch(err){}
+    return list.slice().sort(function(a,b){
+      var dayA = String((a && a.time) || '').slice(0,10);
+      var dayB = String((b && b.time) || '').slice(0,10);
+      var dayDiff = timeValue(dayB ? dayB + ' 00:00:00' : '') - timeValue(dayA ? dayA + ' 00:00:00' : '');
+      if(dayDiff) return dayDiff;
+      var opDiff = operationRank(a && a.op) - operationRank(b && b.op);
+      if(opDiff) return opDiff;
+      return timeValue(b && b.time) - timeValue(a && a.time);
+    });
+  }
+  function localeText(ch){
+    var value = ch && ch.locale ? String(ch.locale) : '';
+    return value && value !== '-' ? value : 'Global';
+  }
+  function sectionText(ch){
+    try{ if(typeof campaignChangeEventName === 'function') return campaignChangeEventName(ch); }catch(err){}
+    try{ if(typeof TYPE_LABEL !== 'undefined' && ch && TYPE_LABEL[ch.type]) return TYPE_LABEL[ch.type]; }catch(err){}
+    try{ if(typeof getSubscribedEventFromScope === 'function') return getSubscribedEventFromScope(ch && ch.scope); }catch(err){}
+    return (ch && (ch.scope || ch.type)) || '-';
+  }
+  function fieldText(ch){
+    try{ if(typeof window.getChangeRecordDisplayField === 'function') return window.getChangeRecordDisplayField(ch); }catch(err){}
+    return (ch && ch.field) || '-';
+  }
+  function diffMarkup(ch){
+    try{ if(typeof campaignChangeDiffHtml === 'function') return campaignChangeDiffHtml(ch); }catch(err){}
+    var key = opKey(ch && ch.op);
+    if(key === 'add') return '<span class="diff-add">+ '+esc((ch && ch.after) || '')+'</span>';
+    if(key === 'remove') return '<span class="diff-remove">− '+esc((ch && ch.before) || '')+'</span>';
+    return '<span class="diff-old">'+esc((ch && ch.before) || '')+'</span> <span class="diff-arrow">→</span> <span class="diff-new">'+esc((ch && ch.after) || '')+'</span>';
+  }
+  function validSince(value){
+    var match = String(value || '').trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!match) return '';
+    var date = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    if(date.getFullYear() !== Number(match[1]) || date.getMonth() !== Number(match[2]) - 1 || date.getDate() !== Number(match[3])) return '';
+    return match[1]+'-'+match[2]+'-'+match[3];
+  }
+  function sinceNote(){
+    var input = byId('fChangeRecordSince');
+    var value = input ? validSince(input.value) : '';
+    return value ? 'since '+value : '';
+  }
+
+  window.renderCampaignChangePanel = function(id){
+    var list = visibleChanges(id);
+    var note = sinceNote();
+    if(!list.length){
+      return '<div class="campaign-change-panel"><div class="campaign-no-change">No change records'+(note ? ' '+esc(note) : '')+' for this campaign.</div></div>';
+    }
+    var body = list.map(function(ch){
+      var locale = localeText(ch);
+      var section = sectionText(ch);
+      var field = fieldText(ch);
+      return '<tr>'
+        + '<td><span class="campaign-change-locale-text" title="'+esc(locale === 'Global' ? 'Global / all locales' : locale)+'">'+esc(locale)+'</span></td>'
+        + '<td><span class="op-pill op-'+esc(opKey(ch && ch.op))+'">'+esc(opText(ch && ch.op))+'</span></td>'
+        + '<td title="'+esc(section)+'">'+esc(section)+'</td>'
+        + '<td title="'+esc(field)+'">'+esc(field)+'</td>'
+        + '<td>'+diffMarkup(ch)+'</td>'
+        + '<td class="muted" title="'+esc((ch && ch.time) || '-')+'">'+esc((ch && ch.time) || '-')+'</td>'
+        + '</tr>';
+    }).join('');
+    return '<div class="campaign-change-panel">'
+      + '<div class="campaign-change-title">Change Records <span class="campaign-change-count">'+esc(list.length+' update'+(list.length === 1 ? '' : 's'))+'</span>'+(note ? '<span class="campaign-change-filter-note">'+esc(note)+'</span>' : '')+'</div>'
+      + '<div class="campaign-changes-scroll">'
+      + '<table class="campaign-changes-table"><colgroup class="campaign-changes-responsive-colgroup"><col><col><col><col><col><col></colgroup>'
+      + '<thead><tr><th>Locale</th><th>Operation</th><th>Change Section</th><th>Field</th><th>Change</th><th>Update Time</th></tr></thead>'
+      + '<tbody>'+body+'</tbody></table></div></div>';
+  };
+  try{ renderCampaignChangePanel = window.renderCampaignChangePanel; }catch(err){}
+
+  /* Filter popovers are mutually exclusive. This also fixes the zoomed layout
+     case where Region stayed open underneath Theme/Grade. */
+  if(typeof closeCustomSelect === 'function'){
+    var previousCloseCustomSelectFinal = closeCustomSelect;
+    window.closeCustomSelect = function(except){
+      if(except && typeof listRegionDropdownOpen !== 'undefined' && listRegionDropdownOpen){
+        listRegionDropdownOpen = false;
+        if(typeof renderListRegionFilter === 'function') renderListRegionFilter();
+      }
+      return previousCloseCustomSelectFinal.apply(this, arguments);
+    };
+    try{ closeCustomSelect = window.closeCustomSelect; }catch(err){}
+  }
+
+  window.toggleListRegionDropdown = function(event){
+    if(event){
+      event.preventDefault();
+      event.stopPropagation();
+      if(event.stopImmediatePropagation) event.stopImmediatePropagation();
+    }
+    var willOpen = !listRegionDropdownOpen;
+    if(willOpen){
+      if(typeof closeCustomSelect === 'function') closeCustomSelect();
+      /* Close the Change Record Since calendar through its existing outside-click handler. */
+      var openCalendar = document.querySelector('#page-list .change-record-since-wrap.open');
+      if(openCalendar){
+        try{ document.dispatchEvent(new MouseEvent('click', { bubbles:false })); }catch(err){}
+      }
+    }
+    listRegionDropdownOpen = willOpen;
+    if(typeof renderListRegionFilter === 'function') renderListRegionFilter();
+  };
+  try{ toggleListRegionDropdown = window.toggleListRegionDropdown; }catch(err){}
+
+  window.addEventListener('resize', function(){
+    syncCampaignListTableWidth();
+    alignCampaignChangeScrollers();
+  }, { passive:true });
+
+  ensureCampaignIdFilter();
+  ensureCampaignListHeader();
+  syncCampaignListTableWidth();
+  bindCampaignListScrollSync();
+  try{ window.renderTable(); }catch(err){ console.warn('[campaign list requested fixes] render', err); }
+})();
+</script>
+
+
+
+<style id="campaign-change-record-column-balance-20260714">
+/* Campaign List / Change Records: allocate space by information density.
+   Short categorical columns stay compact; Field and Change receive most room. */
+#page-list .campaign-changes-table{
+  table-layout:fixed !important;
+}
+#page-list .campaign-changes-table col:nth-child(1),
+#page-list .campaign-changes-table th:nth-child(1),
+#page-list .campaign-changes-table td:nth-child(1){
+  width:8% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table col:nth-child(2),
+#page-list .campaign-changes-table th:nth-child(2),
+#page-list .campaign-changes-table td:nth-child(2){
+  width:9% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table col:nth-child(3),
+#page-list .campaign-changes-table th:nth-child(3),
+#page-list .campaign-changes-table td:nth-child(3){
+  width:15% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table col:nth-child(4),
+#page-list .campaign-changes-table th:nth-child(4),
+#page-list .campaign-changes-table td:nth-child(4){
+  width:22% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table col:nth-child(5),
+#page-list .campaign-changes-table th:nth-child(5),
+#page-list .campaign-changes-table td:nth-child(5){
+  width:32% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table col:nth-child(6),
+#page-list .campaign-changes-table th:nth-child(6),
+#page-list .campaign-changes-table td:nth-child(6){
+  width:14% !important;
+  min-width:0 !important;
+  max-width:none !important;
+}
+#page-list .campaign-changes-table th,
+#page-list .campaign-changes-table td{
+  padding-left:12px !important;
+  padding-right:12px !important;
+}
+#page-list .campaign-changes-table th:nth-child(1),
+#page-list .campaign-changes-table td:nth-child(1),
+#page-list .campaign-changes-table th:nth-child(2),
+#page-list .campaign-changes-table td:nth-child(2){
+  padding-left:12px !important;
+  padding-right:8px !important;
+}
+#page-list .campaign-changes-table td:nth-child(5),
+#page-list .campaign-changes-table td:nth-child(5) .diff-old,
+#page-list .campaign-changes-table td:nth-child(5) .diff-new,
+#page-list .campaign-changes-table td:nth-child(5) .diff-add,
+#page-list .campaign-changes-table td:nth-child(5) .diff-remove{
+  white-space:normal !important;
+  word-break:normal !important;
+  overflow-wrap:break-word !important;
+}
+</style>
+
 </body>
 </html>
